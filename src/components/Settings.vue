@@ -6,39 +6,32 @@
             <p>{{ this.message }}</p>
         </div>
 
-        <div v-if="show_err" class="notify_error">
-            <p>{{ this.message }}</p>
-        </div>
-
-        <div v-if="this.errors != false" class="notify_error">
-            <p v-html="this.errors.errors?.current_password" v-show="this.errors.errors?.current_password"></p>
-            <p v-html="this.errors.errors?.new_password" v-show="this.errors.errors?.new_password"></p>
-        </div>
-
-        <div class="container settings-block">
-            <form method="post" @submit.prevent="Change_Password()">
-                <table>
-                    <tbody>
-                        <tr>
-                            <label for="current">მიმდინარე პაროლი</label>
-                        </tr>
-                        <tr>
-                            <input type="password" v-model="current_password" id="current" name="current">
-                        </tr>
-                        <br>
-                        <tr>
-                            <label for="new">ახალი პაროლი</label>
-                        </tr>
-                        <tr>
-                            <input type="password" v-model="new_password" id="new" name="new">
-                        </tr>
-                        <br>
-                        <tr>
-                            <button type="submit">შეცვლა</button>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
+        <div class="container bg-white p-4 mt-5">
+            <div class="row">
+                <form method="post" class="col-lg-4 col-md-4 offset-lg-4 offset-md-4 col-xs-12 col-sm-12" @submit.prevent="Change_Password()">
+                    <div class="mb-3">
+                        <label for="current">მიმდინარე პაროლი</label>
+                        <input type="password" v-model="current_password" class="form-control" id="current" name="current">
+                    </div>
+                    <div class="mb-3">
+                        <label for="new">ახალი პაროლი</label>
+                        <input type="password" v-model="new_password" class="form-control" id="new" name="new">
+                    </div>
+                    <div class="d-grid mb-3">
+                        <button type="submit">შეცვლა</button>
+                    </div>
+                    <div class="d-grid">
+                        <div class="alert alert-danger alert-dismissible fade show" v-show="this.errors.errors?.current_password">
+                            <span v-html="this.errors.errors?.current_password"></span>
+                            <a href="#" class="btn-close" data-bs-dismiss="alert"></a>
+                        </div>
+                        <div class="alert alert-danger alert-dismissible fade show" v-show="this.errors.errors?.new_password">
+                            <span v-html="this.errors.errors?.new_password"></span>
+                            <a href="#" class="btn-close" data-bs-dismiss="alert"></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </template>
@@ -72,6 +65,10 @@
                         current_password : this.current_password.trim(),
                         new_password : this.new_password.trim(),
                         id : Number.parseInt(window.localStorage.getItem("id"))
+                    }, {
+                        headers : {
+                            "Authorization" : `Bearer ${window.localStorage.getItem("token")}`
+                        }
                     });
 
                     if(change.data.changed) {
@@ -149,16 +146,6 @@
         font-family: "frutiger_geo_regular";
     }
 
-    .settings-block {
-        margin-top: 30px;
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        background-color: #fff;
-        border-radius: 4px;
-        padding: 30px;
-    }
-
     @media screen and(max-width: 768px) {
         .settings-block {
             table {
@@ -168,7 +155,6 @@
     }
 
     input[type="password"] {
-        width: 150%;
         height: 55px;
         padding: 0 15px;
         color: #3c3c3c;
@@ -178,10 +164,16 @@
         outline: none;
         font-family: "frutiger_geo_regular";
         margin-top: 10px;
+        border: none;
+    }
+
+    .form-control:focus {
+        box-shadow: none !important;
+        outline: none !important;
+        border: none !important;
     }
 
     button {
-        width: 150%;
         height: 55px;
         padding: 0 15px;
         border: none;
@@ -208,27 +200,6 @@
         top: 0;
         right: 0;
         margin: 40px;
-        border-radius: 4px;
-        -webkit-animation: fade 0.5s;
-        -o-animation: fade 0.5s;
-        -ms-animation: fade 0.5s;
-        -moz-animation: fade 0.5s;
-        animation: fade 0.5s;
-
-        p {
-            padding-top: 10px;
-        }
-    }
-
-    .notify_error {
-        padding: 10px;
-        background-color: #d9534f;
-        color: #fff;
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin: 40px;
-        margin-top: 50px;
         border-radius: 4px;
         -webkit-animation: fade 0.5s;
         -o-animation: fade 0.5s;

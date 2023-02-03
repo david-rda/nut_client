@@ -51,7 +51,11 @@
             checkFarmer() {
                 this.loading = true;
 
-                axios.post("http://api.farmer.rda.gov.ge/farmer_check", { personal : this.personal.trim() })
+                axios.post("http://api.farmer.rda.gov.ge/farmer_check", { personal : this.personal.trim() }, {
+                    headers : {
+                        "Authorization" : `Bearer ${window.localStorage.getItem("token")}`
+                    }
+                })
                 .then((response) => {
                     console.clear();
                     this.check = Number.parseInt(response.data.status);
