@@ -87,7 +87,7 @@
         async mounted() {
             let id = this.$route.params.id; // მომხმარებლის აიდი
 
-            const data = await axios.get("http://api.farmer.rda.gov.ge/user/get/" + id, {
+            const data = await axios.get("https://apifarmer.rda.gov.ge/user/get/" + id, {
                 headers : {
                     "Authorization" : `Bearer ${window.localStorage.getItem("token")}`
                 }
@@ -103,7 +103,7 @@
             async editUser() {
                 this.loading = true;
                 try {
-                    const data = await axios.post("http://api.farmer.rda.gov.ge/user/edit/" + this.$route.params.id, {
+                    const data = await axios.post("https://apifarmer.rda.gov.ge/user/edit/" + this.$route.params.id, {
                         name : this.name,
                         email : this.email,
                         password : (this.password != "") ? this.password : "",

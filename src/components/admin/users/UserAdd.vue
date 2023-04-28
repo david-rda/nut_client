@@ -90,7 +90,7 @@
             async addUser() {
                 this.loading = true;
                 try {
-                    const data = await axios.post("http://api.farmer.rda.gov.ge/user/add", {
+                    const data = await axios.post("https://apifarmer.rda.gov.ge/user/add", {
                         name : this.name,
                         email : this.email,
                         password : this.password,

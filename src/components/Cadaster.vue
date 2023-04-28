@@ -4,13 +4,13 @@
 
         <div class="data-block container">
             <div class="forms">
-                <form @submit.prevent="checkFarmer()">
+                <form>
                     <div class="form-group">
-                        <label for="check">ფერმერის გადამოწმება</label>
-                        <input type="text" placeholder="შეიყვანეთ პირადი ნომერი / საიდენტიფიკაციო კოდი ..." v-model="personal" maxlength="11" id="check" name="check">
+                        <label for="check">პირადი ნომერი</label>
+                        <input type="text" placeholder="შეიყვანეთ პირადი ნომერი" v-model="personal" maxlength="11">
                     </div><br>
                     <div class="form-group">
-                        <button type="submit">შემოწმება</button>
+                        <button type="submit">ძებნა</button>
                     </div>
                 </form>
             </div>
@@ -18,23 +18,16 @@
             <br>
 
             <center><div v-if="loading" class="spinner-border text-success"></div></center>
-
-            <div v-show="check == 0" v-bind:class="check == 0 ? 'status' : 'status_ok'">
-                <p>ფერმერი არ არის რეგისტრირებული</p>
-            </div>
-
-            <div v-show="check > 0" v-bind:class="check == 0 ? 'status' : 'status_ok'">
-                <p>ფერმერი რეგისტრირებულია</p>
-            </div>
         </div>
     </div>
 </template>
 
 <script>
     import HeaderNavigation from "./layouts/Header.vue";
-    import axios from "axios";
 
     export default {
+        name : "NutsCadaster",
+
         components : {
             "header-navigation" : HeaderNavigation
         },
@@ -48,26 +41,11 @@
         },
 
         methods: {
-            checkFarmer() {
-                this.loading = true;
 
-                axios.post("https://apifarmer.rda.gov.ge/farmer_check", { personal : this.personal.trim() }, {
-                    headers : {
-                        "Authorization" : `Bearer ${window.localStorage.getItem("token")}`
-                    }
-                })
-                .then((response) => {
-                    console.clear();
-                    this.check = Number.parseInt(response.data.status);
-                    this.loading = false;
-                }).catch((err) => {
-                    this.loading = false;
-                });
-            }
         },
 
         mounted() {
-            document.title = "ფერმერის გადამოწმება";
+            document.title = "თხილის კადასტრი";
         }
     }
 </script>

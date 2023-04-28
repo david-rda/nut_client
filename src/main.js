@@ -8,6 +8,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import FarmerPanel from "./components/FarmerPanel.vue";
 import LoginPanel from "./components/LoginPanel.vue";
 import CheckFarmer from "./components/CheckFarmer.vue";
+import NutsCadaster from "./components/Cadaster.vue";
 import MySettings from "./components/Settings.vue";
 import AdminPanel from "./components/admin/Panel.vue";
 import UserAdd from "./components/admin/users/UserAdd.vue";
@@ -41,6 +42,10 @@ const routes = [
     {
         path : "/admin/user/edit/:id",
         component : UserEdit
+    },
+    {
+        path : "/cadaster",
+        component : NutsCadaster
     }
 ]
 

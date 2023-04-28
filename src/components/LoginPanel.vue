@@ -71,7 +71,7 @@
                     this.password_validate = 0;
                     this.email_validate = 0;
 
-                    axios.post("http://api.farmer.rda.gov.ge/login", {
+                    axios.post("https://apifarmer.rda.gov.ge/login", {
                         email : this.email,
                         password : this.password
                     }).then((response) => {

@@ -78,7 +78,7 @@
         async mounted() {
             document.title = "dashboard";
             // axio რიქვესტის საშუალებით მოხდება მომხმარებლების სიის წამოღება ბაზიდან
-            const users_list = await axios.get("http://api.farmer.rda.gov.ge/user/list", {
+            const users_list = await axios.get("https://apifarmer.rda.gov.ge/user/list", {
                 headers : {
                     "Authorization" : `Bearer ${window.localStorage.getItem("token")}`
                 }
@@ -98,13 +98,13 @@
 
             async deleteUser() {
                 try {
-                    await axios.post("http://api.farmer.rda.gov.ge/user/delete/" + this.uid, {}, {
+                    await axios.post("https://apifarmer.rda.gov.ge/user/delete/" + this.uid, {}, {
                         headers : {
                             "Authorization" : `Bearer ${window.localStorage.getItem("token")}`
                         }
                     });
 
-                    const users_list = await axios.get("http://api.farmer.rda.gov.ge/user/list", {
+                    const users_list = await axios.get("https://apifarmer.rda.gov.ge/user/list", {
                         headers : {
                             "Authorization" : `Bearer ${window.localStorage.getItem("token")}`
                         }

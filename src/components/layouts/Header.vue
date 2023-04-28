@@ -92,7 +92,7 @@
         methods: {
             async LogOut() {
                 try {
-                    await axios.post("http://api.farmer.rda.gov.ge/logout"); // გაიგზავნება მოთხოვნა სისტემიდან გამოსასვლელად
+                    await axios.post("https://apifarmer.rda.gov.ge/logout"); // გაიგზავნება მოთხოვნა სისტემიდან გამოსასვლელად
                     
                     this.$router.push("/"); // გადამისამართდება მთავარ (ავტორიზაციის) გვერდზე
                     window.localStorage.removeItem("loggedin");

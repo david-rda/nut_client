@@ -61,7 +61,7 @@
         methods: {
             Change_Password : async function() {
                 try {
-                    const change = await axios.post("http://api.farmer.rda.gov.ge/change_password", {
+                    const change = await axios.post("https://apifarmer.rda.gov.ge/change_password", {
                         current_password : this.current_password.trim(),
                         new_password : this.new_password.trim(),
                         id : Number.parseInt(window.localStorage.getItem("id"))
