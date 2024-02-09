@@ -37,11 +37,11 @@
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <label for="card_number" class="">პროდუქტი</label>
+                            <label for="card_number" class="mb-1">პროდუქტი</label>
                             <v-select :options="options" label="name" v-model="selectedProduct"></v-select>
                         </div>
                         <div class="col-md-4">
-                            <label for="card_number">ფასი</label>
+                            <label for="card_number" class="mb-1">ფასი</label>
                             <input type="number" class="form-control" v-model="product_price">
                         </div>
                         <div class="col-md-3">
@@ -75,7 +75,22 @@
 
                         <div class="col-md-12">
                             <label for="card_number" class="d-block mb-2">ზედნადების ატვირთვა</label>
-                            <input type="file" multiple class="form-control" @change="handleFileChange">
+                            <file-pond
+                                name="files"
+                                label-idle="ატვირთეთ/ჩააგდეთ ფაილები აქ ..."
+                                v-bind:allow-multiple="true"
+                                accepted-file-types="*"
+                                :server="{
+                                    url : '',
+
+                                    process : {
+                                        url : 'http://localhost:8000/api/statement/file/upload',
+                                        method : 'POST',
+                                        onload : handle
+                                    },
+                                }"
+                                v-bind:files="files"
+                            />
                         </div>
 
                         <div class="col-md-12" v-if="permission != 'company'">
@@ -117,12 +132,15 @@
     import "vue-select/dist/vue-select.css"
     import FlatPickr from "vue-flatpickr-component";
     import 'flatpickr/dist/flatpickr.css';
+    import vueFilePond from "vue-filepond";
+    import "filepond/dist/filepond.min.css";
 
     export default {
         name : "StatementAdd",
 
         components : {
             MyHeader,
+            "file-pond" : vueFilePond(),
             vSelect,
             FlatPickr
         },
@@ -161,10 +179,11 @@
                     beneficiary_name : "",
                     card_number : "",
                     comment : "",
-                    files : [],
 
-                    products : []
+                    products : [],
+                    files : [],
                 },
+                
 
                 flatpickrOptions: {
                     enableTime: false,
@@ -174,15 +193,20 @@
         },
 
         methods : {
+            handle(response) {
+                const _this_ = this;
+
+                this.formData.files.push(response);
+            },
+
             addStatement() {
-                console.log(this.formData);
                 axios.post("/statement/add", this.formData, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }
                 }).then(response => {
                     this.$swal({
-                        title : "პროდუქტი დაემატა",
+                        title : "ზედნადები დაემატა",
                         icon : "success",
                     });
 
@@ -192,10 +216,6 @@
                         this.errors = err?.response?.data?.errors;
                     }
                 })
-            },
-
-            handleFileChange(event) {
-                this.formData.files = Array.from(event.target.files);
             },
 
             addField() {
