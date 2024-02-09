@@ -10,28 +10,15 @@
 
 
 <style>
+    @import url("./assets/css/style.css");
+
+    @font-face {
+        font-family: "google-sans";
+        src: url("./fonts/google-sans.woff2");
+    }
+
     * {
         box-sizing: border-box;
-    }
-
-    html, body {    
-        margin: 0;
-        padding: 0;
-        background-color: #f7f7f7;
-    }
-
-    @font-face {
-        font-family: "frutiger_geo_regular";
-        src: url("./fonts/Linotype - Neue Frutiger Georgian Regular.otf");
-    }
-
-    @font-face {
-        font-family: "frutiger_geo_caps";
-        src: url("./fonts/NeueFrutigerGeorgianCAPS-Black.ttf");
-    }
-
-    th, td {
-        font-family: "frutiger_geo_regular";
-        font-weight: 300;
+        font-family: "google-sans" !important;
     }
 </style>

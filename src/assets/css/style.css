@@ -1,0 +1,22 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+.header-logo {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-logo>img {
+    height: 100px;
+    margin-left: 40px !important;
+}
+
+label {
+    font-size: 13px;
+}

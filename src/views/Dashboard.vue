@@ -20,5 +20,9 @@
                 permission : JSON.parse(window.localStorage.getItem("user")).permission,
             }
         },
+
+        mounted() {
+            document.title = "მთავარი";
+        }
     }
 </script>

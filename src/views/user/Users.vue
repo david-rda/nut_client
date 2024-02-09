@@ -3,7 +3,7 @@
         <MyHeader />
         <div class="container-fluid p-5" style="margin-top: 90px">
             <div class="d-flex justify-content-between mb-3 align-items-center">
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                         <tr class="text-center">
                             <th>დასახელება</th>
@@ -14,6 +14,7 @@
                             <th>პ/ნ</th>
                             <th>სტატუსი</th>
                             <th>ფერმიშენი</th>
+                            <th>ქმედება</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,40 +65,38 @@
                 <router-link to="/user/add" class="btn btn-success">ოპერატორის დამატება</router-link>
             </div>
 
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr class="text-center">
-                            <th>ID</th>
-                            <th>დასახელება</th>
-                            <th>ს/კ</th>
-                            <th>სახელი, გვარი</th>
-                            <th>ელ. ფოსტა</th>
-                            <th>ტელეფონი</th>
-                            <th>პ/ნ</th>
-                            <th>სტატუსი</th>
-                            <th>ფერმიშენი</th>
-                            <th>ქმედება</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="text-center" v-for="data in users" :key="data.id">
-                            <td>{{ data.id }}</td>
-                            <td>{{ data.company_name }}</td>
-                            <td>{{ data.identification_code }}</td>
-                            <td>{{ data.name }}</td>
-                            <td>{{ data.email }}</td>
-                            <td>{{ data.mobile }}</td>
-                            <td>{{ data.personal_id }}</td>
-                            <td>{{ data.status }}</td>
-                            <td>{{ data.permission }}</td>
-                            <td>
-                                <router-link :to="'/user/edit/' + data.id" type="button" class="btn btn-warning">რედაქტირება</router-link>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="text-center">
+                        <th>ID</th>
+                        <th>დასახელება</th>
+                        <th>ს/კ</th>
+                        <th>სახელი, გვარი</th>
+                        <th>ელ. ფოსტა</th>
+                        <th>ტელეფონი</th>
+                        <th>პ/ნ</th>
+                        <th>სტატუსი</th>
+                        <th>ფერმიშენი</th>
+                        <th>ქმედება</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center" v-for="data in users" :key="data.id">
+                        <td>{{ data.id }}</td>
+                        <td>{{ data.company_name }}</td>
+                        <td>{{ data.identification_code }}</td>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.email }}</td>
+                        <td>{{ data.mobile }}</td>
+                        <td>{{ data.personal_id }}</td>
+                        <td>{{ data.status }}</td>
+                        <td>{{ data.permission }}</td>
+                        <td>
+                            <router-link :to="'/user/edit/' + data.id" type="button" class="btn btn-warning">რედაქტირება</router-link>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </template>
@@ -145,6 +144,8 @@
         },
 
         mounted() {
+            document.title = "მომხმარებლები";
+            
             axios.get("/user/list", {
                 headers : {
                     "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
@@ -159,14 +160,5 @@
 </script>
 
 <style scoped>
-    @font-face {
-        font-family: "frutiger_geo_regular";
-        src: url("../../fonts/Linotype - Neue Frutiger Georgian Regular.otf");
-    }
-
-    * {
-        font-family: "frutiger_geo_regular";
-        box-sizing: border-box;
-    }
-
+    
 </style>

@@ -9,43 +9,43 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="overhead_number">ზედნადების ნომერი</label>
-                                <input type="text" v-model="formData.overhead_number" id="overhead_number" class="form-control border">
+                                <input type="text" v-model="formData.overhead_number" id="overhead_number" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="overhead_date">ზედნადების თარიღი</label>
-                                <flat-pickr class="form-control input_form_add border" id="datetime-picker" v-model="formData.overhead_date" :config="flatpickrOptions"></flat-pickr>
+                                <flat-pickr class="form-control" id="datetime-picker" v-model="formData.overhead_date" :config="flatpickrOptions"></flat-pickr>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group mb-3">
                                 <label for="store_address">მაღაზიის მისამართი</label>
-                                <input type="text" v-model="formData.store_address" id="store_address" class="form-control border">
+                                <input type="text" v-model="formData.store_address" id="store_address" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="beneficiary_name">სახელი, გვარი</label>
-                                <input type="text" v-model="formData.beneficiary_name" id="beneficiary_name" class="form-control border">
+                                <input type="text" v-model="formData.beneficiary_name" id="beneficiary_name" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="card_number">ბარათის ბოლო 4 ციფრი</label>
-                                <input type="number" min="0" v-model="formData.card_number" id="card_number" class="form-control border">
+                                <input type="number" min="0" v-model="formData.card_number" id="card_number" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <label for="card_number" class="mb-2">პროდუქტი</label>
-                            <v-select :options="options" label="name" v-model="selectedProduct" style="margin-top: 6px"></v-select>
+                            <label for="card_number" class="">პროდუქტი</label>
+                            <v-select :options="options" label="name" v-model="selectedProduct"></v-select>
                         </div>
                         <div class="col-md-4">
                             <label for="card_number">ფასი</label>
-                            <input type="number" class="form-control border" v-model="product_price">
+                            <input type="number" class="form-control" v-model="product_price">
                         </div>
                         <div class="col-md-3">
-                            <label for="card_number" class="d-block mb-2">ქმედება</label>
+                            <label for="card_number" class="d-block">ქმედება</label>
                             <button type="button" class="btn btn-warning w-100" style="margin-top:7px" @click="addField">დამატება</button>
                         </div>
 
@@ -70,7 +70,7 @@
 
                         <div class="col-md-12">
                             <label for="card_number" class="d-block mb-2">ჯამური თანხა</label>
-                            <input type="text" class="form-control border" v-model="formData.full_amount">
+                            <input type="text" class="form-control" v-model="formData.full_amount">
                         </div>
 
                         <div class="col-md-12">
@@ -97,7 +97,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="d-grid mb-5">
-                                <button type="submit">ზედნადების დამატება</button>
+                                <button type="submit" class="btn btn-success">ზედნადების დამატება</button>
                             </div>
                         </div>
                     </form>
@@ -128,7 +128,7 @@
         },
 
         mounted() {
-            document.title = "ზედნადების დამატება";
+            document.title = "განაცხადის დამატება";
 
             axios.get("/product/list", {
                 headers : {
@@ -221,103 +221,7 @@
 </script>
 
 <style scoped>
-    /**
-        ღია მწვანე: #82be00
-        მუქი მწვანე: #005019
-        background : #F3F3F3
-        font #3c3c3c
-    */
-    @font-face {
-        font-family: "frutiger_geo";
-        src: url("../../fonts/Linotype - Neue Frutiger Georgian Black.otf");
-    }
-
-    @font-face {
-        font-family: "frutiger_geo_regular";
-        src: url("../../fonts/Linotype - Neue Frutiger Georgian Regular.otf");
-    }
-
-    @font-face {
-        font-family: "frutiger_geo_caps";
-        src: url("../../fonts/NeueFrutigerGeorgianCAPS-Black.ttf");
-    }
-
-    * {
-        font-family: "frutiger_geo_regular";
-        box-sizing: border-box;
-    }
-
-    .header-logo {
-        width: 100% !important;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .header-logo > img {
-        height: 100px;
-        margin-left: 40px !important;
-    }
-
-    label {
-        color: #3c3c3c;
-        font-size: 13px;
-    }
-
-    input[type="email"], input[type="password"], input[type="text"], input[type="number"] {
-        padding: 8px;
-        color: #3c3c3c;
-        background-color: #ffffff;
-        border: 1px solid transparent;
-        border-radius: 4px;
-        font-size: 15px;
-        outline: none;
-        font-family: "frutiger_geo_regular";
-        margin-top: 10px;
-    }
-
-    .form-control:focus {
-        box-shadow: none !important;
-        outline: none !important;
-    }
-
-    select, select * {
-        font-family: "frutiger_geo_regular";
-    }
-
-    button {
-        padding: 8px;
-        border: none;
-        color: #005019;
-        background-color: #82be00;
-        text-transform: uppercase;
-        font-weight: 900;
-        cursor: pointer;
-        border-radius: 4px;
-        font-family: "frutiger_geo_caps" !important;
-        font-size: 15px;
-        outline: none;
-    }
-
-    button:hover {
-        background-color: #005019;
-        color: #fff;
-    }
-
-    .error {
-        border: 1px solid #d9534f !important;
-    }
-
-    .success {
-        border: 1px solid #2a8b37 !important;
-    }
-
-    .text-muted {
-        user-select: none;
-        font-size: 14px !important;
-    }
-
-    .vs--searchable .vs__dropdown-toggle {
-        height: 40px !important;
+    #vs2__combobox {
+        height: 39px !important;
     }
 </style>
