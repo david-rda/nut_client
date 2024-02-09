@@ -17,7 +17,7 @@
     html, body {    
         margin: 0;
         padding: 0;
-        background-color: #f3f3f3;
+        background-color: #f7f7f7;
     }
 
     @font-face {

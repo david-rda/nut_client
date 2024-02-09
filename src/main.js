@@ -5,14 +5,22 @@ import { BIconPencilSquare, BIconTrash } from "bootstrap-icons-vue";
 import VueSweetalert2 from "vue-sweetalert2";
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-import FarmerPanel from "./components/FarmerPanel.vue";
-import LoginPanel from "./components/LoginPanel.vue";
-import CheckFarmer from "./components/CheckFarmer.vue";
-import NutsCadaster from "./components/Cadaster.vue";
-import MySettings from "./components/Settings.vue";
-import AdminPanel from "./components/admin/Panel.vue";
-import UserAdd from "./components/admin/users/UserAdd.vue";
-import UserEdit from "./components/admin/users/UserEdit.vue";
+import LoginPanel from "./views/LoginPanel.vue";
+import SignUp from "./views/Signup.vue";
+import DashBoard from "./views/Dashboard.vue";
+import Settings from "./views/Settings.vue";
+import UsersGrid from "./views/user/Users.vue";
+import UserAdd from "./views/user/UserAdd.vue";
+import UserEdit from "./views/user/UserEdit.vue";
+import AddProduct from "./views/products/Add.vue";
+import EditProduct from "./views/products/Edit.vue";
+import ProductList from "./views/products/List.vue";
+import Statements from "./views/statement/List.vue";
+import StatementAdd from "./views/statement/Add.vue";
+
+import axios from 'axios';
+
+axios.defaults.baseURL = "http://localhost:8000/api"
 
 const routes = [
     {
@@ -20,34 +28,50 @@ const routes = [
         component : LoginPanel
     },
     {
-        path : "/panel",
-        component : FarmerPanel
+        path : "/signup",
+        component : SignUp
     },
     {
-        path : "/farmer_check",
-        component : CheckFarmer
+        path : "/home",
+        component : DashBoard
     },
     {
         path : "/settings",
-        component : MySettings
+        component : Settings
     },
     {
-        path : "/admin",
-        component : AdminPanel,
+        path : "/manage/user",
+        component : UsersGrid
     },
     {
-        path : "/admin/user/add",
+        path : "/user/add",
         component : UserAdd
     },
     {
-        path : "/admin/user/edit/:id",
+        path : "/user/edit/:id",
         component : UserEdit
     },
     {
-        path : "/cadaster",
-        component : NutsCadaster
-    }
-]
+        path : "/product/add",
+        component : AddProduct
+    },
+    {
+        path : "/product/edit/:id",
+        component : EditProduct
+    },
+    {
+        path : "/product/list",
+        component : ProductList
+    },
+    {
+        path : "/statements",
+        component : Statements
+    },
+    {
+        path : "/statement/add",
+        component : StatementAdd
+    },
+];
 
 const router = createRouter({
     history : createWebHistory(),
