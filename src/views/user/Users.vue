@@ -3,7 +3,7 @@
         <MyHeader />
         <div class="container-fluid p-5" style="margin-top: 90px">
             <div class="d-flex justify-content-between mb-3 align-items-center">
-                <table class="table table-striped">
+                <table class="table table-hover bg-white border rounded">
                     <thead>
                         <tr class="text-center">
                             <th>დასახელება</th>
@@ -65,7 +65,7 @@
                 <router-link to="/user/add" class="btn btn-success">ოპერატორის დამატება</router-link>
             </div>
 
-            <table class="table table-striped">
+            <table class="table table-hover bg-white border rounded">
                 <thead>
                     <tr class="text-center">
                         <th>ID</th>

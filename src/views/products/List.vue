@@ -3,7 +3,7 @@
         <MyHeader />
 
         <div class="container" style="margin-top: 120px">
-            <table class="table table-hover">
+            <table class="table table-hover border bg-white rounded">
                 <thead>
                     <tr class="text-center">
                         <th>ID</th>

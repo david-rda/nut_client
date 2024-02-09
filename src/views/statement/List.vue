@@ -3,8 +3,8 @@
         <MyHeader />
 
         <div class="container" style="margin-top: 120px">
-            <div class="d-flex justify-content-between mb-3 align-items-center">
-                <table class="table">
+            <div class="row justify-content-between mb-3 align-items-center">
+                <table class="table bg-white border rounded">
                     <thead>
                         <tr class="text-center">
                             <th>ზედნადების ნომერი</th>
@@ -54,7 +54,7 @@
             </div>
 
             <div class="row">
-                <table class="table table-hover">
+                <table class="table table-hover bg-white border rounded">
                     <thead>
                         <tr class="text-center">
                             <th>ზედნადების ნომერი</th>
