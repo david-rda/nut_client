@@ -74,8 +74,6 @@
 
         data() {
             return {
-                show : false,
-                loading : true,
                 year : "",
 
                 // formData
@@ -90,9 +88,6 @@
                     mobile : "",
                     password : "",
                 },
-
-                email_validate : 0,
-                password_validate : 0,
 
                 errors : []
             }

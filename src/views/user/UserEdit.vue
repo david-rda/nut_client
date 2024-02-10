@@ -52,7 +52,10 @@
                         </div>
                         <div class="col-md-12">
                             <div class="d-grid mb-5">
-                                <button type="submit" class="btn btn-success">რედაქტირება</button>
+                                <button type="submit" class="btn btn-success" :disabled="disabled">
+                                    რედაქტირება
+                                    <span class="spinner-border spinner-border-sm" v-if="loader"></span>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -83,12 +86,18 @@
 
                 },
 
-                errors : []
+                errors : [],
+
+                disabled : false,
+                loader : false,
             }
         },
 
         methods : {
             edit() {
+                this.disabled = true;
+                this.loader = true;
+                
                 axios.put("/user/edit/" + this.$route.params.id, this.formData, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
@@ -98,10 +107,16 @@
                         title : "რედაქტირება განხორციელდა",
                         icon : "success",
                     });
+                    
+                    this.disabled = false;
+                    this.loader = false;
                 }).catch((err) => {
                     if(err instanceof AxiosError) {
                         this.errors = err?.response?.data?.errors;
                     }
+
+                    this.disabled = false;
+                    this.loader = false;
                 });
             }
         },
@@ -121,7 +136,3 @@
         }
     }
 </script>
-
-<style scoped>
-    
-</style>

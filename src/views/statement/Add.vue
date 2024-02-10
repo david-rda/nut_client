@@ -2,7 +2,7 @@
     <div>
         <MyHeader />
 
-        <div class="container" style="margin-top: 90px">
+        <div class="container mb-5" style="margin-top: 90px">
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-6 col-xs-12 col-sm-12 bg-white rounded p-5 border mt-5">
                     <form @submit.prevent="addStatement()" class="row g-3" ref="statement_form">
@@ -37,15 +37,15 @@
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <label for="card_number" class="mb-1">პროდუქტი</label>
-                            <v-select :options="options" label="name" v-model="selectedProduct"></v-select>
+                            <label for="product" class="mb-1">პროდუქტი</label>
+                            <v-select id="product" :options="options" label="name" v-model="selectedProduct"></v-select>
                         </div>
                         <div class="col-md-4">
-                            <label for="card_number" class="mb-1">ფასი</label>
-                            <input type="number" class="form-control" v-model="product_price">
+                            <label for="price" class="mb-1">ფასი</label>
+                            <input type="number" id="price" class="form-control" v-model="product_price">
                         </div>
                         <div class="col-md-3">
-                            <label for="card_number" class="d-block">ქმედება</label>
+                            <label class="d-block">ქმედება</label>
                             <button type="button" class="btn btn-warning w-100" style="margin-top:7px" @click="addField">დამატება</button>
                         </div>
 
@@ -69,12 +69,12 @@
                         </table>
 
                         <div class="col-md-12">
-                            <label for="card_number" class="d-block mb-2">ჯამური თანხა</label>
-                            <input type="text" class="form-control" v-model="formData.full_amount">
+                            <label for="amount" class="d-block mb-2">ჯამური თანხა</label>
+                            <input type="text" id="amount" class="form-control" v-model="formData.full_amount">
                         </div>
 
                         <div class="col-md-12">
-                            <label for="card_number" class="d-block mb-2">ზედნადების ატვირთვა</label>
+                            <label class="d-block mb-2">ზედნადების ატვირთვა</label>
                             <file-pond
                                 name="files"
                                 label-idle="ატვირთეთ/ჩააგდეთ ფაილები აქ ..."
@@ -122,9 +122,12 @@
                                 <textarea class="form-control" id="comment" style="resize:none" v-model="formData.comment"></textarea>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="d-grid mb-5">
-                                <button type="submit" class="btn btn-success">ზედნადების დამატება</button>
+                        <div class="col-md-12 mb-3">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success" :disabled="disabled">
+                                    ზედნადების დამატება
+                                    <span v-if="loader" class="spinner-border spinner-border-sm"></span>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -178,6 +181,9 @@
             return {
                 user_id : JSON.parse(window.localStorage.getItem("user")).user_id,
                 permission : JSON.parse(window.localStorage.getItem("user")).permission,
+
+                disabled : false,
+                loader : false,
 
                 errors : [],
 
@@ -236,6 +242,9 @@
             },
 
             addStatement() {
+                this.disabled = true;
+                this.loader = true;
+
                 axios.post("/statement/add", this.formData, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
@@ -247,10 +256,15 @@
                     });
 
                     this.$refs.statement_form.reset();
+                    this.disabled = false;
+                    this.loader = false;
                 }).catch(err => {
                     if(err instanceof AxiosError) {
                         this.errors = err?.response?.data?.errors;
                     }
+
+                    this.disabled = false;
+                    this.loader = false;
                 })
             },
 

@@ -53,7 +53,12 @@
                                     <option value="operator">ოპერატორი</option>
                                 </select>
                             </td>
-                            <td><button type="button" class="btn btn-success" @click="searchUser">ძებნა</button></td>
+                            <td>
+                                <button type="button" class="btn btn-success w-100" :disabled="disabled" @click="searchUser">
+                                    <span class="spinner-border spinner-border-sm" v-if="loader"></span>
+                                    <span v-else>ძებნა</span>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -125,20 +130,30 @@
                     personal_id : "",
                     status : "",
                     permission : ""
-                }
+                },
+
+                disabled : false,
+                loader : false,
             }
         },
 
         methods : {
             searchUser() {
+                this.disabled = true;
+                this.loader = true;
+                
                 axios.post("/search/user", this.formData, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }
                 }).then(response => {
                     this.users = response.data.data;
+                    this.disabled = false;
+                    this.loader = false;
                 }).catch(err => {
                     console.log(err);
+                    this.disabled = false;
+                    this.loader = false;
                 });
             }
         },

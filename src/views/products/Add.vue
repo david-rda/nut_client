@@ -19,7 +19,10 @@
                             </select>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-success">დამატება</button>
+                            <button type="submit" class="btn btn-success" :disabled="disabled">
+                                დამატება
+                                <span class="spinner-border spinner-border-sm" v-if="loader"></span>
+                            </button>
                         </div>
                     </form>
 
@@ -44,7 +47,10 @@
                 title: '',
                 status : "",
 
-                errors : []
+                errors : [],
+
+                disabled : false,
+                loader : false,
             };
         },
         
@@ -58,6 +64,8 @@
 
         methods: {
             add() {
+                this.disabled = true;
+                this.loader = true;
                 axios.post('/product/add', { title: this.title, status : this.status }, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
@@ -71,8 +79,14 @@
                         title : "პროდუქტი დაემატა",
                         icon : "success",
                     });
+                    
+                    this.disabled = false;
+                    this.loader = false;
                 }).catch(error => {
                     this.errors = error?.response?.data?.errors;
+
+                    this.disabled = false;
+                    this.loader = false;
                 });
             }
         }

@@ -27,7 +27,10 @@
                         </div>
                         <div class="col-md-12">
                             <div class="d-grid mb-5">
-                                <button type="submit" class="btn btn-success">დამატება</button>
+                                <button type="submit" class="btn btn-success" :disabled="disabled">
+                                    დამატება
+                                    <span v-if="loader" class="spinner-border spinner-border-sm"></span>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -61,12 +64,18 @@
                     mobile : "",
                 },
 
-                errors : []
+                errors : [],
+
+                disabled : false,
+                loader : false,
             }
         },
 
         methods : {
             addOperator() {
+                this.disabled = true;
+                this.loader = true;
+                
                 axios.post("/operator/add", this.formData, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
@@ -76,10 +85,16 @@
                         title : "ოპერატორი დაემატა",
                         icon : "success",
                     });
+
+                    this.disabled = false;
+                    this.loader = false;
                 }).catch((err) => {
                     if(err instanceof AxiosError) {
                         this.errors = err?.response?.data?.errors;
                     }
+
+                    this.disabled = false;
+                    this.loader = false;
                 });
             }
         },

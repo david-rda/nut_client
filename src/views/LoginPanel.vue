@@ -23,14 +23,20 @@
                         </div>
                         <div class="col-md-4 col-12">
                             <div class="d-grid mb-5 text-center">
-                                <button type="submit" class="btn btn-success">შესვლა</button>
+                                <button type="submit" class="btn btn-success" :disabled="disabled">
+                                    შესვლა
+                                    <span class="spinner-border spinner-border-sm" v-if="loader"></span>
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <p class="disabled text-center text-muted">&copy;&nbsp;2024&nbsp;{{ this.year }}&nbsp;Created&nbsp;by&nbsp;<strong>RDA</strong>&nbsp;IT&nbsp;team</p>
                 </form>
+                <div v-for="(item, index) in errors" :key="index" class="alert alert-danger">
+                    <strong>{{ item[0] }}</strong>
+                </div>
             </div>
         </div>
+        <p class="disabled text-center text-muted mt-3">&copy;&nbsp;2024&nbsp;{{ this.year }}&nbsp;Created&nbsp;by&nbsp;<strong>RDA</strong>&nbsp;IT&nbsp;team</p>
     </div>
 </template>
 
@@ -44,61 +50,32 @@
                 password : "",
                 year : "",
 
-                email_validate : 0,
-                password_validate : 0,
+                disabled : false,
+                loader : false,
+
+                errors : []
             }
         },
 
         methods : {
             Login_To_Panel : function() {
-                this.loading = true;
+                this.disabled = true;
+                this.loader = true;
 
-                if(this.email.length == 0 || this.email == "") {
-                    this.email_validate = 1;
+                axios.post("/signin", {
+                    email : this.email,
+                    password : this.password
+                }).then((response) => {
+                    window.localStorage.setItem("user", JSON.stringify(response.data.user));
+                    window.localStorage.setItem("token", JSON.stringify(response.data.token));
 
-                    this.$swal({
-                        title : "ელ. ფოსტა აუცილებელია",
-                        icon : "warning",
-                        timerProgressBar: true,
-                        timer : 3000,
-                        toast : true,
-                        position : "top-end"
-                    });
+                    this.$router.push("/home");
+                }).catch((err) => {
+                    this.errors = err.response.data.errors;
 
-                }else if(this.password.length == 0 || this.password == "") {
-                    this.password_validate = 1;
-                    this.email_validate = 0;
-
-                    this.$swal({
-                        title : "პაროლი აუცილებელია",
-                        icon : "warning",
-                        timerProgressBar: true,
-                        timer : 3000,
-                        toast : true,
-                        position : "top-end"
-                    });
-                }else {
-                    this.password_validate = 0;
-                    this.email_validate = 0;
-
-                    axios.post("/signin", {
-                        email : this.email,
-                        password : this.password
-                    }).then((response) => {
-                        window.localStorage.setItem("user", JSON.stringify(response.data.user));
-                        window.localStorage.setItem("token", JSON.stringify(response.data.token));
-
-                        this.$router.push("/home");
-                    }).catch((err) => {
-                        this.$router.push("/");
-                        window.localStorage.removeItem("loggedin");
-
-                        this.$swal({
-                            title : "ელფოსტა ან პაროლი არასწორია",
-                            icon : "error",
-                        });
-                    });
-                }
+                    this.disabled = false;
+                    this.loader = false;
+                });
             }
         },
 

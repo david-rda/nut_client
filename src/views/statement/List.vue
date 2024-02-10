@@ -41,7 +41,12 @@
                                     <option value="pending">pending</option>
                                 </select>
                             </td>
-                            <td><button type="button" class="btn btn-success" @click="searchOverhead">ძებნა</button></td>
+                            <td>
+                                <button type="button" class="btn btn-success w-100" :disabled="disabled" @click="searchOverhead">
+                                    <span class="spinner-border spinner-border-sm" v-if="loader"></span>
+                                    <span v-else>ძებნა</span>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -67,7 +72,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center" v-for="data in statements" :key="data.id">
+                        <tr class="text-center" v-for="data in statements.data" :key="data.id">
                             <td>{{ data.overhead_number }}</td>
                             <td>{{ data.overhead_date }}</td>
                             <td>{{ data.store_address }}</td>
@@ -96,7 +101,7 @@
 
         components : {
             MyHeader,
-            FlatPickr
+            FlatPickr,
         },
         
         data() {
@@ -118,16 +123,30 @@
                     beneficiary_name : "",
                     status : ""
                 },
+
+                disabled : false,
+                loader : false,
             }
         },
 
         methods : {
             searchOverhead() {
+                this.disabled = true;
+                this.loader = true;
+
                 axios.post("/statement/search", this.formData, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }
-                }).then(response => this.statements = response.data.data).catch(err => console.log(err));
+                }).then(response => {
+                    this.statements = response.data;
+                    this.disabled = false;
+                    this.loader = false;
+                }).catch(err => {
+                    console.log(err);
+                    this.disabled = false;
+                    this.loader = false;
+                });
             }
         },
 
@@ -139,7 +158,7 @@
                     "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                 }
             }).then(response => {
-                this.statements = response.data.data;
+                this.statements = response.data;
             }).catch(err => {
                 console.log(err);
             });

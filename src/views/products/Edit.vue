@@ -19,7 +19,10 @@
                             </select>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-success">რედაქტირება</button>
+                            <button type="submit" class="btn btn-success" :disabled="disabled">
+                                რედაქტირება
+                                <span v-if="loader" class="spinner-border spinner-border-sm"></span>
+                            </button>
                         </div>
                     </form>
 
@@ -44,7 +47,10 @@
                 title: '',
                 status : "",
 
-                errors : []
+                errors : [],
+                
+                disabled : false,
+                loader : false,
             };
         },
         
@@ -69,6 +75,9 @@
 
         methods: {
             edit() {
+                this.disabled = true;
+                this.loader = true;
+                
                 axios.put('/product/edit/' + this.$route.params.id, { title: this.title, status : this.status }, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
@@ -80,8 +89,13 @@
                         title : "პროდუქტი დარედაქტირდა",
                         icon : "success",
                     });
+                    
+                    this.disabled = false;
+                    this.loader = false;
                 }).catch(error => {
                     this.errors = error?.response?.data?.errors;
+                    this.disabled = false;
+                    this.loader = false;
                 });
             }
         }
