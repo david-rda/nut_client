@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import axios from 'axios'
     export default {
         name : "MyHeader",
 
@@ -55,8 +56,16 @@
 
         methods: {
             LogOut() {
-                window.localStorage.clear()
-                this.$router.push("/"); // გადამისამართდება მთავარ (ავტორიზაციის) გვერდზე
+                axios.get("/signout", {
+                    headers : {
+                        "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
+                    }
+                }).then(response => {
+                    window.localStorage.clear();
+                    this.$router.push("/");
+                }).catch(err => {
+                    console.log(err);
+                });
             },
         },
 

@@ -90,7 +90,7 @@
                         <td>{{ data.mobile }}</td>
                         <td>{{ data.personal_id }}</td>
                         <td>{{ data.status }}</td>
-                        <td>{{ data.permission }}</td>
+                        <td>{{ (data.permission == 'company') ? 'კომპანია' : (data.permission == 'coordinator') ? 'კოორდინატორი' : 'ოპერატორი' }}</td>
                         <td>
                             <router-link :to="'/user/edit/' + data.id" type="button" class="btn btn-warning">რედაქტირება</router-link>
                         </td>
