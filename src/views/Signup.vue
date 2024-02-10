@@ -50,7 +50,10 @@
                     </div>
                     <div class="col-md-12">
                         <div class="d-grid mb-5">
-                            <button type="submit" class="btn btn-success">რეგისტრაცია</button>
+                            <button type="submit" class="btn btn-success" :disabled="disabled">
+                                რეგისტრაცია
+                                <span class="spinner-border spinner-border-sm" v-if="loader"></span>
+                            </button>
                         </div>
                         <div class="mb-5">
                             <router-link to="/" class="btn btn-secondary">უკან დაბრუნება</router-link>
@@ -89,12 +92,17 @@
                     password : "",
                 },
 
-                errors : []
+                errors : [],
+
+                disabled : false,
+                loader : false,
             }
         },
 
         methods : {
             signup() {
+                this.disabled = true;
+                this.loader = true;
                 axios.post("/signup", this.formData).then((response) => {
                     this.$swal({
                         title : "რეგისტრაცია წარმატებით განხორციელდა",
@@ -105,6 +113,9 @@
                         position : "top-end"
                     });
 
+                    this.disabled = false;
+                    this.loader = false;
+
                     setTimeout(() => {
                         this.$router.push("/")
                     }, 2000);
@@ -112,6 +123,9 @@
                     if(err instanceof AxiosError) {
                         this.errors = err?.response?.data?.errors;
                     }
+                    
+                    this.disabled = false;
+                    this.loader = false;
                 });
             }
         },

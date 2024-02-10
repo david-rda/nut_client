@@ -19,7 +19,10 @@
                             <input type="password" class="form-control" id="confirmPassword" v-model="formData.confirm_password">
                         </div>
                         <div class="form-group d-grid mb-3">
-                            <button type="submit" class="btn btn-success">შეცვლა</button>
+                            <button type="submit" class="btn btn-success" :disabled="disabled">
+                                შეცვლა
+                                <span class="spinner-border spinner-border-sm" v-if="loader"></span>
+                            </button>
                         </div>
                     </form>
                     
@@ -51,7 +54,10 @@
                     confirm_password : ""
                 },
 
-                errors : []
+                errors : [],
+
+                disabled : false,
+                loader : false,
             }
         },
 
@@ -61,6 +67,9 @@
 
         methods : {
             changePassword() {
+                this.disabled = true;
+                this.loader = true;
+                
                 axios.post("/change_password", this.formData, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
@@ -70,10 +79,16 @@
                         title : "პაროლი წარმატებით შეიცვალა",
                         icon : "success",
                     });
+
+                    this.disabled = false;
+                    this.loader = false;
                 }).catch(err => {
                     if(err instanceof AxiosError) {
                         this.errors = err?.response?.data?.errors;
                     }
+
+                    this.disabled = false;
+                    this.loader = false;
                 });
             }
         }

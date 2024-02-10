@@ -79,8 +79,9 @@
                             <td>{{ data.beneficiary_name }}</td>
                             <td>{{ data.full_amount }}</td>
                             <td>{{ (data.status == "new") ? 'ახალია': '' }}</td>
-                            <td>
+                            <td class="d-flex gap-1">
                                 <router-link :to="'/statement/read/' + data.id" type="button" class="btn btn-success">დათვალიერება</router-link>
+                                <button type="button" :data-id="data.id" class="btn btn-warning" @click="viewPdf">დოკუმენტი</button>
                             </td>
                         </tr>
                     </tbody>
@@ -147,6 +148,10 @@
                     this.disabled = false;
                     this.loader = false;
                 });
+            },
+
+            viewPdf($event) {
+                window.open('http://localhost:8000/api/statement/pdf/' + event.target.getAttribute("data-id"));
             }
         },
 
