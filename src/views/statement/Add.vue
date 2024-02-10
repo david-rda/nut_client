@@ -88,9 +88,21 @@
                                         method : 'POST',
                                         onload : handle
                                     },
+
+                                    revert : {
+                                        url : 'http://localhost:8000/api/statement/file/delete'
+                                    }
                                 }"
                                 v-bind:files="files"
                             />
+                            <div v-for="(data, index) in files_details" :key="data.id">
+                                <div class="container">
+                                    <div class="d-flex justify-content-between align-items-center mt-2 rounded p-2 bg-dark bg-opacity-50 text-white">
+                                        <span style="font-family: sans-serif">{{ data.name }}</span>
+                                        <button class="times" type="button" :data-id="data.id" @click="deleteFile($event, index)">&times;</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-md-12" v-if="permission != 'company'">
@@ -184,6 +196,7 @@
                     files : [],
                 },
                 
+                files_details : [],
 
                 flatpickrOptions: {
                     enableTime: false,
@@ -196,7 +209,27 @@
             handle(response) {
                 const _this_ = this;
 
-                this.formData.files.push(response);
+                this.formData.files.push(JSON.parse(response).id);
+                
+                this.files_details.push({
+                    id : JSON.parse(response).id,
+                    name : JSON.parse(response).name,
+                });
+            },
+
+            deleteFile($event, index) {
+                const id = Number(event.target.getAttribute("data-id"));
+                const _this_ = this;
+
+                axios.delete("/statement/file/delete/" + id, {
+                    headers : {
+                        "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
+                    }
+                }).then(response => {
+                    console.log(response.data);
+
+                    _this_.files_details.splice(index, 1);
+                }).catch(err => console.log(err));
             },
 
             addStatement() {
@@ -241,7 +274,14 @@
 </script>
 
 <style scoped>
-    #vs2__combobox {
-        height: 39px !important;
+    .times {
+        width: 1.625em;
+        height: 1.625em;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border-radius: 150px;
+        outline: none;
+        border: none;
+        font-weight: bolder;
     }
 </style>
