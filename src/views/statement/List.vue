@@ -86,7 +86,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <Pagination v-model="page" :records="Number(statements.total)" :per-page="Number(statements.per_page)" @paginate="getResults"/>
+                <Pagination v-model="page" :records="Number(statements.total)" :per-page="Number(statements.per_page)" @paginate="getResults" :hideCount="true" />
             </div>
         </div>
     </div>

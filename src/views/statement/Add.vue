@@ -79,7 +79,7 @@
                                 name="files"
                                 label-idle="ატვირთეთ/ჩააგდეთ ფაილები აქ ..."
                                 v-bind:allow-multiple="true"
-                                accepted-file-types="*"
+                                :acceptedFileTypes="['application/pdf']"
                                 :server="{
                                     url : '',
 
@@ -238,6 +238,7 @@
                     console.log(response.data);
 
                     _this_.files_details.splice(index, 1);
+                    _this_.formData.files.splice(index, 1);
                 }).catch(err => console.log(err));
             },
 
