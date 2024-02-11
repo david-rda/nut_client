@@ -17,6 +17,7 @@ import EditProduct from "./views/products/Edit.vue";
 import ProductList from "./views/products/List.vue";
 import Statements from "./views/statement/List.vue";
 import StatementAdd from "./views/statement/Add.vue";
+import StatementRead from "./views/statement/Read.vue";
 
 import axios from 'axios';
 
@@ -70,6 +71,10 @@ const routes = [
     {
         path : "/statement/add",
         component : StatementAdd
+    },
+    {
+        path : "/statement/read/:id",
+        component: StatementRead
     },
 ];
 
