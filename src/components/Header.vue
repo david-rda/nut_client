@@ -9,16 +9,8 @@
                     <li class="nav-item">
                         <router-link to="/manage/user" class="nav-link">მომხმარებლების მართვა</router-link>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">პროდუქტების მართვა</a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <router-link to="/product/list" class="dropdown-item">პროდუქტები</router-link>
-                            </li>
-                            <li>
-                                <router-link to="/product/add" class="dropdown-item">პროდუქტის დამატება</router-link>
-                            </li>
-                        </ul>
+                    <li class="nav-item">
+                        <router-link to="/product/list" class="nav-link">პროდუქტები</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link to="/statements" class="nav-link">განაცხადები</router-link>

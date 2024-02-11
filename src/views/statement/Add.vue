@@ -148,17 +148,14 @@
     import FlatPickr from "vue-flatpickr-component";
     import 'flatpickr/dist/flatpickr.css';
     import vueFilePond from "vue-filepond";
-    import FilePondPluginPdfPreview from "filepond-plugin-pdf-preview";
     import "filepond/dist/filepond.min.css";
-
-    const FilePond = vueFilePond(FilePondPluginPdfPreview);
 
     export default {
         name : "StatementAdd",
 
         components : {
             MyHeader,
-            FilePond,
+            "file-pond" : vueFilePond(),
             vSelect,
             FlatPickr
         },
