@@ -1,11 +1,14 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import { BIconPencilSquare, BIconTrash } from "bootstrap-icons-vue";
+import { BIconPencilSquare, BIconTrash, BIconSearch, BIconFilePdf, BIconTicketDetailed } from "bootstrap-icons-vue";
 import VueSweetalert2 from "vue-sweetalert2";
 import 'sweetalert2/dist/sweetalert2.min.css';
 import router from './router/router';
 
 import axios from 'axios';
+
+import VueTippy from 'vue-tippy'
+import 'tippy.js/dist/tippy.css'
 
 axios.defaults.baseURL = "http://localhost:8000/api"
 
@@ -13,6 +16,22 @@ const app = createApp(App);
 
 app.component("BIconPencilSquare", BIconPencilSquare);
 app.component("BIconTrash", BIconTrash);
+app.component("BIconFilePdf", BIconFilePdf);
+app.component("BIconSearch", BIconSearch);
+app.component("BIconTicketDetailed", BIconTicketDetailed);
+
+app.use(
+    VueTippy,
+    {
+        directive: 'tippy',
+        component: 'tippy',
+        componentSingleton: 'tippy-singleton',
+        defaultProps: {
+            placement: 'top',
+            allowHTML: true,
+        },
+    }
+)
 
 app.use(router);
 app.use(VueSweetalert2);

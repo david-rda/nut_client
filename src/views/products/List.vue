@@ -23,7 +23,9 @@
                         <td :class="(data.status == 'disabled') ? 'table-danger' : ''">{{ data.name }}</td>
                         <td :class="(data.status == 'disabled') ? 'table-danger' : ''">{{ (data.status == "disabled") ? 'აქტიურია' : 'არააქტიურია' }}</td>
                         <td :class="(data.status == 'disabled') ? 'table-danger' : ''">
-                            <router-link :to="'/product/edit/' + data.id" type="button" class="btn btn-warning">რედაქტირება</router-link>
+                            <router-link :to="'/product/edit/' + data.id" type="button" class="btn btn-warning" v-tippy="{ content: 'რედაქტირება' }">
+                                <BIconPencilSquare />
+                            </router-link>
                         </td>
                     </tr>
                 </tbody>

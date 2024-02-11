@@ -44,7 +44,7 @@
                             <td>
                                 <button type="button" class="btn btn-success w-100" :disabled="disabled" @click="searchOverhead">
                                     <span class="spinner-border spinner-border-sm" v-if="loader"></span>
-                                    <span v-else>ძებნა</span>
+                                    <span v-else><BIconSearch /></span>
                                 </button>
                             </td>
                         </tr>
@@ -80,8 +80,12 @@
                             <td>{{ data.full_amount }}</td>
                             <td>{{ (data.status == "new") ? 'ახალია': '' }}</td>
                             <td class="d-flex gap-1">
-                                <router-link :to="'/statement/read/' + data.id" type="button" class="btn btn-success">დათვალიერება</router-link>
-                                <button type="button" :data-id="data.id" class="btn btn-warning" @click="viewPdf">დოკუმენტი</button>
+                                <router-link :to="'/statement/read/' + data.id" type="button" class="btn btn-success" v-tippy="{ content: 'დათვალიერება' }">
+                                    <BIconTicketDetailed />
+                                </router-link>
+                                <button type="button" v-tippy="{ content: 'დოკუმენტის ნახვა' }" :data-id="data.id" class="btn btn-warning" @click="viewPdf">
+                                    <BIconFilePdf  />
+                                </button>
                             </td>
                         </tr>
                     </tbody>

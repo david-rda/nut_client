@@ -56,7 +56,7 @@
                             <td>
                                 <button type="button" class="btn btn-success w-100" :disabled="disabled" @click="searchUser">
                                     <span class="spinner-border spinner-border-sm" v-if="loader"></span>
-                                    <span v-else>ძებნა</span>
+                                    <span v-else><BIconSearch /></span>
                                 </button>
                             </td>
                         </tr>
@@ -97,7 +97,9 @@
                         <td>{{ data.status }}</td>
                         <td>{{ (data.permission == 'company') ? 'კომპანია' : (data.permission == 'coordinator') ? 'კოორდინატორი' : 'ოპერატორი' }}</td>
                         <td>
-                            <router-link :to="'/user/edit/' + data.id" type="button" class="btn btn-warning">რედაქტირება</router-link>
+                            <router-link :to="'/user/edit/' + data.id" type="button" class="btn btn-warning" v-tippy="{ content: 'რედაქტირება' }">
+                                <BIconPencilSquare />
+                            </router-link>
                         </td>
                     </tr>
                 </tbody>
