@@ -3,7 +3,7 @@
         <div class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
             <div class="container-fluid">
                 <div class="navbar-brand">
-                    <router-link to="/home" class="nav-link"><img src="../assets/RDA-Logo-Geo.png" style="width: 120px"></router-link>
+                    <router-link to="/home" class="nav-link"><img src="../assets/RDA-Logo-Geo.png" style="width: 100px"></router-link>
                 </div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
