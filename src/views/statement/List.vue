@@ -86,6 +86,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <Pagination v-model="page" :records="Number(statements.total)" :per-page="Number(statements.per_page)" @paginate="getResults"/>
             </div>
         </div>
     </div>
@@ -96,6 +97,7 @@
     import MyHeader from "../../components/Header.vue";
     import FlatPickr from "vue-flatpickr-component";
     import 'flatpickr/dist/flatpickr.css';
+    import Pagination from 'v-pagination-3';
 
     export default {
         name : "DashBoard",
@@ -103,6 +105,7 @@
         components : {
             MyHeader,
             FlatPickr,
+            Pagination
         },
         
         data() {
@@ -127,6 +130,8 @@
 
                 disabled : false,
                 loader : false,
+
+                page : 1
             }
         },
 
@@ -152,21 +157,31 @@
 
             viewPdf($event) {
                 window.open('http://localhost:8000/api/statement/pdf/' + event.target.getAttribute("data-id"));
+            },
+
+            getResults(page = 1) {
+                axios.get("/statement/list?page=" + page, {
+                    headers : {
+                        "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
+                    }
+                }).then(response => {
+                    this.statements = response.data;
+                }).catch(err => {
+                    console.log(err);
+                });
             }
         },
 
         mounted() {
             document.title = "განაცხადები";
             
-            axios.get("/statement/list", {
-                headers : {
-                    "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
-                }
-            }).then(response => {
-                this.statements = response.data;
-            }).catch(err => {
-                console.log(err);
-            });
+            this.getResults();
         }
     }
 </script>
+
+<style scoped>
+    .VuePagination p  {
+        display: none !important;
+    }
+</style>

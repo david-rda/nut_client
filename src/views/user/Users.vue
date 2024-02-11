@@ -86,7 +86,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="text-center" v-for="data in users" :key="data.id">
+                    <tr class="text-center" v-for="data in users.data" :key="data.id">
                         <td>{{ data.id }}</td>
                         <td>{{ data.company_name }}</td>
                         <td>{{ data.identification_code }}</td>
@@ -102,6 +102,7 @@
                     </tr>
                 </tbody>
             </table>
+            <Pagination v-model="page" :records="Number(users.total)" :per-page="Number(users.per_page)" @paginate="getUsers"/>
         </div>
     </div>
 </template>
@@ -109,12 +110,14 @@
 <script>
     import MyHeader from "../../components/Header.vue";
     import axios from "axios";
+    import Pagination from 'v-pagination-3';
 
     export default {
         name : "UsersGrid",
 
         components : {
             MyHeader,
+            Pagination
         },
 
         data() {
@@ -134,10 +137,24 @@
 
                 disabled : false,
                 loader : false,
+
+                page : 1
             }
         },
 
         methods : {
+            getUsers(page = 1) {
+                axios.get("/user/list?page=" + page, {
+                    headers : {
+                        "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
+                    }
+                }).then(response => {
+                    this.users = response.data;
+                }).catch(err => {
+                    console.log(err);
+                })
+            },
+
             searchUser() {
                 this.disabled = true;
                 this.loader = true;
@@ -147,7 +164,7 @@
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }
                 }).then(response => {
-                    this.users = response.data.data;
+                    this.users = response.data;
                     this.disabled = false;
                     this.loader = false;
                 }).catch(err => {
@@ -160,20 +177,8 @@
 
         mounted() {
             document.title = "მომხმარებლები";
-            
-            axios.get("/user/list", {
-                headers : {
-                    "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
-                }
-            }).then(response => {
-                this.users = response.data;
-            }).catch(err => {
-                console.log(err);
-            })
+
+            this.getUsers();
         }
     }
 </script>
-
-<style scoped>
-    
-</style>
