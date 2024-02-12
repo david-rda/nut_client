@@ -17,7 +17,7 @@
                         <div class="form-group mb-3">
                             <label for="status">სადამდე</label>
                             <select class="form-select" v-model="status" id="status">
-                                <option value="" selected disabled>სტატუსი</option>
+                                <option value="all" selected disabled>სტატუსი</option>
                                 <option value="operator">გადაწერილია ოპერატორზე</option>
                                 <option value="new">ახალი</option>
                                 <option value="correction">დახარვეზებული</option>
@@ -37,6 +37,7 @@
     import MyHeader from "../components/Header.vue";
     import FlatPickr from "vue-flatpickr-component";
     import 'flatpickr/dist/flatpickr.css';
+    import axios from 'axios';
 
     export default {
         name : "MyReport",
@@ -48,12 +49,12 @@
 
         data() {
             return {
-                user_id : JSON.parse(window.localStorage.getItem("user")).user_id,
+                user_id : JSON.parse(window.localStorage.getItem("user")).id,
                 permission : JSON.parse(window.localStorage.getItem("user")).permission,
 
-                from : new Date(),
-                to : new Date(),
-                status : "",
+                from : new Date().toISOString().split('T')[0],
+                to : new Date().toISOString().split('T')[0],
+                status : "all",
 
                 flatpickrOptions: {
                     enableTime: false,
@@ -68,7 +69,7 @@
 
         methods : {
             report() {
-                window.open("http://localhost:8000/api/statement/report/" + this.from + "/" + this.to);
+                window.open("http://localhost:8000/api/statement/report/" + this.from + "/" + this.to + "/" + this.status + "/" + this.user_id);
             }
         }
     }
