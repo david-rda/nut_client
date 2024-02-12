@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import { BIconPencilSquare, BIconTrash, BIconSearch, BIconFilePdf, BIconTicketDetailed } from "bootstrap-icons-vue";
+import { BIconPencilSquare, BIconTrash, BIconSearch, BIconFilePdf, BIconTicketDetailed, BIconClockHistory } from "bootstrap-icons-vue";
 import VueSweetalert2 from "vue-sweetalert2";
 import 'sweetalert2/dist/sweetalert2.min.css';
 import router from './router/router';
@@ -11,6 +11,7 @@ import VueTippy from 'vue-tippy'
 import 'tippy.js/dist/tippy.css'
 
 axios.defaults.baseURL = "http://localhost:8000/api"
+// axios.defaults.baseURL = "https://nuts.rda.gov.ge/api"
 
 const app = createApp(App);
 
@@ -19,6 +20,7 @@ app.component("BIconTrash", BIconTrash);
 app.component("BIconFilePdf", BIconFilePdf);
 app.component("BIconSearch", BIconSearch);
 app.component("BIconTicketDetailed", BIconTicketDetailed);
+app.component("BIconClockHistory", BIconClockHistory);
 
 app.use(
     VueTippy,

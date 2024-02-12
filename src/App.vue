@@ -17,8 +17,13 @@
         src: url("./fonts/google-sans.woff2");
     }
 
+    @font-face {
+        font-family: "firago";
+        src: url("./fonts/FiraGO-Regular.otf");
+    }
+
     * {
         box-sizing: border-box;
-        font-family: "google-sans" !important;
+        font-family: "firago" !important;
     }
 </style>

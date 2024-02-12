@@ -6,14 +6,17 @@
                     <router-link to="/home" class="nav-link"><img src="../assets/RDA-Logo-Geo.png" style="width: 100px"></router-link>
                 </div>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="user.permission == 'coordinator'">
                         <router-link to="/manage/user" class="nav-link">მომხმარებლების მართვა</router-link>
                     </li>
-                    <li class="nav-item">
-                        <router-link to="/product/list" class="nav-link">პროდუქტები</router-link>
+                    <li class="nav-item" v-if="user.permission == 'coordinator'">
+                        <router-link to="/product/list" class="nav-link">პროდუქტების მართვა</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link to="/statements" class="nav-link">განაცხადები</router-link>
+                    </li>
+                    <li class="nav-item" v-if="user.permission == 'coordinator' || user.permission == 'company'">
+                        <router-link to="/reports" class="nav-link">რეპორტები</router-link>
                     </li>
                 </ul>
                 <div class="ms-auto navbar-nav">

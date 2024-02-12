@@ -36,9 +36,9 @@
                             <td>
                                 <select class="form-select" v-model="formData.status">
                                     <option value="" selected disabled>სტატუსი</option>
-                                    <option value="active">აქტიური</option>
-                                    <option value="inactive">არააქტიური</option>
-                                    <option value="pending">pending</option>
+                                    <option value="operator">გადაწერილია ოპერატორზე</option>
+                                    <option value="new">ახალი</option>
+                                    <option value="correction">დახარვეზებული</option>
                                 </select>
                             </td>
                             <td>
@@ -57,11 +57,18 @@
 
                 <router-link to="/statement/add" class="btn btn-success">ზედნადების დამატება</router-link>
             </div>
+            
+            <div class="row justify-content-center mb-3">
+                <span class="spinner-border spinner-border" v-if="loader_table"></span>
+            </div>
 
-            <div class="row">
+            <div class="row" v-if="loader_table == false">
                 <table class="table table-hover bg-white border rounded">
                     <thead>
                         <tr class="text-center">
+                            <th class="text-center" v-if="permission == 'coordinator'">
+                                <input type="checkbox" @change="selectAllStatements" v-model="selectAll">
+                            </th>
                             <th>ზედნადების ნომერი</th>
                             <th>ზედნადების თარიღი</th>
                             <th>მაღაზიის მისამართი</th>
@@ -73,23 +80,38 @@
                     </thead>
                     <tbody>
                         <tr class="text-center" v-for="data in statements.data" :key="data.id">
-                            <td>{{ data.overhead_number }}</td>
-                            <td>{{ data.overhead_date }}</td>
-                            <td>{{ data.store_address }}</td>
-                            <td>{{ data.beneficiary_name }}</td>
-                            <td>{{ data.full_amount }}</td>
-                            <td>{{ (data.status == "new") ? 'ახალია': '' }}</td>
+                            <td v-if="permission == 'coordinator'">
+                                <input type="checkbox" v-model="selectedStatements" :value="data.id">
+                            </td>
+                            <td>{{ data?.overhead_number }}</td>
+                            <td>{{ data?.overhead_date }}</td>
+                            <td>{{ data?.store_address }}</td>
+                            <td>{{ data?.beneficiary_name }}</td>
+                            <td>{{ data?.full_amount }}</td>
+                            <td>{{ (data?.status == "new") ? 'ახალია' : (data?.status == "operator") ? 'გადაწერილია ოპერატორზე' : (data?.status == "correction") ? 'დახარვეზებულია' : '' }}</td>
                             <td class="d-flex gap-1">
-                                <router-link :to="'/statement/read/' + data.id" type="button" class="btn btn-success" v-tippy="{ content: 'დათვალიერება' }">
-                                    <BIconTicketDetailed />
+                                <router-link :to="'/statement/read/' + data?.id" type="button" class="btn btn-success" v-tippy="{ content: 'დათვალიერება' }">
+                                    <BIconTicketDetailed style="pointer-events:none" />
                                 </router-link>
-                                <button type="button" v-tippy="{ content: 'დოკუმენტის ნახვა' }" :data-id="data.id" class="btn btn-warning" @click="viewPdf">
-                                    <BIconFilePdf  />
+                                <button type="button" v-tippy="{ content: 'დოკუმენტის ნახვა' }" :data-id="data?.id" class="btn btn-warning" @click="viewPdf">
+                                    <BIconFilePdf style="pointer-events:none" />
                                 </button>
+                                <router-link :to="'/statement/edit/' + data?.id" type="button" class="btn btn-success" v-tippy="{ content: 'რედაქტირება' }" v-if="data?.status == 'correction' && permission == 'company'">
+                                    <BIconPencilSquare style="pointer-events:none" />
+                                </router-link>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="col-4">
+                    <div class="d-flex">
+                        <select class="form-select mb-3" v-model="operator">
+                            <option value="" disabled selected>აირჩიეთ ოპერატორი</option>
+                            <option :value="item.id" v-for="(item, index) in operators" :key="index">{{ item.name }}</option>
+                        </select>
+                        <button type="button" @click="changeStatus" class="btn btn-success mb-2 ms-3" style="height: 39px">გადაწერა</button>
+                    </div>
+                </div>
                 <Pagination v-model="page" :records="Number(statements.total)" :per-page="Number(statements.per_page)" @paginate="getResults" :hideCount="true" />
             </div>
         </div>
@@ -116,6 +138,7 @@
             return {
                 statements : [],
                 user_id : JSON.parse(window.localStorage.getItem("user")).user_id,
+                user : JSON.parse(window.localStorage.getItem("user")),
                 permission : JSON.parse(window.localStorage.getItem("user")).permission,
 
                 flatpickrOptions: {
@@ -132,10 +155,17 @@
                     status : ""
                 },
 
+                selectedStatements : [],
+                selectAll : false,
+
                 disabled : false,
                 loader : false,
+                loader_table : false,
 
-                page : 1
+                page : 1,
+
+                operators : [],
+                operator : ""
             }
         },
 
@@ -143,6 +173,7 @@
             searchOverhead() {
                 this.disabled = true;
                 this.loader = true;
+                this.loader_table = true;
 
                 axios.post("/statement/search", this.formData, {
                     headers : {
@@ -152,26 +183,58 @@
                     this.statements = response.data;
                     this.disabled = false;
                     this.loader = false;
+                    this.loader_table = false;
                 }).catch(err => {
                     console.log(err);
                     this.disabled = false;
                     this.loader = false;
+                    this.loader_table = false;
                 });
             },
 
-            viewPdf($event) {
+            changeStatus() {
+                axios.put("/statement/change/massive", {
+                    operator_id : this.operator,
+                    statements : this.selectedStatements
+                }, {
+                    headers : {
+                        "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
+                    }
+                }).then(response => {
+                    this.$swal({
+                        title : "მოთხოვნა შესრულდა",
+                        icon : "success",
+                    });
+                }).catch(err => {
+                    console.log(err);
+                });
+            },
+
+            selectAllStatements() {
+                if (this.selectAll) {
+                    this.selectedStatements = this.statements.data.map(item => item.id);
+                } else {
+                    this.selectedStatements = [];
+                }
+            },
+
+            viewPdf(event) {
                 window.open('http://localhost:8000/api/statement/pdf/' + event.target.getAttribute("data-id"));
             },
 
             getResults(page = 1) {
+                this.loader_table = true;
+
                 axios.get("/statement/list?page=" + page, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }
                 }).then(response => {
                     this.statements = response.data;
+                    this.loader_table = false;
                 }).catch(err => {
                     console.log(err);
+                    this.loader_table = true;
                 });
             }
         },
@@ -180,6 +243,16 @@
             document.title = "განაცხადები";
             
             this.getResults();
+
+            axios.get("/operator/list", {
+                headers : {
+                    "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
+                }
+            }).then(response => {
+                this.operators = response.data;
+            }).catch(err => {
+                console.log(err);
+            })
         }
     }
 </script>
