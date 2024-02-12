@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <iframe width="100%" height="100%" :src="'http://localhost:8000/api/statement/pdf/' + this.$route.params.id"></iframe>
+                    <iframe width="100%" height="100%" :src="'https://nuts.rda.gov.ge/api/statement/pdf/' + this.$route.params.id"></iframe>
                 </div>
             </div>
         </div>

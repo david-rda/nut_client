@@ -69,7 +69,7 @@
 
         methods : {
             report() {
-                window.open("http://localhost:8000/api/statement/report/" + this.from + "/" + this.to + "/" + this.status + "/" + this.user_id);
+                window.open("https://nuts.rda.gov.ge/api/statement/report/" + this.from + "/" + this.to + "/" + this.status + "/" + this.user_id);
             }
         }
     }

@@ -84,13 +84,13 @@
                                     url : '',
 
                                     process : {
-                                        url : 'http://localhost:8000/api/statement/file/upload',
+                                        url : 'https://nuts.rda.gov.ge/api/statement/file/upload',
                                         method : 'POST',
                                         onload : handle
                                     },
 
                                     revert : {
-                                        url : 'http://localhost:8000/api/statement/file/delete'
+                                        url : 'https://nuts.rda.gov.ge/api/statement/file/delete'
                                     }
                                 }"
                                 v-bind:files="files"

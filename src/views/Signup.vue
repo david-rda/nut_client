@@ -13,7 +13,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="identification_code">საიდენტიფიკაციო კოდი</label>
-                            <input type="number" v-model="formData.identification_code" id="identification_code" class="form-control border">
+                            <input type="number" min="0" onkeypress="if(this.value.length === 9) return false" v-model="formData.identification_code" id="identification_code" class="form-control border">
                         </div>
                         <div class="mb-3">
                             <label for="legal_address">იურიდიული მისამართი</label>
@@ -31,7 +31,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="personal_id">კომპანიის წარმომადგენლის პირადი ნომერი</label>
-                            <input type="text" v-model="formData.personal_id" id="personal_id" class="form-control border">
+                            <input type="text" v-model="formData.personal_id" id="personal_id" onkeypress="if(this.value.length === 11)" class="form-control border">
                         </div>
                         <div class="mb-3">
                             <label for="email">კომპანიის წარმომადგენლის ელ.&nbsp;ფოსტა</label>
@@ -39,7 +39,7 @@
                         </div>
                         <div class="">
                             <label for="mobile">კომპანიის წარმომადგენლის ტელეფონის ნომერი</label>
-                            <input type="number" v-model="formData.mobile" id="mobile" class="form-control border">
+                            <input type="number" min="0" onkeypress="if(this.value.length === 9) return false" v-model="formData.mobile" id="mobile" class="form-control border">
                         </div>
                     </div>
                     <div class="col-12">

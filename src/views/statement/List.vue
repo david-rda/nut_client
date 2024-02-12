@@ -219,7 +219,7 @@
             },
 
             viewPdf(event) {
-                window.open('http://localhost:8000/api/statement/pdf/' + event.target.getAttribute("data-id"));
+                window.open('https://nuts.rda.gov.ge/api/statement/pdf/' + event.target.getAttribute("data-id"));
             },
 
             getResults(page = 1) {
