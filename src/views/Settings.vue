@@ -5,6 +5,7 @@
         <div class="container" style="margin-top: 10%">
             <div class="row justify-content-center">
                 <div class="col-md-6">
+                    <h5 class="text-muted text-center">პაროლის ცვლილება</h5>
                     <form @submit.prevent="changePassword()">
                         <div class="form-group mb-3">
                             <label for="currentPassword">მიმდინარე პაროლი</label>

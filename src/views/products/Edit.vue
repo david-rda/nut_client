@@ -78,7 +78,7 @@
                 this.disabled = true;
                 this.loader = true;
                 
-                axios.put('/product/edit/' + this.$route.params.id, { title: this.title, status : this.status }, {
+                axios.post('/product/edit/' + this.$route.params.id, { title: this.title, status : this.status }, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }
@@ -89,6 +89,10 @@
                         title : "პროდუქტი დარედაქტირდა",
                         icon : "success",
                     });
+
+                    setTimeout(() => {
+                        this.$router.back();
+                    }, 2000);
                     
                     this.disabled = false;
                     this.loader = false;

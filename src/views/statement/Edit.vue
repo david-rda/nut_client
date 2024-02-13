@@ -58,9 +58,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item, index) in formData.statement_products" :key="index">
-                                    <td>{{ item.products.name }}</td>
-                                    <td>{{ item.price }}</td>
+                                <tr v-for="(item, index) in products" :key="index">
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.product_price }}</td>
                                     <td>
                                         <button type="button" class="btn btn-danger w-100" @click="removeField(index)">წაშლა</button>
                                     </td>
@@ -179,6 +179,14 @@
                 }
             }).then(response => {
                 this.formData = response.data;
+
+                response.data.statement_products.map((item, index) => {
+                    this.products.push({
+                        id : item.product_id,
+                        name : item.products.name,
+                        product_price : item.price
+                    })    
+                });
             }).catch(err => {
                 console.log(err);
             });
@@ -200,6 +208,7 @@
                 product_price : "",
 
                 formData : {},
+                products : [],
                 
                 files_details : [],
 
@@ -242,7 +251,7 @@
                 this.disabled = true;
                 this.loader = true;
 
-                axios.post("/statement/add", this.formData, {
+                axios.post("/statement/edit/" + this.$route.params.id, Object.assign(this.formData, {products : this.products}), {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }
@@ -266,8 +275,9 @@
             },
 
             addField() {
+                const _this_ = this;
                 if(this.selectedProduct != "" && this.product_price != "") {
-                    this.formData.products.push(
+                    this.products.push(
                         {
                             product_id : this.selectedProduct.id,
                             name : this.selectedProduct.name,
@@ -281,7 +291,7 @@
             },
 
             removeField(index) {
-                this.formData.statement_products.splice(index, 1);
+                this.products.splice(index, 1);
             }
         }
     }

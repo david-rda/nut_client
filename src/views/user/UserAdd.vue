@@ -18,7 +18,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="mobile">ტელეფონის ნომერი</label>
-                                <input type="number" v-model="formData.mobile" id="mobile" class="form-control">
+                                <input type="number" min="0" onkeypress="if(this.value.length == 9) return false" v-model="formData.mobile" id="mobile" class="form-control">
                             </div>
                             <div class="mb-3">
                                 <label for="mobile">პაროლი</label>
@@ -85,6 +85,10 @@
                         title : "ოპერატორი დაემატა",
                         icon : "success",
                     });
+
+                    setTimeout(() => {
+                        this.$router.back()
+                    }, 2000);
 
                     this.disabled = false;
                     this.loader = false;

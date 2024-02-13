@@ -41,8 +41,8 @@
                                 <select class="form-select" v-model="formData.status">
                                     <option value="" selected disabled>სტატუსი</option>
                                     <option value="active">აქტიური</option>
-                                    <option value="inactive">არააქტიური</option>
-                                    <option value="pending">pending</option>
+                                    <option value="pending">არააქტიური</option>
+                                    <!-- <option value="pending">დაუდასტურებელი</option> -->
                                 </select>
                             </td>
                             <td>
@@ -94,12 +94,15 @@
                         <td>{{ data.email }}</td>
                         <td>{{ data.mobile }}</td>
                         <td>{{ data.personal_id }}</td>
-                        <td>{{ data.status }}</td>
+                        <td>{{ (data.status == 'pending') ? 'არააქტიური' : 'აქტიური' }}</td>
                         <td>{{ (data.permission == 'company') ? 'კომპანია' : (data.permission == 'coordinator') ? 'კოორდინატორი' : 'ოპერატორი' }}</td>
                         <td>
                             <router-link :to="'/user/edit/' + data.id" type="button" class="btn btn-warning" v-tippy="{ content: 'რედაქტირება' }">
-                                <BIconPencilSquare />
+                                <BIconPencilSquare style="pointer-events: none" />
                             </router-link>
+                            <button type="button" class="btn btn-success ms-2" v-tippy="{ content: 'ავტორიზაციის დადასტურება' }" :data-user-id="data.id" @click="authorize($event)">
+                                <BIconCheckCircle style="pointer-events: none" />
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -152,6 +155,25 @@
                     }
                 }).then(response => {
                     this.users = response.data;
+                }).catch(err => {
+                    console.log(err);
+                })
+            },
+
+            authorize(event) {
+                const user_id = Number(event.target.getAttribute("data-user-id"));
+
+                axios.get("/user/change/status/" + user_id, {
+                    headers : {
+                        "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
+                    }
+                }).then(response => {
+                    this.$swal({
+                        title : "მოთხოვნა შესრულდა",
+                        icon : "success",
+                    });
+
+                    this.users = response.data.users;
                 }).catch(err => {
                     console.log(err);
                 })

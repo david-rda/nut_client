@@ -12,6 +12,7 @@
                             <th>მაღაზიის მისამართი</th>
                             <th>სახელი, გვარი</th>
                             <th>ჯამური თანხა</th>
+                            <th>ბარათის ნომერი</th>
                             <th>სტატუსი</th>
                             <th>ქმედება</th>
                         </tr>
@@ -34,11 +35,16 @@
                                 <input type="number" min="0" class="form-control" placeholder="ჯამური თანხა" v-model="formData.full_amount">
                             </td>
                             <td>
+                                <input type="number" placeholder="ბოლო 4 ციფრი" min="0" onkeypress="if(this.value.length == 4) return false" class="form-control" v-model="formData.card_number">
+                            </td>
+                            <td>
                                 <select class="form-select" v-model="formData.status">
                                     <option value="" selected disabled>სტატუსი</option>
-                                    <option value="operator">გადაწერილია ოპერატორზე</option>
+                                    <option value="operator" v-if="user.permission != 'company'">გადაწერილია ოპერატორზე</option>
                                     <option value="new">ახალი</option>
-                                    <option value="correction">დახარვეზებული</option>
+                                    <option value="rejected">დახარვეზებული</option>
+                                    <option value="stopped">შეჩერებული</option>
+                                    <option value="approved">დადასტურებული</option>
                                 </select>
                             </td>
                             <td>
@@ -74,6 +80,7 @@
                             <th>მაღაზიის მისამართი</th>
                             <th>სახელი, გვარი</th>
                             <th>ჯამური თანხა</th>
+                            <th>ბარათის ნომერი</th>
                             <th>სტატუსი</th>
                             <th>ქმედება</th>
                         </tr>
@@ -88,7 +95,8 @@
                             <td>{{ data?.store_address }}</td>
                             <td>{{ data?.beneficiary_name }}</td>
                             <td>{{ data?.full_amount }}</td>
-                            <td>{{ (data?.status == "new") ? 'ახალია' : (data?.status == "operator") ? 'გადაწერილია ოპერატორზე' : (data?.status == "correction") ? 'დახარვეზებულია' : '' }}</td>
+                            <td>{{ data?.card_number }}</td>
+                            <td>{{ (data?.status == "new") ? 'ახალი' : (data?.status == "operator") ? 'გადაწერილია ოპერატორზე' : (data?.status == "rejected") ? 'დახარვეზებული' : 'დადასტურებული' }}</td>
                             <td class="d-flex gap-1">
                                 <router-link :to="'/statement/read/' + data?.id" type="button" class="btn btn-success" v-tippy="{ content: 'დათვალიერება' }">
                                     <BIconTicketDetailed style="pointer-events:none" />
@@ -96,14 +104,14 @@
                                 <button type="button" v-tippy="{ content: 'დოკუმენტის ნახვა' }" :data-id="data?.id" class="btn btn-warning" @click="viewPdf">
                                     <BIconFilePdf style="pointer-events:none" />
                                 </button>
-                                <router-link :to="'/statement/edit/' + data?.id" type="button" class="btn btn-success" v-tippy="{ content: 'რედაქტირება' }" v-if="data?.status == 'correction' && permission == 'company'">
+                                <router-link :to="'/statement/edit/' + data?.id" type="button" class="btn btn-success" v-tippy="{ content: 'რედაქტირება' }" v-if="data?.status == 'rejected' && permission == 'company'">
                                     <BIconPencilSquare style="pointer-events:none" />
                                 </router-link>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <div class="col-4">
+                <div class="col-4" v-if="permission == 'coordinator'">
                     <div class="d-flex">
                         <select class="form-select mb-3" v-model="operator">
                             <option value="" disabled selected>აირჩიეთ ოპერატორი</option>
@@ -152,7 +160,8 @@
                     store_address : "",
                     full_amount : "",
                     beneficiary_name : "",
-                    status : ""
+                    status : "",
+                    card_number : ""
                 },
 
                 selectedStatements : [],
@@ -193,7 +202,7 @@
             },
 
             changeStatus() {
-                axios.put("/statement/change/massive", {
+                axios.post("/statement/change/massive", {
                     operator_id : this.operator,
                     statements : this.selectedStatements
                 }, {

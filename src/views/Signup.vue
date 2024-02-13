@@ -31,7 +31,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="personal_id">კომპანიის წარმომადგენლის პირადი ნომერი</label>
-                            <input type="text" v-model="formData.personal_id" id="personal_id" onkeypress="if(this.value.length === 11)" class="form-control border">
+                            <input type="text" v-model="formData.personal_id" id="personal_id" onkeypress="if(this.value.length === 11) return false" class="form-control border">
                         </div>
                         <div class="mb-3">
                             <label for="email">კომპანიის წარმომადგენლის ელ.&nbsp;ფოსტა</label>

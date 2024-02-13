@@ -37,7 +37,6 @@
     import MyHeader from "../components/Header.vue";
     import FlatPickr from "vue-flatpickr-component";
     import 'flatpickr/dist/flatpickr.css';
-    import axios from 'axios';
 
     export default {
         name : "MyReport",

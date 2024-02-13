@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import { BIconPencilSquare, BIconTrash, BIconSearch, BIconFilePdf, BIconTicketDetailed, BIconClockHistory } from "bootstrap-icons-vue";
+import { BIconPencilSquare, BIconTrash, BIconSearch, BIconFilePdf, BIconTicketDetailed, BIconClockHistory, BIconCheckCircle } from "bootstrap-icons-vue";
 import VueSweetalert2 from "vue-sweetalert2";
 import 'sweetalert2/dist/sweetalert2.min.css';
 import router from './router/router';
@@ -21,6 +21,7 @@ app.component("BIconFilePdf", BIconFilePdf);
 app.component("BIconSearch", BIconSearch);
 app.component("BIconTicketDetailed", BIconTicketDetailed);
 app.component("BIconClockHistory", BIconClockHistory);
+app.component("BIconCheckCircle", BIconCheckCircle);
 
 app.use(
     VueTippy,

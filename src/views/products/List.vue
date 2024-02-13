@@ -21,7 +21,7 @@
                     <tr class="text-center" v-for="data in products" :key="data.id">
                         <td :class="(data.status == 'disabled') ? 'table-danger' : ''">{{ data.id }}</td>
                         <td :class="(data.status == 'disabled') ? 'table-danger' : ''">{{ data.name }}</td>
-                        <td :class="(data.status == 'disabled') ? 'table-danger' : ''">{{ (data.status == "disabled") ? 'აქტიურია' : 'არააქტიურია' }}</td>
+                        <td :class="(data.status == 'disabled') ? 'table-danger' : ''">{{ (data.status == "disabled") ? 'არააქტიურია' : 'აქტიურია' }}</td>
                         <td :class="(data.status == 'disabled') ? 'table-danger' : ''">
                             <router-link :to="'/product/edit/' + data.id" type="button" class="btn btn-warning" v-tippy="{ content: 'რედაქტირება' }">
                                 <BIconPencilSquare />

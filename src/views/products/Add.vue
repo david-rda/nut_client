@@ -7,8 +7,8 @@
                 <div class="col-md-6">
                     <form @submit.prevent="add">
                         <div class="form-group mb-3">
-                            <label for="currentPassword">პროდუქტის დასახელება</label>
-                            <input type="text" class="form-control" id="currentPassword" v-model="title">
+                            <label for="product_name">პროდუქტის დასახელება</label>
+                            <input type="text" class="form-control" id="product_name" v-model="title">
                         </div>
                         <div class="form-group mb-3">
                             <label for="status">სტატუსი</label>
@@ -66,6 +66,7 @@
             add() {
                 this.disabled = true;
                 this.loader = true;
+
                 axios.post('/product/add', { title: this.title, status : this.status }, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
@@ -79,6 +80,10 @@
                         title : "პროდუქტი დაემატა",
                         icon : "success",
                     });
+
+                    setTimeout(() => {
+                        this.$router.back();
+                    }, 2000);
                     
                     this.disabled = false;
                     this.loader = false;

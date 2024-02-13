@@ -33,7 +33,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="card_number">ბარათის ბოლო 4 ციფრი</label>
-                                <input type="number" min="0" v-model="formData.card_number" id="card_number" class="form-control">
+                                <input type="number" min="0" onkeypress="if(this.value.length == 4) return false" v-model="formData.card_number" id="card_number" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-5">
@@ -125,7 +125,7 @@
                         <div class="col-md-12 mb-3">
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-success" :disabled="disabled">
-                                    ზედნადების დამატება
+                                    განაცხადის გადაგზავნა
                                     <span v-if="loader" class="spinner-border spinner-border-sm"></span>
                                 </button>
                             </div>
@@ -163,7 +163,7 @@
         mounted() {
             document.title = "განაცხადის დამატება";
 
-            axios.get("/product/list", {
+            axios.get("/products", {
                 headers : {
                     "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                 }
@@ -227,7 +227,7 @@
                 const id = Number(event.target.getAttribute("data-id"));
                 const _this_ = this;
 
-                axios.delete("/statement/file/delete/" + id, {
+                axios.get("/statement/file/delete/" + id, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }

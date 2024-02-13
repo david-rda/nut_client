@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="navbar-brand">
                     <router-link to="/home" class="nav-link"><img src="../assets/RDA-Logo-Geo.png" style="width: 100px"></router-link>
                 </div>
@@ -12,7 +12,7 @@
                     <li class="nav-item" v-if="user.permission == 'coordinator'">
                         <router-link to="/product/list" class="nav-link">პროდუქტების მართვა</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="(user.permission == 'company' && user.status != 'pending') || user.permission == 'operator' || user.permission == 'coordinator'">
                         <router-link to="/statements" class="nav-link">განაცხადები</router-link>
                     </li>
                     <li class="nav-item" v-if="user.permission == 'coordinator' || user.permission == 'company'">
@@ -21,7 +21,7 @@
                 </ul>
                 <div class="ms-auto navbar-nav">
                     <div class="dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ user?.name }}</a>
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ (user?.permission == 'company') ? user?.company_name : user?.name }}</a>
                         <ul class="dropdown-menu">
                             <li>
                                 <router-link to="/settings" class="dropdown-item nav-link">პარამეტრები</router-link>

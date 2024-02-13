@@ -61,9 +61,9 @@
                         <div class="card p-3" v-if="permission == 'operator'">
                             <div class="col-12">
                                 <select class="form-select mb-3" v-model="status">
-                                    <option value="" disabled selected>აირციეთ სტატუსი</option>
+                                    <option value="" disabled selected>აირჩიეთ სტატუსი</option>
                                     <option value="approved">დადასტურებული</option>
-                                    <option value="rejected">უარყოფილი</option>
+                                    <option value="rejected">დახარვეზებული</option>
                                     <option value="stopped">შეჩერებული</option>
                                 </select>
                             </div>
@@ -84,8 +84,7 @@
                         <div class="card p-3 mb-3" v-if="permission == 'company'">
                             <div v-if="status == 'rejected' || status == 'stopped'">
                                 <div class="col-12 mb-3">
-                                    <textarea style="resize:none" :value="data.comment" class="form-control" placeholder="კომენტარი" disabled>
-                                    </textarea>
+                                    <textarea style="resize:none" :value="data.comment" class="form-control" placeholder="კომენტარი" disabled></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -184,7 +183,7 @@
 
         methods : {
             changeStatus() {
-                axios.put("/statement/change/status/" + this.$route.params.id, {
+                axios.post("/statement/change/status/" + this.$route.params.id, {
                     operator_id : this.operator,
                     comment : this.comment,
                     status : this.status,
