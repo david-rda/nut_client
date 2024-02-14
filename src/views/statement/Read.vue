@@ -28,6 +28,14 @@
                         <p><strong>მაღაზიის მისამართი:</strong> {{ data.store_address }}</p>
                         <p><strong>ბარათის ბოლო 4 ციფრი:</strong> {{ data.card_number }}</p>
                         <p><strong>ჯამური თანხა:</strong> {{ data.full_amount }}</p>
+                        <!-- <p>
+                            <strong>მიმაგრებული ფაილები:</strong>
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item" v-for="(item, index) in pdfUrl" :key="index">
+                                    <a :href="item" target="_blank" download="download">{{ 'ფაილი' }}</a>
+                                </li>
+                            </ul>
+                        </p> -->
 
                         <hr>
 
@@ -47,37 +55,41 @@
                         </table>
                         <div class="card p-3" v-if="permission == 'coordinator'">
                             <h5 class="text-center text-muted">ოპერატორზე გადაწერა</h5>
-                            <div class="col-12">
-                                <select class="form-select mb-3" v-model="operator">
-                                    <option value="" disabled selected>აირჩიეთ ოპერატორი</option>
-                                    <option :value="item.id" v-for="(item, index) in operators" :key="index">{{ item.name }}</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <button type="button" @click="changeStatus" class="btn btn-success">გადაწერა</button>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="form-select mb-3" v-model="operator">
+                                        <option value="" disabled selected>აირჩიეთ ოპერატორი</option>
+                                        <option :value="item.id" v-for="(item, index) in operators" :key="index">{{ item.name }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <button type="button" @click="changeStatus" class="btn btn-success">გადაწერა</button>
+                                </div>
                             </div>
                         </div>
 
                         <div class="card p-3" v-if="permission == 'operator'">
-                            <div class="col-12">
-                                <select class="form-select mb-3" v-model="status">
-                                    <option value="" disabled selected>აირჩიეთ სტატუსი</option>
-                                    <option value="approved">დადასტურებული</option>
-                                    <option value="rejected">დახარვეზებული</option>
-                                    <option value="stopped">შეჩერებული</option>
-                                </select>
-                            </div>
-
-                            <div v-if="status == 'rejected' || status == 'stopped'">
-                                <div class="col-12 mb-3">
-                                    <textarea style="resize:none" class="form-control" placeholder="კომენტარი" v-model="comment"></textarea>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="form-select mb-3" v-model="status">
+                                        <option value="" disabled selected>აირჩიეთ სტატუსი</option>
+                                        <option value="approved">დადასტურებული</option>
+                                        <option value="rejected">დახარვეზებული</option>
+                                        <option value="stopped">შეჩერებული</option>
+                                    </select>
                                 </div>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <button type="button" @click="changeStatus" class="btn btn-success">შენახვა</button>
-                            </div>
-                            <div class="form-group">
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" v-if="permission == 'coordinator'">ქმედებათა ისტორია&nbsp;<BIconClockHistory /></button>
+
+                                <div v-if="status == 'rejected' || status == 'stopped'">
+                                    <div class="col-12 mb-3">
+                                        <textarea style="resize:none" class="form-control" placeholder="კომენტარი" v-model="comment"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <button type="button" @click="changeStatus" class="btn btn-success">შენახვა</button>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" v-if="permission == 'coordinator'">ქმედებათა ისტორია&nbsp;<BIconClockHistory /></button>
+                                </div>
                             </div>
                         </div>
 
@@ -148,6 +160,8 @@
                 comment : "",
                 status : "",
 
+                pdfUrl : [],
+
                 loader_table : false
             }
         },
@@ -165,6 +179,12 @@
                 this.data = response.data;
                 this.status = response.data.status;
                 this.loader_table = false;
+
+                response.data.files.map((item, index) => {
+                    const blob = new Blob([item.file], { type: 'application/pdf' });
+                    this.pdfUrl.push(URL.createObjectURL(blob));
+                });
+
             }).catch(err => {
                 console.log(err);
                 this.loader_table = false;

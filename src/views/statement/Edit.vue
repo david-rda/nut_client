@@ -95,6 +95,14 @@
                                 }"
                                 v-bind:files="files"
                             />
+                            <div v-for="(data, index) in formData.files" :key="data.id">
+                                <div class="container">
+                                    <div class="d-flex justify-content-between align-items-center mt-2 rounded p-2 bg-dark bg-opacity-50 text-white">
+                                        <span style="font-family: sans-serif">{{ data.name }}</span>
+                                        <button class="times" type="button" :data-id="data.id" @click="deleteFile($event, index)">&times;</button>
+                                    </div>
+                                </div>
+                            </div>
                             <div v-for="(data, index) in files_details" :key="data.id">
                                 <div class="container">
                                     <div class="d-flex justify-content-between align-items-center mt-2 rounded p-2 bg-dark bg-opacity-50 text-white">
@@ -125,7 +133,7 @@
                         <div class="col-md-12 mb-3">
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-success" :disabled="disabled">
-                                    ზედნადების დამატება
+                                    განაცხადის გადაგზავნა
                                     <span v-if="loader" class="spinner-border spinner-border-sm"></span>
                                 </button>
                             </div>
@@ -163,7 +171,7 @@
         mounted() {
             document.title = "განაცხადის რედაქტირება";
 
-            axios.get("/product/list", {
+            axios.get("/products", {
                 headers : {
                     "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                 }
@@ -209,6 +217,7 @@
 
                 formData : {},
                 products : [],
+                file : [],
                 
                 files_details : [],
 
@@ -221,9 +230,7 @@
 
         methods : {
             handle(response) {
-                const _this_ = this;
-
-                this.formData.files.push(JSON.parse(response).id);
+                this.file.push(JSON.parse(response).id);
                 
                 this.files_details.push({
                     id : JSON.parse(response).id,
@@ -231,11 +238,11 @@
                 });
             },
 
-            deleteFile($event, index) {
+            deleteFile(event, index) {
                 const id = Number(event.target.getAttribute("data-id"));
                 const _this_ = this;
 
-                axios.delete("/statement/file/delete/" + id, {
+                axios.get("/statement/file/delete/" + id, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }
@@ -251,7 +258,7 @@
                 this.disabled = true;
                 this.loader = true;
 
-                axios.post("/statement/edit/" + this.$route.params.id, Object.assign(this.formData, {products : this.products}), {
+                axios.post("/statement/edit/" + this.$route.params.id, Object.assign(this.formData, {products : this.products, file : this.file}), {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }

@@ -11,6 +11,7 @@
                             <th>ზედნადების თარიღი</th>
                             <th>მაღაზიის მისამართი</th>
                             <th>სახელი, გვარი</th>
+                            <th>კომპანია</th>
                             <th>ჯამური თანხა</th>
                             <th>ბარათის ნომერი</th>
                             <th>სტატუსი</th>
@@ -30,6 +31,9 @@
                             </td>
                             <td>
                                 <input type="email" class="form-control" placeholder="სახელი, გვარი" v-model="formData.beneficiary_name">
+                            </td>
+                            <td>
+                                <input type="email" class="form-control" placeholder="კომპანია" v-model="formData.company_name">
                             </td>
                             <td>
                                 <input type="number" min="0" class="form-control" placeholder="ჯამური თანხა" v-model="formData.full_amount">
@@ -79,6 +83,7 @@
                             <th>ზედნადების თარიღი</th>
                             <th>მაღაზიის მისამართი</th>
                             <th>სახელი, გვარი</th>
+                            <th>კომპანია</th>
                             <th>ჯამური თანხა</th>
                             <th>ბარათის ნომერი</th>
                             <th>სტატუსი</th>
@@ -94,6 +99,7 @@
                             <td>{{ data?.overhead_date }}</td>
                             <td>{{ data?.store_address }}</td>
                             <td>{{ data?.beneficiary_name }}</td>
+                            <td>{{ data?.company_name }}</td>
                             <td>{{ data?.full_amount }}</td>
                             <td>{{ data?.card_number }}</td>
                             <td>{{ (data?.status == "new") ? 'ახალი' : (data?.status == "operator") ? 'გადაწერილია ოპერატორზე' : (data?.status == "rejected") ? 'დახარვეზებული' : 'დადასტურებული' }}</td>
@@ -160,6 +166,7 @@
                     store_address : "",
                     full_amount : "",
                     beneficiary_name : "",
+                    company_name : "",
                     status : "",
                     card_number : ""
                 },

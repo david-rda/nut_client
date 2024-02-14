@@ -6,6 +6,17 @@
             <div class="row justify-content-center">
                 <span class="spinner-border spinner-border" v-if="loader"></span>
             </div>
+            
+            <div class="row justify-content-center">
+                <p style="user-select:none"><strong>სახელი:&nbsp;</strong>{{ permission == 'company' ? user.company_name : user.name }}</p>
+                <p style="user-select:none"><strong>მობილური:&nbsp;</strong>{{ user.mobile }}</p>
+                <p style="user-select:none"><strong>ელ. ფოსტა:&nbsp;</strong>{{ user.email }}</p>
+                <p style="user-select:none">
+                    <strong>ანგარიშის სტატუსი:&nbsp;</strong>
+                    <span class="badge bg-success">{{ (user.status == 'pending' ? 'დუდასტურებელი' : 'აქტიური') }}</span>
+                </p>
+            </div>
+
             <div class="row" v-if="loader == false">
                 <div class="col-3">
                     <div class="card">
@@ -68,6 +79,7 @@ import axios from 'axios';
             return {
                 user_id : JSON.parse(window.localStorage.getItem("user")).user_id,
                 permission : JSON.parse(window.localStorage.getItem("user")).permission,
+                user : JSON.parse(window.localStorage.getItem("user")),
 
                 data : [],
 
