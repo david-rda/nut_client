@@ -15,6 +15,7 @@
                         <th>ID</th>
                         <th>დასახელება</th>
                         <th>სტატუსი</th>
+                        <th>განახლების თარიღი</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,6 +23,7 @@
                         <td :class="(data.status == 'disabled') ? 'table-danger' : ''">{{ data.id }}</td>
                         <td :class="(data.status == 'disabled') ? 'table-danger' : ''">{{ data.name }}</td>
                         <td :class="(data.status == 'disabled') ? 'table-danger' : ''">{{ (data.status == "disabled") ? 'არააქტიურია' : 'აქტიურია' }}</td>
+                        <td :class="(data.status == 'disabled') ? 'table-danger' : ''">{{ new Date(data.updated_at).toISOString().split('T')[0] }}</td>
                         <td :class="(data.status == 'disabled') ? 'table-danger' : ''">
                             <router-link :to="'/product/edit/' + data.id" type="button" class="btn btn-warning" v-tippy="{ content: 'რედაქტირება' }">
                                 <BIconPencilSquare />

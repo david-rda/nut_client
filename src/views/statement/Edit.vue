@@ -62,7 +62,7 @@
                                     <td>{{ item.name }}</td>
                                     <td>{{ item.product_price }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-danger w-100" @click="removeField(index)">წაშლა</button>
+                                        <button type="button" class="btn btn-danger w-100" data-bs-target="#confirmationModal" data-bs-toggle="modal" @click="setId(index)">წაშლა</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -77,8 +77,7 @@
                             <label class="d-block mb-2">ზედნადების ატვირთვა</label>
                             <file-pond
                                 name="files"
-                                label-idle="ატვირთეთ/ჩააგდეთ ფაილები აქ ..."
-                                v-bind:allow-multiple="true"
+                                label-idle="ატვირთეთ/ჩააგდეთ ფაილი აქ ..."
                                 :acceptedFileTypes="['application/pdf']"
                                 :server="{
                                     url : '',
@@ -141,6 +140,24 @@
                     </form>
                     <div v-for="(item, index) in errors" :key="index" class="alert alert-danger">
                         <strong>{{ item[0] }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="confirmationModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">გთხოვთ დაადასტუროთ</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ნამდვიად გსურთ წაშლა?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">არა</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @click="removeField">კი</button>
                     </div>
                 </div>
             </div>
@@ -229,6 +246,10 @@
         },
 
         methods : {
+            setId(index) {
+                this.id = index;
+            },
+
             handle(response) {
                 this.file.push(JSON.parse(response).id);
                 
@@ -257,6 +278,8 @@
             editStatement() {
                 this.disabled = true;
                 this.loader = true;
+                const _this_ = this;
+
 
                 axios.post("/statement/edit/" + this.$route.params.id, Object.assign(this.formData, {products : this.products, file : this.file}), {
                     headers : {
@@ -271,6 +294,10 @@
                     this.$refs.statement_form.reset();
                     this.disabled = false;
                     this.loader = false;
+
+                    setTimeout(() => {
+                        this.$router.back()
+                    }, 1000);
                 }).catch(err => {
                     if(err instanceof AxiosError) {
                         this.errors = err?.response?.data?.errors;

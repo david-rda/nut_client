@@ -2,7 +2,7 @@
     <div>
         <MyHeader />
 
-        <div class="container-fluid" style="margin-top: 84.5px">
+        <div class="container-fluid" style="margin-top: 75px">
             <div class="row justify-content-center mb-3">
                 <span class="spinner-border spinner-border" v-if="loader_table"></span>
             </div>
@@ -15,27 +15,20 @@
                             <button :class="(data.status == 'approved') ? 'btn btn-success' : (data.status == 'rejected') ? 'btn btn-danger' : (data.status == 'stopped') ? 'btn btn-warning' : (data.status == 'new') ? 'btn btn-primary' : (data.status == 'new') ? 'btn btn-info' : ''">
                                 {{ 
                                     (data.status == 'approved' ? 'დადასტურებული' : 
-                                    (data.status == 'rejected' ? 'უარყოფილი' : 
+                                    (data.status == 'rejected' ? 'დახარვეზებული' : 
                                     (data.status == 'stopped') ? 'შეჩერებული' : 
                                     (data.status == 'new') ? 'ახალი' : 
                                     (data.status == 'new') ? 'განსახილველი' : ''))
                                 }}
                             </button>
                         </div>
-                        <p><strong>ბენეფიციარის სახელი, გვარი:</strong> {{ data.beneficiary_name }}</p>
+                        <p><strong>კომპანიის სახელი:</strong> {{ data.company_name }}</p>
+                        <p><strong>მაღაზიის მისამართი:</strong> {{ data.store_address }}</p>
                         <p><strong>ზედნადების ნომერი:</strong> {{ data.overhead_number }}</p>
                         <p><strong>ზედნადების თარიღი:</strong> {{ data.overhead_date }}</p>
-                        <p><strong>მაღაზიის მისამართი:</strong> {{ data.store_address }}</p>
+                        <p><strong>ბენეფიციარის სახელი, გვარი:</strong> {{ data.beneficiary_name }}</p>
                         <p><strong>ბარათის ბოლო 4 ციფრი:</strong> {{ data.card_number }}</p>
                         <p><strong>ჯამური თანხა:</strong> {{ data.full_amount }}</p>
-                        <!-- <p>
-                            <strong>მიმაგრებული ფაილები:</strong>
-                            <ul class="list-group mb-3">
-                                <li class="list-group-item" v-for="(item, index) in pdfUrl" :key="index">
-                                    <a :href="item" target="_blank" download="download">{{ 'ფაილი' }}</a>
-                                </li>
-                            </ul>
-                        </p> -->
 
                         <hr>
 
@@ -53,22 +46,8 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="card p-3" v-if="permission == 'coordinator'">
-                            <h5 class="text-center text-muted">ოპერატორზე გადაწერა</h5>
-                            <div class="row">
-                                <div class="col-12">
-                                    <select class="form-select mb-3" v-model="operator">
-                                        <option value="" disabled selected>აირჩიეთ ოპერატორი</option>
-                                        <option :value="item.id" v-for="(item, index) in operators" :key="index">{{ item.name }}</option>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <button type="button" @click="changeStatus" class="btn btn-success">გადაწერა</button>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="card p-3" v-if="permission == 'operator'">
+                        <div class="card p-3" style="height: 400px !important" v-if="permission == 'operator'">
                             <div class="row">
                                 <div class="col-12">
                                     <select class="form-select mb-3" v-model="status">
@@ -87,8 +66,30 @@
                                 <div class="col-12 mb-3">
                                     <button type="button" @click="changeStatus" class="btn btn-success">შენახვა</button>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <button type="button" class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" v-if="permission == 'coordinator'">ქმედებათა ისტორია&nbsp;<BIconClockHistory /></button>
+                                </div>
+
+                                <h6 class="text-muted text-center">ისტორია</h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th v-if="permission != 'company'">ოპერატორი</th>
+                                            <th>კომენტარი</th>
+                                            <th>თარიღი</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(item, index) in data.logs" :key="index">
+                                            <td v-if="permission != 'company'">{{ item.operator_data?.name }}</td>
+                                            <td>{{ item.comment }}</td>
+                                            <td>{{ item.created_at.split('T')[0] }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div v-for="(item, index) in errors" :key="index" class="alert alert-danger">
+                                    <strong>{{ item[0] }}</strong>
                                 </div>
                             </div>
                         </div>
@@ -96,17 +97,38 @@
                         <div class="card p-3 mb-3" v-if="permission == 'company'">
                             <div v-if="status == 'rejected' || status == 'stopped'">
                                 <div class="col-12 mb-3">
+                                    <p class="mb-1">კომენტარი</p>
                                     <textarea style="resize:none" :value="data.comment" class="form-control" placeholder="კომენტარი" disabled></textarea>
                                 </div>
                             </div>
+
+                            <h6 class="text-muted text-center">ისტორია</h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th v-if="permission != 'company'">ოპერატორი</th>
+                                            <th>კომენტარი</th>
+                                            <th>თარიღი</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(item, index) in data.logs" :key="index">
+                                            <td v-if="permission != 'company'">{{ item.operator_data?.name }}</td>
+                                            <td>{{ item.comment }}</td>
+                                            <td>{{ item.created_at.split('T')[0] }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                        </div>
+                        <div class="card p-3 mb-3" v-if="permission == 'coordinator'">
                             <div class="form-group">
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" v-if="permission == 'coordinator'">ქმედებათა ისტორია&nbsp;<BIconClockHistory /></button>
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">ქმედებათა ისტორია&nbsp;<BIconClockHistory /></button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-6">
-                    <iframe width="100%" height="100%" :src="'https://nuts.rda.gov.ge/api/statement/pdf/' + this.$route.params.id"></iframe>
+                    <iframe :src="pdfUrl" type="application/pdf" width="100%" height="100%" :title="title"></iframe>
                 </div>
             </div>
         </div>
@@ -119,14 +141,14 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>ოპერატორი</th>
+                            <th v-if="permission != 'company'">ოპერატორი</th>
                             <th>კომენტარი</th>
                             <th>თარიღი</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(item, index) in data.logs" :key="index">
-                            <td>{{ item.operator_data.name }}</td>
+                            <td v-if="permission != 'company'">{{ item.operator_data?.name }}</td>
                             <td>{{ item.comment }}</td>
                             <td>{{ item.created_at.split('T')[0] }}</td>
                         </tr>
@@ -134,12 +156,30 @@
                 </table>
             </div>
         </div>
+
+        <div class="modal fade" id="confirmationModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">გთხოვთ დაადასტუროთ</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ნამდვიად გსურთ წაშლა?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">არა</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @click="deleteProduct">კი</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     import MyHeader from "../../components/Header.vue";
-    import axios from "axios";
+    import axios, { AxiosError } from "axios";
 
     export default {
         name : "StatementRead",
@@ -160,7 +200,10 @@
                 comment : "",
                 status : "",
 
-                pdfUrl : [],
+                pdfUrl : "",
+                title : "",
+
+                errors : [],
 
                 loader_table : false
             }
@@ -179,11 +222,9 @@
                 this.data = response.data;
                 this.status = response.data.status;
                 this.loader_table = false;
+                this.title = response.data.files.name;
 
-                response.data.files.map((item, index) => {
-                    const blob = new Blob([item.file], { type: 'application/pdf' });
-                    this.pdfUrl.push(URL.createObjectURL(blob));
-                });
+                this.pdfUrl = "data:application/pdf;base64," + response.data.files.file;
 
             }).catch(err => {
                 console.log(err);
@@ -217,7 +258,9 @@
                         icon : "success",
                     });
                 }).catch(err => {
-                    console.log(err);
+                    if(err instanceof AxiosError) {
+                        this.errors = err?.response?.data?.errors;
+                    }
                 });
             }
         }

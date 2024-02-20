@@ -2,62 +2,51 @@
     <div>
         <MyHeader />
 
-        <div class="container" style="margin-top: 90px">
+        <div class="container" style="margin-top: 150px">
             <div class="row justify-content-center">
                 <span class="spinner-border spinner-border" v-if="loader"></span>
             </div>
             
             <div class="row justify-content-center">
-                <p style="user-select:none"><strong>სახელი:&nbsp;</strong>{{ permission == 'company' ? user.company_name : user.name }}</p>
-                <p style="user-select:none"><strong>მობილური:&nbsp;</strong>{{ user.mobile }}</p>
-                <p style="user-select:none"><strong>ელ. ფოსტა:&nbsp;</strong>{{ user.email }}</p>
-                <p style="user-select:none">
-                    <strong>ანგარიშის სტატუსი:&nbsp;</strong>
-                    <span class="badge bg-success">{{ (user.status == 'pending' ? 'დუდასტურებელი' : 'აქტიური') }}</span>
-                </p>
+                <div class="col-3">
+                    <p class="text-muted" v-if="permission == 'company'" style="user-select:none"><strong>კომპანიის დასახელება:&nbsp;</strong></p>
+                    <p class="text-muted" v-if="permission == 'company'" style="user-select:none;margin-top: 38px;margin-bottom:30px"><strong>საიდენტიფიკაციო კოდი:&nbsp;</strong></p>
+                    <p class="text-muted" v-if="permission != 'company'"><strong>მომხმარებელი:&nbsp;</strong></p>
+                    <p class="text-muted" :style="(permission == 'company') ? 'user-select:none' : 'user-select:none;margin-top: 33px'"><strong>ტელეფონის ნომერი:&nbsp;</strong></p>
+                    <p class="text-muted" :style="(permission == 'company') ? 'user-select:none;margin-top: 25px;' : 'user-select:none;margin-top: 32px'"><strong>ელ. ფოსტა:&nbsp;</strong></p>
+                    <p class="text-muted" style="user-select:none;margin-top: 38px">
+                        <strong>ანგარიშის სტატუსი:&nbsp;</strong>
+                    </p>
+                </div>
+                <div class="col-9">
+                    <p v-if="permission == 'company'" style="user-select:none">{{ user.company_name }}</p>
+                    <hr v-if="permission == 'company'">
+                    <p v-if="permission == 'company'" style="user-select:none">{{ user.identification_code }}</p>
+                    <p class="text-muted" v-if="permission != 'company'"> {{ user.name }}</p>
+                    <hr>
+                    <p style="user-select:none">{{ user.mobile }}</p>
+                    <hr>
+                    <p style="user-select:none">{{ user.email }}</p>
+                    <hr>
+                    <p style="user-select:none">
+                        <span class="badge bg-success">{{ (user.status == 'pending' ? 'დაუდასტურებელი' : 'აქტიური') }}</span>
+                    </p>
+                </div>
             </div>
-
+            <hr>
             <div class="row" v-if="loader == false">
                 <div class="col-3">
-                    <div class="card">
-                        <div class="card-header  d-flex align-items-center text-center">
-                            <h6 class="card-title">ახალი განაცხადების რაოდენობა</h6>
-                        </div>
-                        <div class="card-body text-center">
-                            <h1>{{ data.new }}</h1>
-                        </div>
-                    </div>
+                    <h6 class="text-muted"><strong>განაცხადები</strong></h6>
                 </div>
-
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-header  d-flex align-items-center text-center">
-                            <h6 class="card-title">დახარვეზებული განაცხადების რაოდენობა</h6>
-                        </div>
-                        <div class="card-body text-center">
-                            <h1>{{ data.rejected }}</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-header  d-flex align-items-center text-center">
-                            <h6 class="card-title">დადასტურებული განაცხადების რაოდენობა</h6>
-                        </div>
-                        <div class="card-body text-center">
-                            <h1>{{ data.approved }}</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-header  d-flex align-items-center text-center">
-                            <h6 class="card-title">შეჩერებული განაცხადების რაოდენობა</h6>
-                        </div>
-                        <div class="card-body text-center">
-                            <h1>{{ data.stopped }}</h1>
-                        </div>
-                    </div>
+                <div class="col-9">
+                    <p class="text-primary"><strong>ახალი&nbsp;&nbsp;</strong>{{ data.new }}</p>
+                    <hr>
+                    <p class="text-success"><strong>დადასტურებული&nbsp;&nbsp;</strong>{{ data.approved }}</p>
+                    <hr>
+                    <p class="text-warning"><strong>დახარვეზებული&nbsp;&nbsp;</strong>{{ data.rejected }}</p>
+                    <hr>
+                    <p class="text-danger"><strong>შეჩერებული&nbsp;&nbsp;</strong>{{ data.stopped }}</p>
+                    <hr>
                 </div>
             </div>
         </div>

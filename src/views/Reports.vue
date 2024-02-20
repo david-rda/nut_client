@@ -7,21 +7,12 @@
                 <div class="col-6">
                     <form @submit.prevent="report()">
                         <div class="form-group mb-3">
-                            <label for="datetime-picker1">საიდან</label>
+                            <label for="datetime-picker1">თარიღიდან</label>
                             <flat-pickr class="form-control" id="datetime-picker1" v-model="from" :config="flatpickrOptions"></flat-pickr>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="datetime-picker2">სადამდე</label>
+                            <label for="datetime-picker2">თარიღამდე</label>
                             <flat-pickr class="form-control" id="datetime-picker2" v-model="to" :config="flatpickrOptions"></flat-pickr>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="status">სადამდე</label>
-                            <select class="form-select" v-model="status" id="status">
-                                <option value="all" selected disabled>სტატუსი</option>
-                                <option value="operator">გადაწერილია ოპერატორზე</option>
-                                <option value="new">ახალი</option>
-                                <option value="correction">დახარვეზებული</option>
-                            </select>
                         </div>
                         <div class="form-group mb-3 d-grid">
                             <input type="submit" class="btn btn-success" value="ჩამოტვირთვა">
@@ -53,7 +44,6 @@
 
                 from : new Date().toISOString().split('T')[0],
                 to : new Date().toISOString().split('T')[0],
-                status : "all",
 
                 flatpickrOptions: {
                     enableTime: false,
@@ -68,7 +58,7 @@
 
         methods : {
             report() {
-                window.open("https://nuts.rda.gov.ge/api/statement/report/" + this.from + "/" + this.to + "/" + this.status + "/" + this.user_id);
+                window.open("https://nuts.rda.gov.ge/api/statement/report/" + this.from + "/" + this.to + "/" + this.user_id);
             }
         }
     }

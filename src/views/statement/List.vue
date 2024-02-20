@@ -7,11 +7,11 @@
                 <table class="table bg-white border rounded">
                     <thead>
                         <tr class="text-center">
+                            <th>კომპანია</th>
+                            <th>მაღაზიის მისამართი</th>
                             <th>ზედნადების ნომერი</th>
                             <th>ზედნადების თარიღი</th>
-                            <th>მაღაზიის მისამართი</th>
                             <th>სახელი, გვარი</th>
-                            <th>კომპანია</th>
                             <th>ჯამური თანხა</th>
                             <th>ბარათის ნომერი</th>
                             <th>სტატუსი</th>
@@ -21,19 +21,19 @@
                     <tbody>
                         <tr>
                             <td>
+                                <input type="text" class="form-control" placeholder="კომპანიის სახელი" v-model="formData.company_name">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="მაღაზიის მისამართი" v-model="formData.store_address">
+                            </td>
+                            <td>
                                 <input type="text" class="form-control" placeholder="ზედნადების ნომერი" v-model="formData.overhead_number">
                             </td>
                             <td>
                                 <flat-pickr class="form-control border" id="datetime-picker" :config="flatpickrOptions" v-model="formData.overhead_date"></flat-pickr>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="მაღაზიის მისამართი" v-model="formData.store_address">
-                            </td>
-                            <td>
                                 <input type="email" class="form-control" placeholder="სახელი, გვარი" v-model="formData.beneficiary_name">
-                            </td>
-                            <td>
-                                <input type="email" class="form-control" placeholder="კომპანია" v-model="formData.company_name">
                             </td>
                             <td>
                                 <input type="number" min="0" class="form-control" placeholder="ჯამური თანხა" v-model="formData.full_amount">
@@ -65,7 +65,7 @@
             <div class="d-flex w-100 justify-content-between align-items-center mb-3">
                 <h4 class="text-muted">განაცხადები</h4>
 
-                <router-link to="/statement/add" class="btn btn-success">ზედნადების დამატება</router-link>
+                <router-link to="/statement/add" class="btn btn-success" v-if="permission == 'company'">ზედნადების დამატება</router-link>
             </div>
             
             <div class="row justify-content-center mb-3">
@@ -79,11 +79,11 @@
                             <th class="text-center" v-if="permission == 'coordinator'">
                                 <input type="checkbox" @change="selectAllStatements" v-model="selectAll">
                             </th>
+                            <th>კომპანია</th>
+                            <th>მაღაზიის მისამართი</th>
                             <th>ზედნადების ნომერი</th>
                             <th>ზედნადების თარიღი</th>
-                            <th>მაღაზიის მისამართი</th>
                             <th>სახელი, გვარი</th>
-                            <th>კომპანია</th>
                             <th>ჯამური თანხა</th>
                             <th>ბარათის ნომერი</th>
                             <th>სტატუსი</th>
@@ -95,14 +95,17 @@
                             <td v-if="permission == 'coordinator'">
                                 <input type="checkbox" v-model="selectedStatements" :value="data.id">
                             </td>
+                            <td>{{ data?.company_name }}</td>
+                            <td>{{ data?.store_address }}</td>
                             <td>{{ data?.overhead_number }}</td>
                             <td>{{ data?.overhead_date }}</td>
-                            <td>{{ data?.store_address }}</td>
                             <td>{{ data?.beneficiary_name }}</td>
-                            <td>{{ data?.company_name }}</td>
                             <td>{{ data?.full_amount }}</td>
                             <td>{{ data?.card_number }}</td>
-                            <td>{{ (data?.status == "new") ? 'ახალი' : (data?.status == "operator") ? 'გადაწერილია ოპერატორზე' : (data?.status == "rejected") ? 'დახარვეზებული' : 'დადასტურებული' }}</td>
+                            <td>
+                                {{ (data?.status == "new") ? 'ახალი' : (data?.status == "operator") ? 'გადაწერილია ოპერატორზე' : (data?.status == "rejected") ? 'დახარვეზებული' : 'დადასტურებული' }}
+                                <span v-if="data.status == 'operator'" class="badge bg-primary">{{ data?.operator.name }}</span>
+                            </td>
                             <td class="d-flex gap-1">
                                 <router-link :to="'/statement/read/' + data?.id" type="button" class="btn btn-success" v-tippy="{ content: 'დათვალიერება' }">
                                     <BIconTicketDetailed style="pointer-events:none" />
@@ -162,7 +165,7 @@
 
                 formData : {
                     overhead_number : "",
-                    overhead_date : new Date(),
+                    overhead_date : "",
                     store_address : "",
                     full_amount : "",
                     beneficiary_name : "",

@@ -6,14 +6,14 @@
                 <table class="table table-hover bg-white border rounded">
                     <thead>
                         <tr class="text-center">
-                            <th>დასახელება</th>
+                            <th>კომპანიის დასახელება</th>
                             <th>ს/კ</th>
                             <th>სახელი, გვარი</th>
                             <th>ელ. ფოსტა</th>
                             <th>ტელეფონი</th>
                             <th>პ/ნ</th>
                             <th>სტატუსი</th>
-                            <th>ფერმიშენი</th>
+                            <th>ნებართვა</th>
                             <th>ქმედება</th>
                         </tr>
                     </thead>
@@ -47,7 +47,7 @@
                             </td>
                             <td>
                                 <select class="form-select" v-model="formData.permission">
-                                    <option value="" selected disabled>წვდომა</option>
+                                    <option value="" selected disabled>ნებართვა</option>
                                     <option value="coordinator">კოორდინატორი</option>
                                     <option value="company">კომპანია</option>
                                     <option value="operator">ოპერატორი</option>
@@ -65,7 +65,7 @@
             </div>
 
             <div class="d-flex justify-content-between mb-3 align-items-center">
-                <h4 class="text-muted">მოხმარებლების მართვა</h4>
+                <h4 class="text-muted">მომხმარებლის მართვა</h4>
 
                 <router-link to="/user/add" class="btn btn-success">ოპერატორის დამატება</router-link>
             </div>
@@ -74,14 +74,14 @@
                 <thead>
                     <tr class="text-center">
                         <th>ID</th>
-                        <th>დასახელება</th>
+                        <th>კომპანიის დასახელება</th>
                         <th>ს/კ</th>
                         <th>სახელი, გვარი</th>
                         <th>ელ. ფოსტა</th>
                         <th>ტელეფონი</th>
                         <th>პ/ნ</th>
                         <th>სტატუსი</th>
-                        <th>ფერმიშენი</th>
+                        <th>ნებართვა</th>
                         <th>ქმედება</th>
                     </tr>
                 </thead>
