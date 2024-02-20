@@ -103,8 +103,8 @@
                             <td>{{ data?.full_amount }}</td>
                             <td>{{ data?.card_number }}</td>
                             <td>
-                                {{ (data?.status == "new") ? 'ახალი' : (data?.status == "operator") ? 'გადაწერილია ოპერატორზე' : (data?.status == "rejected") ? 'დახარვეზებული' : 'დადასტურებული' }}
-                                <span v-if="data.status == 'operator'" class="badge bg-primary">{{ data?.operator.name }}</span>
+                                {{ (data?.status == "new") ? 'ახალი' : (data?.status == "operator" && permission != 'company') ? 'გადაწერილია ოპერატორზე' : (data?.status == "rejected") ? 'დახარვეზებული' : 'დადასტურებული' }}
+                                <span v-if="data.status == 'operator' && permission != 'company'" class="badge bg-primary">{{ data?.operator.name }}</span>
                             </td>
                             <td class="d-flex gap-1">
                                 <router-link :to="'/statement/read/' + data?.id" type="button" class="btn btn-success" v-tippy="{ content: 'დათვალიერება' }">
