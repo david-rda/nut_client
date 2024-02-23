@@ -103,7 +103,7 @@
                             <td>{{ data?.full_amount }}</td>
                             <td>{{ data?.card_number }}</td>
                             <td>
-                                {{ (data?.status == "new") ? 'ახალი' : (data?.status == "operator" && permission != 'company') ? 'გადაწერილია ოპერატორზე' : (data?.status == "rejected") ? 'დახარვეზებული' : 'დადასტურებული' }}
+                                {{ (data?.status == "new") ? 'ახალი' : (data?.status == "operator" && permission != 'company') ? 'გადაწერილია ოპერატორზე' : (data?.status == "rejected") ? 'დახარვეზებული' : (data?.status == "stopped") ? 'შეჩერებული' : (data?.status == "approved") ? 'დადასტურებული' : '' }}
                                 <span v-if="data.status == 'operator' && permission != 'company'" class="badge bg-primary">{{ data?.operator.name }}</span>
                             </td>
                             <td class="d-flex gap-1">
