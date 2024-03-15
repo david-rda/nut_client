@@ -13,7 +13,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="identification_code">საიდენტიფიკაციო კოდი</label>
-                            <input type="number" min="0" onkeypress="if(this.value.length === 9) return false" v-model="formData.identification_code" id="identification_code" class="form-control border">
+                            <input type="number" min="0" onkeypress="if(this.value.length === 11) return false" v-model="formData.identification_code" id="identification_code" class="form-control border">
                         </div>
                         <div class="mb-3">
                             <label for="legal_address">იურიდიული მისამართი</label>

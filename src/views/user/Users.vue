@@ -86,8 +86,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="text-center" v-for="data in users.data" :key="data.id">
-                        <td>{{ data.id }}</td>
+                    <tr class="text-center" v-for="(data, index) in users.data" :key="data.id">
+                        <td>{{ index + 1 }}</td>
                         <td>{{ data.company_name }}</td>
                         <td>{{ data.identification_code }}</td>
                         <td>{{ data.name }}</td>
