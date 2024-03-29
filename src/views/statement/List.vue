@@ -11,9 +11,9 @@
                             <th>მაღაზიის მისამართი</th>
                             <th>ზედნადების ნომერი</th>
                             <th>ზედნადების თარიღი</th>
-                            <th>სახელი, გვარი</th>
-                            <th>ჯამური თანხა</th>
-                            <th>ბარათის ნომერი</th>
+                            <th>აგრობარათის მფლობელი</th>
+                            <th>ჯამური აგროქულა</th>
+                            <th>აგრობარათის ნომერი</th>
                             <th>სტატუსი</th>
                             <th>ქმედება</th>
                         </tr>
@@ -73,6 +73,15 @@
             </div>
 
             <div class="row" v-if="loader_table == false">
+                <div class="col-4 ps-0" v-if="permission == 'coordinator'">
+                    <div class="d-flex">
+                        <select class="form-select mb-3" v-model="operator">
+                            <option value="" disabled selected>აირჩიეთ ოპერატორი</option>
+                            <option :value="item.id" v-for="(item, index) in operators" :key="index">{{ item.name }}</option>
+                        </select>
+                        <button type="button" @click="changeStatus" class="btn btn-success mb-2 ms-3" style="height: 39px">გადაწერა</button>
+                    </div>
+                </div>
                 <table class="table table-hover bg-white border rounded">
                     <thead>
                         <tr class="text-center">
@@ -83,9 +92,9 @@
                             <th>მაღაზიის მისამართი</th>
                             <th>ზედნადების ნომერი</th>
                             <th>ზედნადების თარიღი</th>
-                            <th>სახელი, გვარი</th>
-                            <th>ჯამური თანხა</th>
-                            <th>ბარათის ნომერი</th>
+                            <th>აგრობარათის მფლობელი</th>
+                            <th>ჯამური აგროქულა</th>
+                            <th>აგრობარათის ნომერი</th>
                             <th>სტატუსი</th>
                             <th>ქმედება</th>
                         </tr>
@@ -120,15 +129,6 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="col-4" v-if="permission == 'coordinator'">
-                    <div class="d-flex">
-                        <select class="form-select mb-3" v-model="operator">
-                            <option value="" disabled selected>აირჩიეთ ოპერატორი</option>
-                            <option :value="item.id" v-for="(item, index) in operators" :key="index">{{ item.name }}</option>
-                        </select>
-                        <button type="button" @click="changeStatus" class="btn btn-success mb-2 ms-3" style="height: 39px">გადაწერა</button>
-                    </div>
-                </div>
                 <Pagination v-model="page" :records="Number(statements.total)" :per-page="Number(statements.per_page)" @paginate="getResults" :hideCount="true" />
             </div>
         </div>

@@ -26,9 +26,9 @@
                         <p><strong>მაღაზიის მისამართი:</strong> {{ data.store_address }}</p>
                         <p><strong>ზედნადების ნომერი:</strong> {{ data.overhead_number }}</p>
                         <p><strong>ზედნადების თარიღი:</strong> {{ data.overhead_date }}</p>
-                        <p><strong>ბენეფიციარის სახელი, გვარი:</strong> {{ data.beneficiary_name }}</p>
-                        <p><strong>ბარათის ბოლო 4 ციფრი:</strong> {{ data.card_number }}</p>
-                        <p><strong>ჯამური თანხა:</strong> {{ data.full_amount }}</p>
+                        <p><strong>აგრობარათის მფლობელი:</strong> {{ data.beneficiary_name }}</p>
+                        <p><strong>აგრობარათის ბოლო 4 ციფრი:</strong> {{ data.card_number }}</p>
+                        <p><strong>ჯამური აგროქულა:</strong> {{ data.full_amount }}</p>
 
                         <hr>
 
@@ -127,8 +127,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6">
-                    <iframe :src="pdfUrl" type="application/pdf" width="100%" height="100%" :title="title"></iframe>
+                <div class="col-6" v-if="pdfUrl.name.split('.')[1] == 'pdf'">
+                    <iframe :src="'data:application/pdf;base64,' + pdfUrl.file" type="application/pdf" width="100%" height="100%" :title="title"></iframe>
+                </div>
+                <div class="col-6" v-if="pdfUrl.name.split('.')[1] == 'jpg' || pdfUrl.name.split('.')[1] == 'jpeg'">
+                    <img :src="'data:image/jpg;base64,' + pdfUrl.file" width="100%" height="100%" :title="title">
+                </div>
+                <div class="col-6" v-if="pdfUrl.name.split('.')[1] == 'png'">
+                    <img :src="'data:image/png;base64,' + pdfUrl.file" width="100%" height="100%" :title="title">
                 </div>
             </div>
         </div>
@@ -224,7 +230,7 @@
                 this.loader_table = false;
                 this.title = response.data.files.name;
 
-                this.pdfUrl = "data:application/pdf;base64," + response.data.files.file;
+                this.pdfUrl = response.data.files;
 
             }).catch(err => {
                 console.log(err);

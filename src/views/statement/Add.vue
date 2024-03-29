@@ -26,13 +26,13 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="beneficiary_name">სახელი, გვარი</label>
+                                <label for="beneficiary_name">აგრობარათის მფლობელი</label>
                                 <input type="text" v-model="formData.beneficiary_name" id="beneficiary_name" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="card_number">ბარათის ბოლო 4 ციფრი</label>
+                                <label for="card_number">აგრობარათის ბოლო 4 ციფრი</label>
                                 <input type="number" min="0" onkeypress="if(this.value.length == 4) return false" v-model="formData.card_number" id="card_number" class="form-control">
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                         </table>
 
                         <div class="col-md-12">
-                            <label for="amount" class="d-block mb-2">ჯამური თანხა</label>
+                            <label for="amount" class="d-block mb-2">ჯამური აგროქულა</label>
                             <input type="text" id="amount" class="form-control" v-model="formData.full_amount">
                         </div>
 

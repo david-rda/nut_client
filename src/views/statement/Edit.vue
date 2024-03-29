@@ -26,13 +26,13 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="beneficiary_name">სახელი, გვარი</label>
+                                <label for="beneficiary_name">აგრობარათის მფლობელი</label>
                                 <input type="text" v-model="formData.beneficiary_name" id="beneficiary_name" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="card_number">ბარათის ბოლო 4 ციფრი</label>
+                                <label for="card_number">აგრობარათის ბოლო 4 ციფრი</label>
                                 <input type="number" min="0" v-model="formData.card_number" id="card_number" class="form-control">
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                         </table>
 
                         <div class="col-md-12">
-                            <label for="amount" class="d-block mb-2">ჯამური თანხა</label>
+                            <label for="amount" class="d-block mb-2">ჯამური აგროქულა</label>
                             <input type="text" id="amount" class="form-control" v-model="formData.full_amount">
                         </div>
 
@@ -94,15 +94,13 @@
                                 }"
                                 v-bind:files="files"
                             />
-                            <div v-for="(data, index) in formData.files" :key="data.id">
-                                <div class="container">
-                                    <div class="d-flex justify-content-between align-items-center mt-2 rounded p-2 bg-dark bg-opacity-50 text-white">
-                                        <span style="font-family: sans-serif">{{ data.name }}</span>
-                                        <button class="times" type="button" :data-id="data.id" @click="deleteFile($event, index)">&times;</button>
-                                    </div>
+                            <div class="container">
+                                <div class="d-flex justify-content-between align-items-center mt-2 rounded p-2 bg-dark bg-opacity-50 text-white">
+                                    <span style="font-family: sans-serif">{{ formData.files.name }}</span>
+                                    <button class="times" type="button" :data-id="formData.files.id" @click="deleteFile($event, index)">&times;</button>
                                 </div>
                             </div>
-                            <div v-for="(data, index) in files_details" :key="data.id">
+                            <div v-for="(data, index) in files_details" :key="index">
                                 <div class="container">
                                     <div class="d-flex justify-content-between align-items-center mt-2 rounded p-2 bg-dark bg-opacity-50 text-white">
                                         <span style="font-family: sans-serif">{{ data.name }}</span>
@@ -204,6 +202,8 @@
                 }
             }).then(response => {
                 this.formData = response.data;
+
+                console.log(response.data.files.id);
 
                 response.data.statement_products.map((item, index) => {
                     this.products.push({

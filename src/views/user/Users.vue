@@ -96,7 +96,7 @@
                         <td>{{ data.personal_id }}</td>
                         <td>{{ (data.status == 'pending') ? 'არააქტიური' : 'აქტიური' }}</td>
                         <td>{{ (data.permission == 'company') ? 'კომპანია' : (data.permission == 'coordinator') ? 'კოორდინატორი' : 'ოპერატორი' }}</td>
-                        <td>
+                        <td class="d-flex gap-2">
                             <router-link :to="'/user/edit/' + data.id" type="button" class="btn btn-warning" v-tippy="{ content: 'რედაქტირება' }">
                                 <BIconPencilSquare style="pointer-events: none" />
                             </router-link>
