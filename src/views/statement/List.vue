@@ -39,7 +39,7 @@
                                 <input type="number" min="0" class="form-control" placeholder="ჯამური თანხა" v-model="formData.full_amount">
                             </td>
                             <td>
-                                <input type="number" placeholder="ბოლო 4 ციფრი" min="0" onkeypress="if(this.value.length == 4) return false" class="form-control" v-model="formData.card_number">
+                                <input type="text" placeholder="ბოლო 4 ციფრი" onkeypress="if(this.value.length == 4) return false" class="form-control" v-model="formData.card_number">
                             </td>
                             <td>
                                 <select class="form-select" v-model="formData.status">
@@ -109,19 +109,16 @@
                             <td>{{ data?.overhead_number }}</td>
                             <td>{{ data?.overhead_date }}</td>
                             <td>{{ data?.beneficiary_name }}</td>
-                            <td>{{ data?.full_amount }}</td>
+                            <td>{{ parseFloat(data?.full_amount).toFixed(2) }}</td>
                             <td>{{ data?.card_number }}</td>
                             <td>
                                 {{ (data?.status == "new") ? 'ახალი' : (data?.status == "operator" && permission != 'company') ? 'გადაწერილია ოპერატორზე' : (data?.status == "rejected") ? 'დახარვეზებული' : (data?.status == "stopped") ? 'შეჩერებული' : (data?.status == "approved") ? 'დადასტურებული' : '' }}
                                 <span v-if="data.status == 'operator' && permission != 'company'" class="badge bg-primary">{{ data?.operator.name }}</span>
                             </td>
-                            <td class="d-flex gap-1">
+                            <td class="d-flex gap-2">
                                 <router-link :to="'/statement/read/' + data?.id" type="button" class="btn btn-success" v-tippy="{ content: 'დათვალიერება' }">
                                     <BIconTicketDetailed style="pointer-events:none" />
                                 </router-link>
-                                <button type="button" v-tippy="{ content: 'დოკუმენტის ნახვა' }" :data-id="data?.id" class="btn btn-warning" @click="viewPdf">
-                                    <BIconFilePdf style="pointer-events:none" />
-                                </button>
                                 <router-link :to="'/statement/edit/' + data?.id" type="button" class="btn btn-success" v-tippy="{ content: 'რედაქტირება' }" v-if="data?.status == 'rejected' && permission == 'company'">
                                     <BIconPencilSquare style="pointer-events:none" />
                                 </router-link>
@@ -130,6 +127,15 @@
                     </tbody>
                 </table>
                 <Pagination v-model="page" :records="Number(statements.total)" :per-page="Number(statements.per_page)" @paginate="getResults" :hideCount="true" />
+                <div class="col-4 ps-0 mt-3" v-if="permission == 'coordinator'">
+                    <div class="d-flex">
+                        <select class="form-select mb-3" v-model="operator">
+                            <option value="" disabled selected>აირჩიეთ ოპერატორი</option>
+                            <option :value="item.id" v-for="(item, index) in operators" :key="index">{{ item.name }}</option>
+                        </select>
+                        <button type="button" @click="changeStatus" class="btn btn-success mb-2 ms-3" style="height: 39px">გადაწერა</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -212,21 +218,28 @@
             },
 
             changeStatus() {
-                axios.post("/statement/change/massive", {
-                    operator_id : this.operator,
-                    statements : this.selectedStatements
-                }, {
-                    headers : {
-                        "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
-                    }
-                }).then(response => {
+                if(this.operator == null || this.selectedStatements.length == 0) {
                     this.$swal({
-                        title : "მოთხოვნა შესრულდა",
-                        icon : "success",
+                        title : "მოთხოვნა ვერ შესრულდა",
+                        icon : "error",
                     });
-                }).catch(err => {
-                    console.log(err);
-                });
+                }else {
+                    axios.post("/statement/change/massive", {
+                        operator_id : this.operator,
+                        statements : this.selectedStatements
+                    }, {
+                        headers : {
+                            "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
+                        }
+                    }).then(response => {
+                        this.$swal({
+                            title : "მოთხოვნა შესრულდა",
+                            icon : "success",
+                        });
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                }
             },
 
             selectAllStatements() {

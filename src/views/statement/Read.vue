@@ -12,14 +12,15 @@
                     <div class="container">
                         <div class="d-flex justify-content-between">
                             <h1 class="d-inline-block">განაცხადი</h1>
-                            <button :class="(data.status == 'approved') ? 'btn btn-success' : (data.status == 'rejected') ? 'btn btn-danger' : (data.status == 'stopped') ? 'btn btn-warning' : (data.status == 'new') ? 'btn btn-primary' : (data.status == 'new') ? 'btn btn-info' : ''">
+                            <button :class="(data.status == 'approved') ? 'btn btn-success' : (data.status == 'rejected') ? 'btn btn-danger' : (data.status == 'stopped') ? 'btn btn-warning' : (data.status == 'new') ? 'btn btn-primary' : 'btn btn-info'">
                                 {{ 
                                     (data.status == 'approved' ? 'დადასტურებული' : 
                                     (data.status == 'rejected' ? 'დახარვეზებული' : 
                                     (data.status == 'stopped') ? 'შეჩერებული' : 
-                                    (data.status == 'new') ? 'ახალი' : 
-                                    (data.status == 'new') ? 'განსახილველი' : ''))
+                                    (data.status == 'new') ? 'ახალი' : 'გადაწერილია ოპერატორზე'
+                                    ))
                                 }}
+
                             </button>
                         </div>
                         <p><strong>კომპანიის სახელი:</strong> {{ data.company_name }}</p>
@@ -28,7 +29,7 @@
                         <p><strong>ზედნადების თარიღი:</strong> {{ data.overhead_date }}</p>
                         <p><strong>აგრობარათის მფლობელი:</strong> {{ data.beneficiary_name }}</p>
                         <p><strong>აგრობარათის ბოლო 4 ციფრი:</strong> {{ data.card_number }}</p>
-                        <p><strong>ჯამური აგროქულა:</strong> {{ data.full_amount }}</p>
+                        <p><strong>ჯამური აგროქულა:</strong> {{ parseFloat(data.full_amount).toFixed(2) }}</p>
 
                         <hr>
 
@@ -41,8 +42,8 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(item, index) in data.statement_products" :key="index">
-                                    <td>{{ item.products?.name }} </td>
-                                    <td>{{ item.price }} </td>
+                                    <td>{{ item.name }} </td>
+                                    <td>{{ parseFloat(item.price).toFixed(2) }} </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -88,7 +89,7 @@
                                     </tbody>
                                 </table>
 
-                                <div v-for="(item, index) in errors" :key="index" class="alert alert-danger">
+                                <div v-for="(item, index) in errors" :key="index" class="alert alert-danger border-0">
                                     <strong>{{ item[0] }}</strong>
                                 </div>
                             </div>
@@ -127,15 +128,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6" v-if="pdfUrl.name.split('.')[1] == 'pdf'">
-                    <iframe :src="'data:application/pdf;base64,' + pdfUrl.file" type="application/pdf" width="100%" height="100%" :title="title"></iframe>
-                </div>
-                <div class="col-6" v-if="pdfUrl.name.split('.')[1] == 'jpg' || pdfUrl.name.split('.')[1] == 'jpeg'">
-                    <img :src="'data:image/jpg;base64,' + pdfUrl.file" width="100%" height="100%" :title="title">
-                </div>
-                <div class="col-6" v-if="pdfUrl.name.split('.')[1] == 'png'">
-                    <img :src="'data:image/png;base64,' + pdfUrl.file" width="100%" height="100%" :title="title">
-                </div>
+                <!-- <div v-if="this.pdfUrl"> -->
+                    <div class="col-6" v-if="pdfUrl?.name?.split('.').at(-1) == 'pdf'">
+                        <iframe :src="'data:application/pdf;base64,' + pdfUrl.file" type="application/pdf" width="100%" height="100%" :title="title"></iframe>
+                    </div>
+                    <div class="col-6" v-if="pdfUrl?.name?.split('.').at(-1) == 'jpg' || pdfUrl.name?.split('.').at(-1) == 'jpeg'">
+                        <img :src="'data:image/jpg;base64,' + pdfUrl.file" width="100%" height="100%" :title="title">
+                    </div>
+                    <div class="col-6" v-if="pdfUrl?.name?.split('.').at(-1) == 'png'">
+                        <img :src="'data:image/png;base64,' + pdfUrl.file" width="100%" height="100%" :title="title">
+                    </div>
+                <!-- </div> -->
             </div>
         </div>
         <div class="offcanvas offcanvas-start w-50" id="offcanvasExample">

@@ -33,7 +33,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="card_number">აგრობარათის ბოლო 4 ციფრი</label>
-                                <input type="number" min="0" onkeypress="if(this.value.length == 4) return false" v-model="formData.card_number" id="card_number" class="form-control">
+                                <input type="text" onkeypress="if(this.value.length == 4) return false" v-model="formData.card_number" id="card_number" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-5">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="price" class="mb-1">ფასი</label>
-                            <input type="number" id="price" class="form-control" v-model="product_price">
+                            <input type="number" id="price" class="form-control" v-model="product_price" @paste="onPaste">
                         </div>
                         <div class="col-md-3">
                             <label class="d-block">ქმედება</label>
@@ -70,7 +70,8 @@
 
                         <div class="col-md-12">
                             <label for="amount" class="d-block mb-2">ჯამური აგროქულა</label>
-                            <input type="text" id="amount" class="form-control" v-model="formData.full_amount">
+                            <input type="text" id="amount" class="form-control" v-model="formData.full_amount" @paste="onPaste" @keyup="replaceComma">
+                            <span class="text-danger" v-if="pst">მონაცემი შეიყვანეთ ხელით!</span>
                         </div>
 
                         <div class="col-md-12">
@@ -130,7 +131,7 @@
                             </div>
                         </div>
                     </form>
-                    <div v-for="(item, index) in errors" :key="index" class="alert alert-danger">
+                    <div v-for="(item, index) in errors" :key="index" class="alert alert-danger border-0">
                         <strong>{{ item[0] }}</strong>
                     </div>
                 </div>
@@ -205,6 +206,7 @@
 
                 selectedProduct : "",
                 product_price : "",
+                pst : 0,
 
                 formData : {
                     overhead_number : "",
@@ -313,6 +315,18 @@
             setId(index) {
                 this.id = index;
             },
+
+            onPaste(event) {
+                var _this_ = this;
+                event.preventDefault();
+                console.log('Pasting is disabled.');
+                _this_.pst = 1;
+            },
+
+            replaceComma() {
+                var _this_ = this;
+                _this_.formData.full_amount = _this_.formData.full_amount.replace(',', '.');
+            }
         }
     }
 </script>

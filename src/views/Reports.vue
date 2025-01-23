@@ -58,7 +58,7 @@
 
         methods : {
             report() {
-                window.open("https://nuts.rda.gov.ge/api/statement/report/" + this.from + "/" + this.to + "/" + this.user_id);
+                window.open("/api/statement/report/" + this.from + "/" + this.to + "/" + this.user_id);
             }
         }
     }

@@ -33,7 +33,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="card_number">აგრობარათის ბოლო 4 ციფრი</label>
-                                <input type="number" min="0" v-model="formData.card_number" id="card_number" class="form-control">
+                                <input type="text" v-model="formData.card_number" id="card_number" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-5">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="price" class="mb-1">ფასი</label>
-                            <input type="number" id="price" class="form-control" v-model="product_price">
+                            <input type="number" id="price" class="form-control" v-model="product_price" @paste="onPaste">
                         </div>
                         <div class="col-md-3">
                             <label class="d-block">ქმედება</label>
@@ -58,9 +58,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item, index) in products" :key="index">
+                                <tr v-for="(item, index) in formData.statement_products" :key="index">
                                     <td>{{ item.name }}</td>
-                                    <td>{{ item.product_price }}</td>
+                                    <td>{{ item.price }}</td>
                                     <td>
                                         <button type="button" class="btn btn-danger w-100" data-bs-target="#confirmationModal" data-bs-toggle="modal" @click="setId(index)">წაშლა</button>
                                     </td>
@@ -70,7 +70,7 @@
 
                         <div class="col-md-12">
                             <label for="amount" class="d-block mb-2">ჯამური აგროქულა</label>
-                            <input type="text" id="amount" class="form-control" v-model="formData.full_amount">
+                            <input type="text" id="amount" class="form-control" v-model="formData.full_amount" @paste="onPaste" @keyup="replaceComma">
                         </div>
 
                         <div class="col-md-12">
@@ -94,20 +94,20 @@
                                 }"
                                 v-bind:files="files"
                             />
-                            <div class="container">
+                            <div class="container" v-if="formData?.files" id="main">
                                 <div class="d-flex justify-content-between align-items-center mt-2 rounded p-2 bg-dark bg-opacity-50 text-white">
-                                    <span style="font-family: sans-serif">{{ formData.files.name }}</span>
-                                    <button class="times" type="button" :data-id="formData.files.id" @click="deleteFile($event, index)">&times;</button>
+                                    <span style="font-family: sans-serif">{{ formData?.files?.name }}</span>
+                                    <button class="times" type="button" :data-id="formData?.files?.id" @click="deleteFile($event, index)">&times;</button>
                                 </div>
                             </div>
-                            <div v-for="(data, index) in files_details" :key="index">
+                            <!-- <div v-for="(data, index) in files_details" :key="index">
                                 <div class="container">
                                     <div class="d-flex justify-content-between align-items-center mt-2 rounded p-2 bg-dark bg-opacity-50 text-white">
-                                        <span style="font-family: sans-serif">{{ data.name }}</span>
-                                        <button class="times" type="button" :data-id="data.id" @click="deleteFile($event, index)">&times;</button>
+                                        <span style="font-family: sans-serif">{{ data?.name }}</span>
+                                        <button class="times" type="button" :data-id="data?.id" @click="deleteFile($event, index)">&times;</button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="col-md-12" v-if="permission != 'company'">
@@ -136,7 +136,7 @@
                             </div>
                         </div>
                     </form>
-                    <div v-for="(item, index) in errors" :key="index" class="alert alert-danger">
+                    <div v-for="(item, index) in errors" :key="index" class="alert alert-danger border-0">
                         <strong>{{ item[0] }}</strong>
                     </div>
                 </div>
@@ -183,6 +183,36 @@
             FlatPickr
         },
 
+        data() {
+            return {
+                user_id : JSON.parse(window.localStorage.getItem("user")).user_id,
+                permission : JSON.parse(window.localStorage.getItem("user")).permission,
+
+                disabled : false,
+                loader : false,
+
+                errors : [],
+
+                id : "",
+
+                options : [],
+
+                selectedProduct : "",
+                product_price : "",
+
+                formData : {},
+                products : [],
+                file : [],
+                
+                files_details : [],
+
+                flatpickrOptions: {
+                    enableTime: false,
+                    dateFormat: 'Y-m-d',
+                },
+            }
+        },
+
         mounted() {
             document.title = "განაცხადის რედაქტირება";
 
@@ -203,46 +233,16 @@
             }).then(response => {
                 this.formData = response.data;
 
-                console.log(response.data.files.id);
-
                 response.data.statement_products.map((item, index) => {
                     this.products.push({
                         id : item.product_id,
-                        name : item.products.name,
+                        name : item.name,
                         product_price : item.price
                     })    
                 });
             }).catch(err => {
                 console.log(err);
             });
-        },
-
-        data() {
-            return {
-                user_id : JSON.parse(window.localStorage.getItem("user")).user_id,
-                permission : JSON.parse(window.localStorage.getItem("user")).permission,
-
-                disabled : false,
-                loader : false,
-
-                errors : [],
-
-                options : [],
-
-                selectedProduct : "",
-                product_price : "",
-
-                formData : {},
-                products : [],
-                file : [],
-                
-                files_details : [],
-
-                flatpickrOptions: {
-                    enableTime: false,
-                    dateFormat: 'Y-m-d',
-                },
-            }
         },
 
         methods : {
@@ -268,20 +268,23 @@
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }
                 }).then(response => {
-                    console.log(response.data);
+                    this.$swal({
+                        title : "ფაილი წაიშალა",
+                        icon : "success",
+                    });
 
-                    _this_.files_details.splice(index, 1);
-                    _this_.formData.files.splice(index, 1);
+                    // _this_.files_details.splice(index, 1);
+                    // _this_.formData.files.splice(index, 1);
+
+                    _this_.formData = response.data.data;
                 }).catch(err => console.log(err));
             },
 
             editStatement() {
                 this.disabled = true;
                 this.loader = true;
-                const _this_ = this;
 
-
-                axios.post("/statement/edit/" + this.$route.params.id, Object.assign(this.formData, {products : this.products, file : this.file}), {
+                axios.post("/statement/edit/" + this.$route.params.id, Object.assign(this.formData, {file : this.file}), {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }
@@ -296,7 +299,7 @@
                     this.loader = false;
 
                     setTimeout(() => {
-                        this.$router.back()
+                        document.location.href = "https://nuts.rda.gov.ge/statement/read/" + this.$route.params.id;
                     }, 1000);
                 }).catch(err => {
                     if(err instanceof AxiosError) {
@@ -310,22 +313,38 @@
 
             addField() {
                 const _this_ = this;
+
+
                 if(this.selectedProduct != "" && this.product_price != "") {
-                    this.products.push(
+                    this.formData.statement_products.push(
                         {
                             product_id : this.selectedProduct.id,
                             name : this.selectedProduct.name,
-                            product_price : this.product_price
+                            price : this.product_price
                         }
                     );
                 }
 
                 this.selectedProduct = "";
                 this.product_price = "";
+                
+                console.log(this.formData.statement_products);
             },
 
-            removeField(index) {
-                this.products.splice(index, 1);
+            removeField() {
+                this.formData.statement_products.splice(this.id, 1);
+            },
+
+            onPaste(event) {
+                var _this_ = this;
+                event.preventDefault();
+                console.log('Pasting is disabled.');
+                _this_.pst = 1;
+            },
+
+            replaceComma() {
+                var _this_ = this;
+                _this_.formData.full_amount = _this_.formData.full_amount.replace(',', '.');
             }
         }
     }

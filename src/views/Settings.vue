@@ -27,7 +27,7 @@
                         </div>
                     </form>
                     
-                    <div v-for="(item, index) in errors" :key="index" class="alert alert-danger">
+                    <div v-for="(item, index) in errors" :key="index" class="alert alert-danger border-0">
                         <strong>{{ item[0] }}</strong>
                     </div>
                 </div>
