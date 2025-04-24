@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 // კომპონენტები
-import LoginPanel from "../views/LoginPanel.vue";
+import Signin from "../views/Signin.vue";
 import SignUp from "../views/Signup.vue";
 import DashBoard from "../views/Dashboard.vue";
 import Settings from "../views/Settings.vue";
@@ -20,7 +20,7 @@ import MyReport from "../views/Reports.vue";
 const routes = [
     {
         path: "/",
-        component: LoginPanel
+        component: Signin
     },
     {
         path: "/signup",

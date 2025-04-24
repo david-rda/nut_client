@@ -2,100 +2,92 @@
     <div>
         <MyHeader />
 
-        <div class="container" style="margin-top: 90px">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 col-md-6 col-xs-12 col-sm-12 bg-white rounded p-5 border mt-5" v-if="formData.permission != 'operator'">
+        <div class="container mx-auto py-8 mt-25">
+            <div class="bg-white p-4 w-full rounded-md">
+                <div v-if="formData.permission != 'operator'">
                     <h4 class="text-secondary text-center mb-5">მომხმარებლის რედაქტირება</h4>
-                    <form @submit.prevent="edit()" class="row g-3">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="company_name">კომპანიის დასახელება</label>
-                                <input type="text" v-model="formData.company_name" id="company_name" class="form-control border" required>
-                                <h1 class="invalid-feedback">სავალი დასაპოვებელია</h1>
+                    <form @submit.prevent="edit()" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="col-span-1">
+                            <div class="mb-4">
+                                <label for="company_name" class="mb-1 block text-sm font-medium">კომპანიის დასახელება</label>
+                                <input type="text" v-model="formData.company_name" id="company_name" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20">
                             </div>
-                            <div class="mb-3">
-                                <label for="identification_code">საიდენტიფიკაციო კოდი</label>
-                                <input type="number" min="0" onkeypress="if(this.value.length == 9) return false" v-model="formData.identification_code" id="identification_code" class="form-control border">
+                            <div class="mb-4">
+                                <label for="identification_code" class="mb-1 block text-sm font-medium">საიდენტიფიკაციო კოდი</label>
+                                <input type="number" min="0" onkeypress="if(this.value.length == 9) return false" v-model="formData.identification_code" id="identification_code" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20">
                             </div>
-                            <div class="mb-3">
-                                <label for="legal_address">იურიდიული მისამართი</label>
-                                <input type="text" v-model="formData.legal_address" id="legal_address" class="form-control border">
+                            <div class="mb-4">
+                                <label for="legal_address" class="mb-1 block text-sm font-medium">იურიდიული მისამართი</label>
+                                <input type="text" v-model="formData.legal_address" id="legal_address" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20">
                             </div>
-                            <div class="">
-                                <label for="actual_address">ფაქტობრივი მისამართი</label>
-                                <input type="text" v-model="formData.actual_address" id="actual_address" class="form-control border">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="name">კომპანიის წარმომადგენლის სახელი, გვარი</label>
-                                <input type="text" v-model="formData.name" id="name" class="form-control border">
-                            </div>
-                            <div class="mb-3">
-                                <label for="personal_id">კომპანიის წარმომადგენლის პირადი ნომერი</label>
-                                <input type="text" min="0" onkeypress="if(this.value.length == 11) return false" v-model="formData.personal_id" id="personal_id" class="form-control border">
-                            </div>
-                            <div class="mb-3">
-                                <label for="email">კომპანიის წარმომადგენლის ელ.&nbsp;ფოსტა</label>
-                                <input type="email" v-model="formData.email" id="email" class="form-control border">
-                            </div>
-                            <div class="">
-                                <label for="mobile">კომპანიის წარმომადგენლის ტელეფონის ნომერი</label>
-                                <input type="number" min="0" onkeypress="if(this.value.length == 9) return false" v-model="formData.mobile" id="mobile" class="form-control border">
+                            <div class="mb-4">
+                                <label for="actual_address" class="mb-1 block text-sm font-medium">ფაქტობრივი მისამართი</label>
+                                <input type="text" v-model="formData.actual_address" id="actual_address" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20">
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="mb-3">
-                                <label for="password">პაროლი</label>
-                                <input type="password" v-model="formData.password" id="password" class="form-control border">
+                        <div class="col-span-1">
+                            <div class="mb-4">
+                                <label for="name" class="mb-1 block text-sm font-medium">კომპანიის წარმომადგენლის სახელი, გვარი</label>
+                                <input type="text" v-model="formData.name" id="name" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20">
+                            </div>
+                            <div class="mb-4">
+                                <label for="personal_id" class="mb-1 block text-sm font-medium">კომპანიის წარმომადგენლის პირადი ნომერი</label>
+                                <input type="text" min="0" onkeypress="if(this.value.length == 11) return false" v-model="formData.personal_id" id="personal_id" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="mb-1 block text-sm font-medium">კომპანიის წარმომადგენლის ელ.&nbsp;ფოსტა</label>
+                                <input type="email" v-model="formData.email" id="email" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20">
+                            </div>
+                            <div class="mb-4">
+                                <label for="mobile" class="mb-1 block text-sm font-medium">კომპანიის წარმომადგენლის ტელეფონის ნომერი</label>
+                                <input type="number" min="0" onkeypress="if(this.value.length == 9) return false" v-model="formData.mobile" id="mobile" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20">
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="d-grid mb-5">
-                                <button type="submit" class="btn btn-success" :disabled="disabled">
-                                    რედაქტირება
-                                    <span class="spinner-border spinner-border-sm" v-if="loader"></span>
-                                </button>
+                        <div class="col-span-1">
+                            <div class="mb-4">
+                                <label for="password" class="mb-1 block text-sm font-medium">პაროლი</label>
+                                <input type="password" v-model="formData.password" id="password" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20">
+                            </div>
+                            
+                        </div>
+                        <div class="col-span-1 flex items-end justify-start">
+                            <div class="mb-4 w-full">
+                                <button type="submit" class="w-full py-3 px-4 bg-green-900 text-white rounded-md hover:bg-green-800 disabled:opacity-20 cursor-pointer transition duration-200 disabled:cursor-not-allowed" :disabled="disabled">რედაქტირება</button>
                             </div>
                         </div>
                     </form>
-                    <div v-for="(item, index) in errors" :key="index" class="alert alert-danger">
-                        <strong>{{ item[0] }}</strong>
+
+                    <div v-for="(item, index) in errors" :key="index" class="bg-red-100 border-1 border-red-200 p-3 w-full mb-3 rounded-md select-none">
+                        <strong class="text-red-900">{{ item[0] }}</strong>
                     </div>
                 </div>
 
-                <div class="col-lg-8 col-md-6 col-xs-12 col-sm-12 bg-white rounded p-5 border mt-5" v-else>
-                    <h1 class="text-center text-muted">ოპერატორის რედაქტირება</h1>
+                <div v-else>
+                    <h1 class="text-center select-none mb-3">ოპერატორის რედაქტირება</h1>
                     <form @submit.prevent="editOperator()" class="row g-3">
-                        <div class="col-md-12">
-                            <div class="mb-3">
-                                <label for="name">ოპერატორის სახელი, გვარი</label>
-                                <input type="text" v-model="formData.name" id="name" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="email">ელ.&nbsp;ფოსტა</label>
-                                <input type="email" v-model="formData.email" id="email" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="mobile">ტელეფონის ნომერი</label>
-                                <input type="number" min="0" onkeypress="if(this.value.length == 9) return false" v-model="formData.mobile" id="mobile" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label for="mobile">პაროლი</label>
-                                <input type="password" v-model="formData.password" id="mobile" class="form-control">
-                            </div>
+                        <div class="mb-3">
+                            <label for="name">ოპერატორის სახელი, გვარი</label>
+                            <input type="text" v-model="formData.name" id="name" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled">
                         </div>
-                        <div class="col-md-12">
-                            <div class="d-grid mb-5">
-                                <button type="submit" class="btn btn-success" :disabled="disabled">
-                                    რედაქტირება
-                                    <span v-if="loader" class="spinner-border spinner-border-sm"></span>
-                                </button>
-                            </div>
+                        <div class="mb-3">
+                            <label for="email">ელ.&nbsp;ფოსტა</label>
+                            <input type="email" v-model="formData.email" id="email" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled">
+                        </div>
+                        <div class="mb-3">
+                            <label for="mobile">ტელეფონის ნომერი</label>
+                            <input type="number" min="0" onkeypress="if(this.value.length == 9) return false" v-model="formData.mobile" id="mobile" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled">
+                        </div>
+                        <div class="mb-3">
+                            <label for="mobile">პაროლი</label>
+                            <input type="password" v-model="formData.password" id="mobile" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled">
+                        </div>
+                    
+                        <div class="d-grid mb-5">
+                            <button type="submit" class="bg-green-900 text-white rounded-lg p-3 w-full cursor-pointer transition duration-200 disabled:opacity-20 disabled:cursor-not-allowed hover:bg-green-800 mb-3" :disabled="disabled">რედაქტირება</button>
                         </div>
                     </form>
-                    <div v-for="(item, index) in errors" :key="index" class="alert alert-danger border-0">
-                        <strong>{{ item[0] }}</strong>
+                    <div v-for="(item, index) in errors" :key="index" class="bg-red-100 border-1 border-red-200 p-3 w-full mb-3 rounded-md select-none border-0">
+                        <strong class="text-red-900">{{ item[0] }}</strong>
                     </div>
                 </div>
             </div>

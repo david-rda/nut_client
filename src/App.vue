@@ -14,16 +14,30 @@
 
     @font-face {
         font-family: "google-sans";
-        src: url("./fonts/google-sans.woff2");
+        src: url("./assets/fonts/google-sans.woff2");
     }
 
     @font-face {
         font-family: "firago";
-        src: url("./fonts/FiraGO-Regular.otf");
+        src: url("./assets/fonts/FiraGO-Regular.otf");
     }
 
     * {
         box-sizing: border-box;
         font-family: "firago" !important;
+    }
+
+    .bg-image {
+        background-image: url("./assets/images/village.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 0.5s ease;
+    }
+
+    .fade-enter-from, .fade-leave-to {
+        opacity: 0;
     }
 </style>

@@ -2,36 +2,33 @@
     <div>
         <MyHeader />
 
-        <div class="container" style="margin-top: 120px">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
+        <Transition name="fade" appear>
+            <div class="container mx-auto py-8 mt-25">
+                <div class="p-4 md:w-1/3 w-full rounded-md">
                     <form @submit.prevent="edit">
                         <div class="form-group mb-3">
                             <label for="currentPassword">პროდუქტის დასახელება</label>
-                            <input type="text" class="form-control" id="currentPassword" v-model="title">
+                            <input type="text" class="w-full p-3 border bg-white border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled" id="currentPassword" v-model="title">
                         </div>
                         <div class="form-group mb-3">
                             <label for="status">სტატუსი</label>
-                            <select class="form-select" id="status" v-model="status">
+                            <select class="w-full p-3 border bg-white border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled" id="status" v-model="status">
                                 <option value="" selected disabled>აირჩიეთ სტატუსი</option>
                                 <option value="enabled">აქტიურია</option>
                                 <option value="disabled">არააქტიურია</option>
                             </select>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-success" :disabled="disabled">
-                                რედაქტირება
-                                <span v-if="loader" class="spinner-border spinner-border-sm"></span>
-                            </button>
+                            <button type="submit" class="bg-green-900 text-white rounded-lg p-3 w-full cursor-pointer transition duration-200 disabled:opacity-20 disabled:cursor-not-allowed hover:bg-green-800 mb-3" :disabled="disabled">რედაქტირება</button>
                         </div>
                     </form>
 
-                    <div v-for="(item, index) in errors" :key="index" class="alert alert-danger mt-3 border-0">
-                        <strong>{{ item[0] }}</strong>
+                    <div v-for="(item, index) in errors" :key="index" class="bg-red-100 border-1 border-red-200 p-3 w-full mb-3 rounded-md select-none">
+                        <strong class="text-red-900">{{ item[0] }}</strong>
                     </div>
                 </div>
             </div>
-        </div>
+        </Transition>
     </div>
 </template>
 
@@ -89,10 +86,6 @@
                         title : "პროდუქტი დარედაქტირდა",
                         icon : "success",
                     });
-
-                    setTimeout(() => {
-                        this.$router.back();
-                    }, 2000);
                     
                     this.disabled = false;
                     this.loader = false;
@@ -105,7 +98,3 @@
         }
     };
 </script>
-
-<style scoped>
-    
-</style>

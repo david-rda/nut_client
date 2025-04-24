@@ -2,187 +2,199 @@
     <div>
         <MyHeader />
 
-        <div class="container-fluid" style="margin-top: 75px">
-            <div class="row justify-content-center mb-3">
-                <span class="spinner-border spinner-border" v-if="loader_table"></span>
-            </div>
-
-            <div class="row vh-100" v-if="loader_table == false">
-                <div class="col-6">
+        <div class="w-full h-screen pt-19">
+            <div class="h-full md:grid md:grid-cols-2">
+                <div class="p-3 h-full">
                     <div class="container">
-                        <div class="d-flex justify-content-between">
-                            <h1 class="d-inline-block">განაცხადი</h1>
-                            <button :class="(data.status == 'approved') ? 'btn btn-success' : (data.status == 'rejected') ? 'btn btn-danger' : (data.status == 'stopped') ? 'btn btn-warning' : (data.status == 'new') ? 'btn btn-primary' : 'btn btn-info'">
-                                {{ 
-                                    (data.status == 'approved' ? 'დადასტურებული' : 
-                                    (data.status == 'rejected' ? 'დახარვეზებული' : 
-                                    (data.status == 'stopped') ? 'შეჩერებული' : 
-                                    (data.status == 'new') ? 'ახალი' : 'გადაწერილია ოპერატორზე'
-                                    ))
-                                }}
+                        <button :class="(data.status == 'approved') ? 'p-3 bg-green-100 text-green-900 rounded-md' : (data.status == 'rejected') ? 'p-3 bg-red-100 text-red-900 rounded-md' : (data.status == 'stopped') ? 'p-3 bg-yellow-100 text-yellow-900 rounded-md' : (data.status == 'new') ? 'p-3 bg-blue-100 text-blue-900 rounded-md' : 'p-3 bg-blue-100 text-blue-900 rounded-md'">
+                            {{ 
+                                (data.status == 'approved' ? 'დადასტურებული' : 
+                                (data.status == 'rejected' ? 'დახარვეზებული' : 
+                                (data.status == 'stopped') ? 'შეჩერებული' : 
+                                (data.status == 'new') ? 'ახალი' : 'გადაწერილია ოპერატორზე'))
+                            }}
+                        </button>
 
-                            </button>
-                        </div>
-                        <p><strong>კომპანიის სახელი:</strong> {{ data.company_name }}</p>
-                        <p><strong>მაღაზიის მისამართი:</strong> {{ data.store_address }}</p>
-                        <p><strong>ზედნადების ნომერი:</strong> {{ data.overhead_number }}</p>
-                        <p><strong>ზედნადების თარიღი:</strong> {{ data.overhead_date }}</p>
-                        <p><strong>აგრობარათის მფლობელი:</strong> {{ data.beneficiary_name }}</p>
-                        <p><strong>აგრობარათის ბოლო 4 ციფრი:</strong> {{ data.card_number }}</p>
-                        <p><strong>ჯამური აგროქულა:</strong> {{ parseFloat(data.full_amount).toFixed(2) }}</p>
-
-                        <hr>
-
-                        <table class="table table-bordered bg-white border rounded-5">
-                            <thead>
-                                <tr>
-                                    <th>პროდუქტი</th>
-                                    <th>ფასი</th>
-                                </tr>
-                            </thead>
+                        <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden mt-5">
                             <tbody>
-                                <tr v-for="(item, index) in data.statement_products" :key="index">
-                                    <td>{{ item.name }} </td>
-                                    <td>{{ parseFloat(item.price).toFixed(2) }} </td>
+                                <tr>
+                                    <td class="px-4 py-2 font-semibold text-gray-900 border-r border-r-gray-200 bg-white">კომპანიის სახელი:</td>
+                                    <td class="px-4 py-2 bg-white">{{ data.company_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 font-semibold text-gray-900 border-r border-r-gray-200 bg-white">მაღაზიის მისამართი:</td>
+                                    <td class="px-4 py-2 bg-white">{{ data.store_address }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 font-semibold text-gray-900 border-r border-r-gray-200 bg-white">ზედნადების ნომერი:</td>
+                                    <td class="px-4 py-2 bg-white">{{ data.overhead_number }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 font-semibold text-gray-900 border-r border-r-gray-200 bg-white">ზედნადების თარიღი:</td>
+                                    <td class="px-4 py-2 bg-white">{{ data.overhead_date }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 font-semibold text-gray-900 border-r border-r-gray-200 bg-white">აგრობარათის მფლობელი:</td>
+                                    <td class="px-4 py-2 bg-white">{{ data.beneficiary_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 font-semibold text-gray-900 border-r border-r-gray-200 bg-white">აგრობარათის ბოლო 4 ციფრი:</td>
+                                    <td class="px-4 py-2 bg-white">{{ data.card_number }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 font-semibold text-gray-900 border-r border-r-gray-200 bg-white">ჯამური აგროქულა:</td>
+                                    <td class="px-4 py-2 bg-white">{{ parseFloat(data.full_amount).toFixed(2) }}</td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <div class="card p-3" style="height: 400px !important" v-if="permission == 'operator'">
-                            <div class="row">
-                                <div class="col-12">
-                                    <select class="form-select mb-3" v-model="status">
-                                        <option value="" disabled selected>აირჩიეთ სტატუსი</option>
-                                        <option value="approved">დადასტურებული</option>
-                                        <option value="rejected">დახარვეზებული</option>
-                                        <option value="stopped">შეჩერებული</option>
-                                    </select>
-                                </div>
+                        <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden mt-12">
+                            <thead class="text-xs text-gray-700 bg-gray-50">
+                                <tr class="text-black text-sm text-center">
+                                    <th class="px-6 py-3 text-left font-semibold">პროდუქტი</th>
+                                    <th class="px-6 py-3 text-left font-semibold">ფასი</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(item, index) in data.statement_products" :key="index" class="bg-white text-black">
+                                    <td class="px-6 py-4">{{ item.name }}</td>
+                                    <td class="px-6 py-4">{{ parseFloat(item.price).toFixed(2) }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                                <div v-if="status == 'rejected' || status == 'stopped'">
-                                    <div class="col-12 mb-3">
-                                        <textarea style="resize:none" class="form-control" placeholder="კომენტარი" v-model="comment"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <button type="button" @click="changeStatus" class="btn btn-success">შენახვა</button>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <button type="button" class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" v-if="permission == 'coordinator'">ქმედებათა ისტორია&nbsp;<BIconClockHistory /></button>
-                                </div>
+                        <div class="p-3 mt-3 bg-white rounded-md" v-if="permission == 'operator'">
+                            <select class="mb-3 w-full p-2 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" v-model="status">
+                                <option value="" disabled selected>აირჩიეთ სტატუსი</option>
+                                <option value="approved">დადასტურებული</option>
+                                <option value="rejected">დახარვეზებული</option>
+                                <option value="stopped">შეჩერებული</option>
+                            </select>
 
-                                <h6 class="text-muted text-center">ისტორია</h6>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th v-if="permission != 'company'">ოპერატორი</th>
-                                            <th>კომენტარი</th>
-                                            <th>თარიღი</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="(item, index) in data.logs" :key="index">
-                                            <td v-if="permission != 'company'">{{ item.operator_data?.name }}</td>
-                                            <td>{{ item.comment }}</td>
-                                            <td>{{ item.created_at.split('T')[0] }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                                <div v-for="(item, index) in errors" :key="index" class="alert alert-danger border-0">
-                                    <strong>{{ item[0] }}</strong>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card p-3 mb-3" v-if="permission == 'company'">
                             <div v-if="status == 'rejected' || status == 'stopped'">
-                                <div class="col-12 mb-3">
+                                <div class="mb-3">
+                                    <textarea class="w-full p-2 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 resize-none" placeholder="კომენტარი" v-model="comment"></textarea>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <button type="button" @click="changeStatus" class="p-2 text-white bg-green-900 transition duration-200 hover:bg-green-800 rounded-md cursor-pointer w-1/6 disabled:opacity-20 disabled:cursor-not-allowed" :disabled="disabled">შენახვა</button>
+                            </div>
+                            <div class="mb-3">
+                                <button type="button" class="p-3 bg-gray-100 text-gray-900 rounded-md cursor-pointer" v-if="permission == 'coordinator'">ქმედებათა ისტორია&nbsp;<BIconClockHistory /></button>
+                            </div>
+
+                            <h6 class="select-none mt-10">ისტორია</h6>
+
+                            <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden">
+                                <thead class="text-xs text-gray-700 bg-gray-50">
+                                    <tr class="text-black text-sm text-center">
+                                        <th v-if="permission != 'company'" class="px-6 py-3 text-left font-semibold">ოპერატორი</th>
+                                        <th class="px-6 py-3 text-left font-semibold">კომენტარი</th>
+                                        <th class="px-6 py-3 text-left font-semibold">თარიღი</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item, index) in data.logs" :key="index" class="bg-white text-black">
+                                        <td v-if="permission != 'company'" class="px-6 py-4">{{ item.operator_data?.name }}</td>
+                                        <td class="px-6 py-4">{{ item.comment }}</td>
+                                        <td class="px-6 py-4">{{ item.created_at.split('T')[0] }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div v-for="(item, index) in errors" :key="index" class="alert alert-danger border-0">
+                                <strong>{{ item[0] }}</strong>
+                            </div>
+                        </div>
+
+                        <div class="p-3 mb-3" v-if="permission == 'company'">
+                            <div v-if="status == 'rejected' || status == 'stopped'">
+                                <div class="mb-3">
                                     <p class="mb-1">კომენტარი</p>
-                                    <textarea style="resize:none" :value="data.comment" class="form-control" placeholder="კომენტარი" disabled></textarea>
+                                    <div class="w-full p-3 bg-gray-200 rounded-md select-none">{{ data.comment }}</div>
                                 </div>
                             </div>
 
-                            <h6 class="text-muted text-center">ისტორია</h6>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th v-if="permission != 'company'">ოპერატორი</th>
-                                            <th>კომენტარი</th>
-                                            <th>თარიღი</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="(item, index) in data.logs" :key="index">
-                                            <td v-if="permission != 'company'">{{ item.operator_data?.name }}</td>
-                                            <td>{{ item.comment }}</td>
-                                            <td>{{ item.created_at.split('T')[0] }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <h6 class="select-none">ისტორია</h6>
+
+                            <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden">
+                                <thead class="text-xs text-gray-700 bg-gray-50">
+                                    <tr class="text-black text-sm text-center">
+                                        <th v-if="permission != 'company'" class="px-6 py-3 text-left font-semibold">ოპერატორი</th>
+                                        <th class="px-6 py-3 text-left font-semibold">კომენტარი</th>
+                                        <th class="px-6 py-3 text-left font-semibold">თარიღი</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item, index) in data.logs" :key="index" class="bg-white text-black">
+                                        <td v-if="permission != 'company'">{{ item.operator_data?.name }}</td>
+                                        <td class="px-6 py-4">{{ item.comment }}</td>
+                                        <td class="px-6 py-4">{{ item.created_at.split('T')[0] }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="card p-3 mb-3" v-if="permission == 'coordinator'">
-                            <div class="form-group">
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">ქმედებათა ისტორია&nbsp;<BIconClockHistory /></button>
-                            </div>
+                        <div class="mb-3 mt-3" v-if="permission == 'coordinator'">
+                            <button type="button" class="p-3 bg-gray-200 text-gray-900 rounded-md cursor-pointer flex items-center gap-2 transition duration-200 hover:bg-gray-300" @click="offcanvasToggle()">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 pointer-events-none">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+                                ქმედებათა ისტორია
+                            </button>
+
+                            <button type="button" class="p-3 bg-red-300 rounded-md mt-3" @click="showPdf()">ფაილის ნახვა</button>
                         </div>
                     </div>
                 </div>
-                <!-- <div v-if="this.pdfUrl"> -->
-                    <div class="col-6" v-if="pdfUrl?.name?.split('.').at(-1) == 'pdf'">
+                <div v-if="this.pdfUrl" class="h-full">
+                    <div class="h-full" v-if="pdfUrl?.name?.split('.').at(-1) == 'pdf'">
                         <iframe :src="'data:application/pdf;base64,' + pdfUrl.file" type="application/pdf" width="100%" height="100%" :title="title"></iframe>
                     </div>
-                    <div class="col-6" v-if="pdfUrl?.name?.split('.').at(-1) == 'jpg' || pdfUrl.name?.split('.').at(-1) == 'jpeg'">
+                    <div class="h-full" v-if="pdfUrl?.name?.split('.').at(-1) == 'jpg' || pdfUrl.name?.split('.').at(-1) == 'jpeg'">
                         <img :src="'data:image/jpg;base64,' + pdfUrl.file" width="100%" height="100%" :title="title">
                     </div>
-                    <div class="col-6" v-if="pdfUrl?.name?.split('.').at(-1) == 'png'">
+                    <div class="h-full" v-if="pdfUrl?.name?.split('.').at(-1) == 'png'">
                         <img :src="'data:image/png;base64,' + pdfUrl.file" width="100%" height="100%" :title="title">
-                    </div>
-                <!-- </div> -->
-            </div>
-        </div>
-        <div class="offcanvas offcanvas-start w-50" id="offcanvasExample">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="staticBackdropLabel">ისტორია&nbsp;<BIconClockHistory /></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-            </div>
-            <div class="offcanvas-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th v-if="permission != 'company'">ოპერატორი</th>
-                            <th>კომენტარი</th>
-                            <th>თარიღი</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(item, index) in data.logs" :key="index">
-                            <td v-if="permission != 'company'">{{ item.operator_data?.name }}</td>
-                            <td>{{ item.comment }}</td>
-                            <td>{{ item.created_at.split('T')[0] }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="modal fade" id="confirmationModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">გთხოვთ დაადასტუროთ</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ნამდვიად გსურთ წაშლა?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">არა</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @click="deleteProduct">კი</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <Transition name="fade">
+            <div class="fixed md:w-1/4 w-full h-full bg-white shadow-xl top-0 left-0 overflow-y-scroll" v-if="open_offcanvas">
+                <div class="flex items-center justify-between p-4">
+                    <h5 class="text-lg flex gap-2 items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 pointer-events-none">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                        ისტორორია
+                    </h5>
+                    <button type="button" class="p-3 bg-gray-100 transition duration-200 hover:bg-gray-200 rounded-md cursor-pointer" @click="offcanvasToggle()">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 pointer-events-none">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <table class="table-auto w-full text-left">
+                        <thead>
+                            <tr>
+                                <th v-if="permission != 'company'" class="px-4 py-2">ოპერატორი</th>
+                                <th class="px-4 py-2">კომენტარი</th>
+                                <th class="px-4 py-2">თარიღი</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, index) in data.logs" :key="index" class="border-t">
+                                <td v-if="permission != 'company'" class="px-4 py-2">{{ item.operator_data?.name }}</td>
+                                <td class="px-4 py-2">{{ item.comment }}</td>
+                                <td class="px-4 py-2">{{ item.created_at.split('T')[0] }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </Transition>
     </div>
 </template>
 
@@ -199,7 +211,6 @@
 
         data() {
             return {
-                user_id : JSON.parse(window.localStorage.getItem("user")).user_id,
                 permission : JSON.parse(window.localStorage.getItem("user")).permission,
 
                 data : [],
@@ -212,16 +223,17 @@
                 pdfUrl : "",
                 title : "",
 
+                open_offcanvas : false,
+                disabled : false,
+
                 errors : [],
 
-                loader_table : false
+                show_pdf : false
             }
         },
 
         mounted() {
             document.title = "განაცხადი";
-
-            this.loader_table = true;
 
             axios.get("/statement/get/" + this.$route.params.id, {
                 headers : {
@@ -230,14 +242,11 @@
             }).then(response => {
                 this.data = response.data;
                 this.status = response.data.status;
-                this.loader_table = false;
                 this.title = response.data.files.name;
 
                 this.pdfUrl = response.data.files;
-
             }).catch(err => {
                 console.log(err);
-                this.loader_table = false;
             });
 
             axios.get("/operator/list", {
@@ -248,11 +257,14 @@
                 this.operators = response.data;
             }).catch(err => {
                 console.log(err);
-            })
+            });
         },
 
         methods : {
             changeStatus() {
+                this.disabled = true;
+
+                const _this_ = this;
                 axios.post("/statement/change/status/" + this.$route.params.id, {
                     operator_id : this.operator,
                     comment : this.comment,
@@ -266,12 +278,23 @@
                         title : "მოთხოვნა შესრულდა",
                         icon : "success",
                     });
+
+                    _this_.disabled = false;
                 }).catch(err => {
                     if(err instanceof AxiosError) {
                         this.errors = err?.response?.data?.errors;
                     }
+                    _this_.disabled = false;
                 });
+            },
+
+            offcanvasToggle() {
+                this.open_offcanvas = !this.open_offcanvas;
+            },
+
+            showPdf() {
+                this.show_pdf = !this.show_pdf;
             }
-        }
+        },
     }
 </script>

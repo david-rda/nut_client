@@ -10,8 +10,10 @@ import axios from 'axios';
 import VueTippy from 'vue-tippy'
 import 'tippy.js/dist/tippy.css'
 
-// axios.defaults.baseURL = "http://localhost:8000/api"
-axios.defaults.baseURL = "https://nuts.rda.gov.ge/api"
+import {Vue3TailwindPagination} from "vue-3-tailwind-css-pagination";
+
+axios.defaults.baseURL = "http://localhost:8000/api"
+// axios.defaults.baseURL = "https://nuts.rda.gov.ge/api"
 
 const app = createApp(App);
 
@@ -22,6 +24,7 @@ app.component("BIconSearch", BIconSearch);
 app.component("BIconTicketDetailed", BIconTicketDetailed);
 app.component("BIconClockHistory", BIconClockHistory);
 app.component("BIconCheckCircle", BIconCheckCircle);
+app.component('Vue3TailwindPagination', Vue3TailwindPagination)
 
 app.use(
     VueTippy,
