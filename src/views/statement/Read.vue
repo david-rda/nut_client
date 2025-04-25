@@ -141,8 +141,6 @@
                                 </svg>
                                 ქმედებათა ისტორია
                             </button>
-
-                            <button type="button" class="p-3 bg-red-300 rounded-md mt-3" @click="showPdf()">ფაილის ნახვა</button>
                         </div>
                     </div>
                 </div>
@@ -227,8 +225,6 @@
                 disabled : false,
 
                 errors : [],
-
-                show_pdf : false
             }
         },
 
@@ -291,10 +287,6 @@
             offcanvasToggle() {
                 this.open_offcanvas = !this.open_offcanvas;
             },
-
-            showPdf() {
-                this.show_pdf = !this.show_pdf;
-            }
         },
     }
 </script>
