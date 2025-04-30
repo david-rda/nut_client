@@ -119,7 +119,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="text-center bg-white" v-for="(data, index) in users.data" :key="data.id">
+                            <tr class="text-center bg-white text-black" v-for="(data, index) in users.data" :key="data.id">
                                 <td class="px-6 py-3">{{ index + 1 }}</td>
                                 <td class="px-6 py-3">{{ data.company_name }}</td>
                                 <td class="px-6 py-3">{{ data.identification_code }}</td>

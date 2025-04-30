@@ -125,21 +125,25 @@
                                     <td class="px-6 py-3">{{ parseFloat(data?.full_amount).toFixed(2) }}</td>
                                     <td class="px-6 py-3">{{ data?.card_number }}</td>
                                     <td class="px-6 py-3">
-                                        {{ (data?.status == "new") ? 'ახალი' : (data?.status == "operator" && permission != 'company') ? 'გადაწერილია ოპერატორზე' : (data?.status == "rejected") ? 'დახარვეზებული' : (data?.status == "stopped") ? 'შეჩერებული' : (data?.status == "approved") ? 'დადასტურებული' : '' }}
-                                        <span v-if="data.status == 'operator' && permission != 'company'" class="p-2 bg-blue-100 text-blue-900 rounded-md text-xs select-none">{{ data?.operator.name }}</span>
+                                        <div class="flex flex-col">
+                                            <span>{{ (data?.status == "new") ? 'ახალი' : (data?.status == "operator" && permission != 'company') ? 'გადაწერილია ოპერატორზე' : (data?.status == "rejected") ? 'დახარვეზებული' : (data?.status == "stopped") ? 'შეჩერებული' : (data?.status == "approved") ? 'დადასტურებული' : '' }}</span>
+                                            <span v-if="data.status == 'operator' && permission != 'company'" class="p-2 bg-blue-100 text-blue-900 rounded-md text-xs select-none">{{ data?.operator.name }}</span>
+                                        </div>
                                     </td>
-                                    <td class="px-6 py-3 flex gap-2 justify-center">
-                                        <router-link :to="'/statement/read/' + data?.id" target="_blank" class="bg-green-900 text-white p-2 rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 ms-2 cursor-pointer" v-tippy="{ content: 'დათვალიერება' }">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 pointer-events-none">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                            </svg>
-                                        </router-link>
-                                        <router-link :to="'/statement/edit/' + data?.id" class="bg-yellow-600 text-white p-2 rounded-lg hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 ms-2 cursor-pointer" v-tippy="{ content: 'რედაქტირება' }" v-if="data?.status == 'rejected' && permission == 'company'">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 pointer-events-none">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                                            </svg>
-                                        </router-link>
+                                    <td class="px-6 py-3">
+                                        <div class="flex gap-2 justify-center">
+                                            <router-link :to="'/statement/read/' + data?.id" target="_blank" class="bg-green-900 text-white p-2 rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 ms-2 cursor-pointer" v-tippy="{ content: 'დათვალიერება' }">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 pointer-events-none">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                </svg>
+                                            </router-link>
+                                            <router-link :to="'/statement/edit/' + data?.id" class="bg-yellow-600 text-white p-2 rounded-lg hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 ms-2 cursor-pointer" v-tippy="{ content: 'რედაქტირება' }" v-if="data?.status == 'rejected' && permission == 'company'">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 pointer-events-none">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                                                </svg>
+                                            </router-link>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>

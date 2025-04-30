@@ -135,18 +135,20 @@
                             </table>
                         </div>
                         <div class="mb-3 mt-3" v-if="permission == 'coordinator'">
-                            <button type="button" class="p-3 bg-gray-200 text-gray-900 rounded-md cursor-pointer flex items-center gap-2 transition duration-200 hover:bg-gray-300" @click="offcanvasToggle()">
+                            <button type="button" class="p-3 mb-6 bg-gray-200 text-gray-900 rounded-md cursor-pointer flex items-center gap-2 transition duration-200 hover:bg-gray-300" @click="offcanvasToggle()">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 pointer-events-none">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
                                 ქმედებათა ისტორია
                             </button>
+
+                            <a :href="'data:application/pdf;base64,' + pdfUrl.file" download class="p-3 bg-blue-200 text-blue-900 rounded-md show md:hidden">ფაილის ჩამოტვირთვა</a>
                         </div>
                     </div>
                 </div>
                 <div v-if="this.pdfUrl" class="h-full">
-                    <div class="h-full" v-if="pdfUrl?.name?.split('.').at(-1) == 'pdf'">
-                        <iframe :src="'data:application/pdf;base64,' + pdfUrl.file" type="application/pdf" width="100%" height="100%" :title="title"></iframe>
+                    <div class="h-full md:block hidden" v-if="pdfUrl?.name?.split('.').at(-1) == 'pdf'">
+                        <embed :src="'data:application/pdf;base64,' + pdfUrl.file" type="application/pdf" width="100%" height="100%" :title="title" />
                     </div>
                     <div class="h-full" v-if="pdfUrl?.name?.split('.').at(-1) == 'jpg' || pdfUrl.name?.split('.').at(-1) == 'jpeg'">
                         <img :src="'data:image/jpg;base64,' + pdfUrl.file" width="100%" height="100%" :title="title">

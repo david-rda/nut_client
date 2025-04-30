@@ -15,14 +15,14 @@
                     </router-link>
                 </div>
 
-                <div class="mb-3 flex">
+                <form @submit.prevent="filterProduct()" class="flex mb-3">
                     <input type="text" :disabled="disabled" v-model="search" class="disabled:cursor-not-allowed disabled:opacity-20 bg-white border border-gray-200 p-3 md:w-1/4 w-full rounded-tl-md rounded-bl-md outline-none" placeholder="ძიება...">
-                    <button type="button" :disabled="disabled" class="disabled:cursor-not-allowed disabled:opacity-20 rounded-tr-md rounded-br-md bg-green-800 text-white p-3 cursor-pointer transition duration-200 hover:bg-green-900" v-on:click="filterProduct()">
+                    <button type="submit" :disabled="disabled" class="disabled:cursor-not-allowed disabled:opacity-20 rounded-tr-md rounded-br-md bg-green-800 text-white p-3 cursor-pointer transition duration-200 hover:bg-green-900">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                         </svg>
                     </button>
-                </div>
+                </form>
 
                 <div class="md:overflow-x-hidden overflow-x-scroll" v-if="!disabled">
                     <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden">
@@ -35,7 +35,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="text-center bg-white" v-for="(data, index) in products.data" :key="index">
+                            <tr class="text-center bg-white text-black" v-for="(data, index) in products.data" :key="index">
                                 <td class="px-6 py-3">{{ index + 1 }}</td>
                                 <td class="px-6 py-3">{{ data.name }}</td>
                                 <td class="px-6 py-3">
@@ -43,7 +43,7 @@
                                     <span v-else class="bg-green-100 text-green-900 p-2 rounded-md select-none">აქტიური</span>
                                 </td>
                                 <td class="px-6 py-3 flex gap-2 justify-center">
-                                    <router-link :to="'/product/edit/' + data.id" type="button" class="bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 cursor-pointer flex gap-2 items-center">
+                                    <router-link :to="'/product/edit/' + data.id" type="button" class="bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 cursor-pointer flex gap-2 items-center" target="_blank">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 pointer-events-none">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                                         </svg>
