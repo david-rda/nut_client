@@ -9,15 +9,15 @@
                 <form @submit.prevent="changePassword()">
                     <div class="block mb-3">
                         <label for="currentPassword" class="block mb-1">მიმდინარე პაროლი</label>
-                        <input type="password" class="bg-white md:w-1/3 w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" id="currentPassword" placeholder="მიმდინარე პაროლი" v-model="formData.current_password">
+                        <input type="password" class="bg-white md:w-1/3 w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" id="currentPassword" placeholder="მიმდინარე პაროლი" v-model="formData.current_password">
                     </div>
                     <div class="block mb-3">
                         <label for="newPassword" class="block mb-1">ახალი პაროლი</label>
-                        <input type="password" class="bg-white md:w-1/3 w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" id="newPassword" placeholder="ახალი პაროლი" v-model="formData.new_password">
+                        <input type="password" class="bg-white md:w-1/3 w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" id="newPassword" placeholder="ახალი პაროლი" v-model="formData.new_password">
                     </div>
                     <div class="block mb-3">
                         <label for="confirmPassword" class="block mb-1">გაიმეორეთ ახალი პაროლი</label>
-                        <input type="password" class="bg-white md:w-1/3 w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" id="confirmPassword" placeholder="გაიმეორეთ ახალი პაროლი" v-model="formData.confirm_password">
+                        <input type="password" class="bg-white md:w-1/3 w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" id="confirmPassword" placeholder="გაიმეორეთ ახალი პაროლი" v-model="formData.confirm_password">
                     </div>
                     <div class="form-group d-grid mb-3">
                         <button type="submit" class="bg-green-900 text-white rounded-lg p-3 md:w-1/3 w-full cursor-pointer transition duration-200 disabled:opacity-20 disabled:cursor-not-allowed hover:bg-green-800" :disabled="disabled">შეცვლა</button>

@@ -3,8 +3,8 @@
         <nav class="w-full bg-white p-3 fixed top-0 left-0">
             <div class="container mx-auto flex flex-row justify-between items-center">
                 <div class="md:flex md:items-center">
-                    <router-link to="/home" class="active:scale-90 transition duration-200">
-                        <img src="../../public/logo.svg">
+                    <router-link to="/home" class="active:scale-95 transition duration-200">
+                        <img src="../../public/logo.svg" width="40px">
                     </router-link>
                 </div>
                 <div class="md:flex md:ms-8 md:space-x-3 md:items-center hidden">
