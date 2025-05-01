@@ -11,7 +11,7 @@
                     <router-link class="p-2 rounded-md hover:bg-gray-100 transition duration-200" to="/manage/user" v-if="user?.permission == 'coordinator'">მომხმარებლების მართვა</router-link>
                     <router-link class="p-2 rounded-md hover:bg-gray-100 transition duration-200" to="/product/list" v-if="user?.permission == 'coordinator'">პროდუქტების მართვა</router-link>
                     <router-link class="p-2 rounded-md hover:bg-gray-100 transition duration-200" to="/statements" v-if="(user?.permission == 'company' && user?.status != 'pending') || user?.permission == 'operator' || user?.permission == 'coordinator'">განაცხადები</router-link>
-                    <router-link class="p-2 rounded-md hover:bg-gray-100 transition duration-200" to="/reports" v-if="user?.permission == 'coordinator' || user?.permission == 'company'">რეპორტები</router-link>
+                    <router-link class="p-2 rounded-md hover:bg-gray-100 transition duration-200" to="/statement/reports" v-if="user?.permission == 'coordinator' || user?.permission == 'company'">რეპორტები</router-link>
                 </div>
 
                 <Transition name="fade">
@@ -26,7 +26,7 @@
                             <router-link to="/statements" v-if="(user?.permission == 'company' && user?.status != 'pending') || user?.permission == 'operator' || user?.permission == 'coordinator'">განაცხადები</router-link>
                         </li>
                         <li class="p-3">
-                            <router-link to="/reports" v-if="user?.permission == 'coordinator' || user?.permission == 'company'">რეპორტები</router-link>
+                            <router-link to="/statement/reports" v-if="user?.permission == 'coordinator' || user?.permission == 'company'">რეპორტები</router-link>
                         </li>
                         <li class="p-3">
                             <router-link to="/settings" class="dropdown-item">პარამეტრები</router-link>

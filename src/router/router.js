@@ -15,7 +15,7 @@ import Statements from "../views/statement/List.vue";
 import StatementAdd from "../views/statement/Add.vue";
 import StatementRead from "../views/statement/Read.vue";
 import StatementEdit from "../views/statement/Edit.vue";
-import MyReport from "../views/Reports.vue";
+import MyReport from "../views/statement/Reports.vue";
 
 const routes = [
     {
@@ -75,7 +75,7 @@ const routes = [
         component: StatementEdit
     },
     {
-        path: "/reports",
+        path: "/statement/reports",
         component: MyReport
     },
 ];
