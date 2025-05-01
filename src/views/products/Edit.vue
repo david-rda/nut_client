@@ -8,11 +8,11 @@
                     <form @submit.prevent="edit">
                         <div class="form-group mb-3">
                             <label for="currentPassword">პროდუქტის დასახელება</label>
-                            <input type="text" class="w-full p-3 border bg-white border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled" id="currentPassword" v-model="title">
+                            <input type="text" class="w-full p-3 border bg-white border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" :disabled="disabled" id="currentPassword" v-model="title">
                         </div>
                         <div class="form-group mb-3">
                             <label for="status">სტატუსი</label>
-                            <select class="w-full p-3 border bg-white border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled" id="status" v-model="status">
+                            <select class="w-full p-3 border bg-white border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" :disabled="disabled" id="status" v-model="status">
                                 <option value="" selected disabled>აირჩიეთ სტატუსი</option>
                                 <option value="enabled">აქტიურია</option>
                                 <option value="disabled">არააქტიურია</option>

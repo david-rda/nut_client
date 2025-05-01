@@ -7,7 +7,7 @@
                 <div class="flex justify-between mb-4 items-center md:p-0 px-3">
                     <h4 class="text-muted">პროდუქტები</h4>
 
-                    <router-link to="/product/add" class="bg-green-900 text-white py-2 px-4 rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 flex gap-2">
+                    <router-link to="/product/add" class="bg-green-900 text-white py-2 px-4 rounded-lg hover:bg-green-800 focus:border-green-900 transition duration-200 flex gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>

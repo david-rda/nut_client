@@ -7,19 +7,19 @@
                 <form @submit.prevent="addOperator()">
                     <div class="mb-3">
                         <label for="name" class="block mb-1">ოპერატორის სახელი, გვარი</label>
-                        <input type="text" v-model="formData.name" id="name" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled">
+                        <input type="text" v-model="formData.name" id="name" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" :disabled="disabled">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="block mb-1">ელ.&nbsp;ფოსტა</label>
-                        <input type="email" v-model="formData.email" id="email" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled">
+                        <input type="email" v-model="formData.email" id="email" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" :disabled="disabled">
                     </div>
                     <div class="mb-3">
                         <label for="mobile" class="block mb-1">ტელეფონის ნომერი</label>
-                        <input type="number" min="0" onkeypress="if(this.value.length == 9) return false" v-model="formData.mobile" id="mobile" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled">
+                        <input type="number" min="0" onkeypress="if(this.value.length == 9) return false" v-model="formData.mobile" id="mobile" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" :disabled="disabled">
                     </div>
                     <div class="mb-3">
                         <label for="mobile" class="block mb-1">პაროლი</label>
-                        <input type="password" v-model="formData.password" id="mobile" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled">
+                        <input type="password" v-model="formData.password" id="mobile" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" :disabled="disabled">
                     </div>
                     <button type="submit" class="bg-green-900 text-white rounded-lg p-3 w-full cursor-pointer transition duration-200 disabled:opacity-20 disabled:cursor-not-allowed hover:bg-green-800 mb-3" :disabled="disabled">დამატება</button>
                 </form>

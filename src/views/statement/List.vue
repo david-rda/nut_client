@@ -23,28 +23,28 @@
                             <tbody>
                                 <tr class="text-center border-t border-gray-100 bg-white text-black">
                                     <td class="p-3">
-                                        <input type="text" :disabled="disabled" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" placeholder="კომპანიის სახელი" v-model="formData.company_name">
+                                        <input type="text" :disabled="disabled" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" placeholder="კომპანიის სახელი" v-model="formData.company_name">
                                     </td>
                                     <td class="p-3">
-                                        <input type="text" :disabled="disabled" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" placeholder="მაღაზიის მისამართი" v-model="formData.store_address">
+                                        <input type="text" :disabled="disabled" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" placeholder="მაღაზიის მისამართი" v-model="formData.store_address">
                                     </td>
                                     <td class="p-3">
-                                        <input type="text" :disabled="disabled" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" placeholder="ზედნადების ნომერი" v-model="formData.overhead_number">
+                                        <input type="text" :disabled="disabled" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" placeholder="ზედნადების ნომერი" v-model="formData.overhead_number">
                                     </td>
                                     <td class="p-3">
-                                        <flat-pickr class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 border" id="datetime-picker" :disabled="disabled" :config="flatpickrOptions" v-model="formData.overhead_date"></flat-pickr>
+                                        <flat-pickr class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 border" id="datetime-picker" :disabled="disabled" :config="flatpickrOptions" v-model="formData.overhead_date"></flat-pickr>
                                     </td>
                                     <td class="p-3">
-                                        <input type="email" :disabled="disabled" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" placeholder="სახელი, გვარი" v-model="formData.beneficiary_name">
+                                        <input type="email" :disabled="disabled" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" placeholder="სახელი, გვარი" v-model="formData.beneficiary_name">
                                     </td>
                                     <td class="p-3">
-                                        <input type="number" :disabled="disabled" min="0" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" placeholder="ჯამური თანხა" v-model="formData.full_amount">
+                                        <input type="number" :disabled="disabled" min="0" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" placeholder="ჯამური თანხა" v-model="formData.full_amount">
                                     </td>
                                     <td class="p-3">
-                                        <input type="text" :disabled="disabled" placeholder="ბოლო 4 ციფრი" onkeypress="if(this.value.length == 4) return false" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" v-model="formData.card_number">
+                                        <input type="text" :disabled="disabled" placeholder="ბოლო 4 ციფრი" onkeypress="if(this.value.length == 4) return false" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" v-model="formData.card_number">
                                     </td>
                                     <td class="p-3">
-                                        <select class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" v-model="formData.status" :disabled="disabled">
+                                        <select class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" v-model="formData.status" :disabled="disabled">
                                             <option value="" selected disabled>სტატუსი</option>
                                             <option value="operator" v-if="user?.permission != 'company'">გადაწერილია ოპერატორზე</option>
                                             <option value="new">ახალი</option>
@@ -88,7 +88,7 @@
 
                 <div class="row">
                     <div class="col-4 ps-0" v-if="permission == 'coordinator'">
-                        <select class="w-1/6 p-3 bg-white outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 mb-3" v-model="operator">
+                        <select class="w-1/6 p-3 bg-white outline-none rounded-lg transition duration-200 disabled:opacity-20 mb-3" v-model="operator">
                             <option value="" disabled selected>აირჩიეთ ოპერატორი</option>
                             <option :value="item.id" v-for="(item, index) in operators" :key="index">{{ item.name }}</option>
                         </select>
@@ -154,7 +154,7 @@
 
                     <div class="col-4 ps-0 mt-3" v-if="permission == 'coordinator'">
                         <div class="d-flex">
-                            <select class="w-1/6 p-3 bg-white outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 mb-3" v-model="operator">
+                            <select class="w-1/6 p-3 bg-white outline-none rounded-lg transition duration-200 disabled:opacity-20 mb-3" v-model="operator">
                                 <option value="" disabled selected>აირჩიეთ ოპერატორი</option>
                                 <option :value="item.id" v-for="(item, index) in operators" :key="index">{{ item.name }}</option>
                             </select>

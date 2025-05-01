@@ -8,11 +8,11 @@
                     <form @submit.prevent="add">
                         <div class="mb-3">
                             <label for="product_name">პროდუქტის დასახელება</label>
-                            <input type="text" class="w-full p-3 border border-gray-200 bg-white outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled" id="product_name" v-model="title" placeholder="პროდუქტის დასახელება">
+                            <input type="text" class="w-full p-3 border border-gray-200 bg-white outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" :disabled="disabled" id="product_name" v-model="title" placeholder="პროდუქტის დასახელება">
                         </div>
                         <div class="mb-3">
                             <label for="status">სტატუსი</label>
-                            <select class="w-full p-3 border bg-white border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" id="status" v-model="status" :disabled="disabled">
+                            <select class="w-full p-3 border bg-white border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" id="status" v-model="status" :disabled="disabled">
                                 <option value="" selected disabled>აირჩიეთ სტატუსი</option>
                                 <option value="enabled">აქტიურია</option>
                                 <option value="disabled">არააქტიურია</option>

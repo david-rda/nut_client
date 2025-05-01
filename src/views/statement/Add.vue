@@ -2,50 +2,51 @@
     <div>
         <MyHeader />
 
-        <div class="container mx-auto p-9 mt-25">
-            <div class="bg-white p-4 w-full rounded-md">
+        <div class="container mx-auto p-5 mt-25">
+            <div class="p-4 w-full rounded-md">
                 <form @submit.prevent="addStatement()" class="space-y-6" ref="statement_form">
                     <div class="flex flex-col md:flex-row md:space-x-6">
                         <div class="w-full md:w-1/2">
                             <label for="overhead_number" class="block text-gray-700">ზედნადების ნომერი</label>
-                            <input type="text" v-model="formData.overhead_number" id="overhead_number" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled">
+                            <input type="text" v-model="formData.overhead_number" id="overhead_number" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="ზედნადების ნომერი">
                         </div>
                         
                         <div class="w-full md:w-1/2">
                             <label for="overhead_date" class="block text-gray-700">ზედნადების თარიღი</label>
-                            <flat-pickr class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" id="datetime-picker" v-model="formData.overhead_date" :config="flatpickrOptions" :disabled="disabled"></flat-pickr>
+                            <flat-pickr class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" id="datetime-picker" v-model="formData.overhead_date" :config="flatpickrOptions" :disabled="disabled"></flat-pickr>
                         </div>
                     </div>
                     <div>
                         <label for="store_address" class="block text-gray-700">მაღაზიის მისამართი</label>
-                        <input type="text" v-model="formData.store_address" id="store_address" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled">
+                        <input type="text" v-model="formData.store_address" id="store_address" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="მაღაზიის მისამართი">
                     </div>
 
                     <div class="flex flex-col md:flex-row md:space-x-6">
                         <div class="w-full md:w-1/2">
                             <label for="beneficiary_name" class="block text-gray-700">აგრობარათის მფლობელი</label>
-                            <input type="text" v-model="formData.beneficiary_name" id="beneficiary_name" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled">
+                            <input type="text" v-model="formData.beneficiary_name" id="beneficiary_name" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="აგრობარათის მფლობელი">
                         </div>
                         
                         <div class="w-full md:w-1/2">
                             <label for="card_number" class="block text-gray-700">აგრობარათის ბოლო 4 ციფრი</label>
-                            <input type="text" onkeypress="if(this.value.length == 4) return false" v-model="formData.card_number" id="card_number" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled">
+                            <input type="text" onkeypress="if(this.value.length == 4) return false" v-model="formData.card_number" id="card_number" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="აგრობარათის ბოლო 4 ციფრი">
                         </div>
                     </div>
 
                     <div class="flex flex-col md:flex-row md:space-x-6">
                         <div class="w-full md:w-1/2">
                             <label for="product" class="block text-gray-700 mb-1">პროდუქტი</label>
-                            <v-select id="product" :options="options" label="name" v-model="selectedProduct" :disabled="disabled"></v-select>
+                            <v-select id="product" :options="options" label="name" v-model="selectedProduct" class="bg-white" :disabled="disabled" :class="{'opacity-50 cursor-not-allowed' : disabled}"></v-select>
                         </div>
                         
                         <div class="w-full md:w-1/3">
                             <label for="price" class="block text-gray-700 mb-1">ფასი</label>
-                            <input type="number" id="price" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled" v-model="product_price" @paste="onPaste">
+                            <input type="number" id="price" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled" v-model="product_price" @paste="onPaste" placeholder="ფასი">
+                            <span class="text-red-500 text-sm mt-2" v-if="pst">მონაცემი შეიყვანეთ ხელით!</span>
                         </div>
 
                         <div class="w-full md:w-1/6">
-                            <label class="block text-sm text-gray-700 mb-1">ქმედება</label>
+                            <label class="block text-sm text-gray-700 mb-1">&nbsp;</label>
                             <button type="button" class="w-full bg-yellow-500 text-white py-3 rounded-lg hover:bg-yellow-600 transition duration-200 cursor-pointer" @click="addField">დამატება</button>
                         </div>
                     </div>
@@ -75,8 +76,7 @@
 
                     <div>
                         <label for="amount" class="block text-gray-700 mb-1">ჯამური აგროქულა</label>
-                        <input type="text" id="amount" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" v-model="formData.full_amount" @paste="onPaste" @keyup="replaceComma" :disabled="disabled">
-                        <span class="text-red-500 text-sm mt-2" v-if="pst">მონაცემი შეიყვანეთ ხელით!</span>
+                        <input type="text" id="amount" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" v-model="formData.full_amount" @paste="onPaste" @keyup="replaceComma" :disabled="disabled" placeholder="ჯამური აგროქულა">
                     </div>
 
                     <div>
@@ -320,15 +320,13 @@
             },
 
             onPaste(event) {
-                var _this_ = this;
                 event.preventDefault();
                 console.log('Pasting is disabled.');
-                _this_.pst = 1;
+                this.pst = 1;
             },
 
             replaceComma() {
-                var _this_ = this;
-                _this_.formData.full_amount = _this_.formData.full_amount.replace(',', '.');
+                this.formData.full_amount = this.formData.full_amount.replace(',', '.');
             }
         }
     }

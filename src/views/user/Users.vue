@@ -23,32 +23,32 @@
                             <tbody>
                                 <tr class="text-center border-t border-gray-100 bg-white">
                                     <td class="p-3">
-                                        <input type="text" :disabled="disabled1" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" placeholder="დასახელება" v-model="formData.company_name">
+                                        <input type="text" :disabled="disabled1" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" placeholder="დასახელება" v-model="formData.company_name">
                                     </td>
                                     <td class="p-3">
-                                        <input type="number" :disabled="disabled1" min="0" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" placeholder="ს/კ" v-model="formData.id_code">
+                                        <input type="number" :disabled="disabled1" min="0" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" placeholder="ს/კ" v-model="formData.id_code">
                                     </td>
                                     <td class="p-3">
-                                        <input type="text" :disabled="disabled1" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" placeholder="სახელი, გვარი" v-model="formData.name">
+                                        <input type="text" :disabled="disabled1" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" placeholder="სახელი, გვარი" v-model="formData.name">
                                     </td>
                                     <td class="p-3">
-                                        <input type="email" :disabled="disabled1" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" placeholder="ელ. ფოსტა" v-model="formData.email">
+                                        <input type="email" :disabled="disabled1" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" placeholder="ელ. ფოსტა" v-model="formData.email">
                                     </td>
                                     <td class="p-3">
-                                        <input type="number" :disabled="disabled1" min="0" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" placeholder="ტელეფონი" v-model="formData.mobile">
+                                        <input type="number" :disabled="disabled1" min="0" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" placeholder="ტელეფონი" v-model="formData.mobile">
                                     </td>
                                     <td class="p-3">
-                                        <input type="number" :disabled="disabled1" min="0" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" placeholder="პ/ნ" v-model="formData.personal_id">
+                                        <input type="number" :disabled="disabled1" min="0" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" placeholder="პ/ნ" v-model="formData.personal_id">
                                     </td>
                                     <td class="p-3">
-                                        <select class="p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled1" v-model="formData.status">
+                                        <select class="p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" :disabled="disabled1" v-model="formData.status">
                                             <option value="" selected disabled>სტატუსი</option>
                                             <option value="active">აქტიური</option>
                                             <option value="pending">არააქტიური</option>
                                         </select>
                                     </td>
                                     <td class="p-3">
-                                        <select class="p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20" :disabled="disabled1" v-model="formData.permission">
+                                        <select class="p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20" :disabled="disabled1" v-model="formData.permission">
                                             <option value="" selected disabled>ნებართვა</option>
                                             <option value="coordinator">კოორდინატორი</option>
                                             <option value="company">კომპანია</option>

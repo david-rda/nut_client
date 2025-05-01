@@ -23,11 +23,11 @@
                     <form method="post" @submit.prevent="singin()" class="mb-5">
                         <div class="block mb-3">
                             <label for="email" class="block mb-1">ელ. ფოსტა</label>
-                            <input type="email" id="email" placeholder="ელ. ფოსტა" v-model="email" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 bg-white" :disabled="disabled">
+                            <input type="email" id="email" placeholder="ელ. ფოსტა" v-model="email" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled">
                         </div>
                         <div class="block mb-3">
                             <label for="password" class="block mb-1">პაროლი</label>
-                            <input type="password" id="password" placeholder="პაროლი" v-model="password" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 bg-white" :disabled="disabled">
+                            <input type="password" id="password" placeholder="პაროლი" v-model="password" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled">
                         </div>
                         <div class="block mb-5">
                             <button type="submit" :disabled="disabled" class="w-full cursor-pointer bg-green-800 hover:bg-green-900 transition duration-200 p-3 text-white rounded-lg disabled:cursor-not-allowed disabled:opacity-40">

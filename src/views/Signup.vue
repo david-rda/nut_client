@@ -23,46 +23,46 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="mb-3">
                             <label for="company_name" class="block mb-1">კომპანიის დასახელება</label>
-                            <input type="text" v-model="formData.company_name" id="company_name" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="კომპანიის დასახელება">
+                            <input type="text" v-model="formData.company_name" id="company_name" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="კომპანიის დასახელება">
                         </div>
                         <div class="mb-3">
                             <label for="identification_code" class="block mb-1">საიდენტიფიკაციო კოდი</label>
-                            <input type="number" min="0" onkeypress="if(this.value.length === 11) return false" v-model="formData.identification_code" id="identification_code" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="საიდენტიფიკაციო კოდი">
+                            <input type="number" min="0" onkeypress="if(this.value.length === 11) return false" v-model="formData.identification_code" id="identification_code" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="საიდენტიფიკაციო კოდი">
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="mb-3">
                             <label for="legal_address" class="block mb-1">იურიდიული მისამართი</label>
-                            <input type="text" v-model="formData.legal_address" id="legal_address" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="იურიდიული მისამართი">
+                            <input type="text" v-model="formData.legal_address" id="legal_address" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="იურიდიული მისამართი">
                         </div>
                         <div class="mb-3">
                             <label for="actual_address" class="block mb-1">ფაქტობრივი მისამართი</label>
-                            <input type="text" v-model="formData.actual_address" id="actual_address" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="ფაქტობრივი მისამართი">
+                            <input type="text" v-model="formData.actual_address" id="actual_address" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="ფაქტობრივი მისამართი">
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="mb-3">
                             <label for="name" class="block mb-1">კომპანიის წარმომადგენლის სახელი, გვარი</label>
-                            <input type="text" v-model="formData.name" id="name" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="კომპანიის წარმომადგენლის სახელი, გვარი">
+                            <input type="text" v-model="formData.name" id="name" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="კომპანიის წარმომადგენლის სახელი, გვარი">
                         </div>
                         <div class="mb-3">
                             <label for="personal_id" class="block mb-1">კომპანიის წარმომადგენლის პირადი ნომერი</label>
-                            <input type="text" v-model="formData.personal_id" id="personal_id" onkeypress="if(this.value.length === 11) return false" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="კომპანიის წარმომადგენლის პირადი ნომერი">
+                            <input type="text" v-model="formData.personal_id" id="personal_id" onkeypress="if(this.value.length === 11) return false" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="კომპანიის წარმომადგენლის პირადი ნომერი">
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="mb-3">
                             <label for="email" class="block mb-1">კომპანიის წარმომადგენლის ელ.&nbsp;ფოსტა</label>
-                            <input type="email" v-model="formData.email" id="email" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="კომპანიის წარმომადგენლის ელ. ფოსტა">
+                            <input type="email" v-model="formData.email" id="email" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="კომპანიის წარმომადგენლის ელ. ფოსტა">
                         </div>
                         <div class="mb-3">
                             <label for="mobile" class="block mb-1">კომპანიის წარმომადგენლის ტელეფონის ნომერი</label>
-                            <input type="number" min="0" onkeypress="if(this.value.length === 9) return false" v-model="formData.mobile" id="mobile" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="კომპანიის წარმომადგენლის ტელეფონის ნომერი">
+                            <input type="number" min="0" onkeypress="if(this.value.length === 9) return false" v-model="formData.mobile" id="mobile" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="კომპანიის წარმომადგენლის ტელეფონის ნომერი">
                         </div>
                     </div>
                     <div class="mb-6">
                         <label for="password" class="block mb-1">პაროლი</label>
-                        <input type="password" v-model="formData.password" id="password" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:ring-1 ring-offset-2 ring-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="პაროლი">
+                        <input type="password" v-model="formData.password" id="password" class="w-full p-3 border-1 border-gray-200 outline-none rounded-lg transition duration-200 focus:border-green-900 disabled:opacity-20 bg-white" :disabled="disabled" placeholder="პაროლი">
                     </div>
                     <div class="flex flex-col mb-3">
                         <div class="w-full">
