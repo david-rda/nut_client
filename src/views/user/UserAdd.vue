@@ -64,7 +64,7 @@
                 this.disabled = true;
                 this.loader = true;
                 
-                axios.post("/operator/add", this.formData, {
+                axios.post("/user/operator/add", this.formData, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }

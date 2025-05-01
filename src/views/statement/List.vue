@@ -302,7 +302,7 @@
             
             this.getResults();
 
-            axios.get("/operator/list", {
+            axios.get("/user/operator/list", {
                 headers : {
                     "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                 }

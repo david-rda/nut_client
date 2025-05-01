@@ -232,7 +232,7 @@
             searchUser() {
                 this.disabled1 = true;
                 
-                axios.post("/search/user", this.formData, {
+                axios.post("/user/search/user", this.formData, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }

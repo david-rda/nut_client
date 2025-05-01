@@ -177,7 +177,7 @@
         mounted() {
             document.title = "განაცხადის დამატება";
 
-            axios.get("/products", {
+            axios.get("/product/products", {
                 headers : {
                     "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                 }
