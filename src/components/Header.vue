@@ -94,26 +94,9 @@
             }
         },
 
-        computed : {
-            nameInitials() {
-                
-                if(this.user?.permission == 'company') {
-                    let _user = this.user?.company_name.split(" ");
-
-                    if(_user?.length > 1) {
-                        return _user[0][0] + _user[1][0]
-                    }else {
-                        return _user[0][0];
-                    }
-                }else {
-                    let _user = this.user?.name.split(" ");
-
-                    if(_user?.length > 1) {
-                        return _user[0][0] + _user[1][0]
-                    }else {
-                        return _user[0][0];
-                    }
-                }
+        mounted() {
+            if(this.user == null) {
+                this.$router.push("/");
             }
         },
 
@@ -140,13 +123,32 @@
             }
         },
 
-        mounted() {
-            const data = window.localStorage.getItem("token");
+        computed : {
+            nameInitials() {
+                if(this.user != null) {
+                    if(this.user?.permission == 'company') {
+                        let _user = this.user?.company_name.split(" ");
 
-            if(!JSON.parse(data)?.length) {
-                this.$router.push("/");
+                        if(_user?.length > 1) {
+                            return _user[0][0] + _user[1][0]
+                        }else {
+                            return _user[0][0];
+                        }
+                    }else {
+                        let _user = this.user?.name.split(" ");
+
+                        if(_user?.length > 1) {
+                            return _user[0][0] + _user[1][0]
+                        }else {
+                            return _user[0][0];
+                        }
+                    }
+                }else {
+                    return false;
+                }
             }
         },
+
     }
 </script>
 
