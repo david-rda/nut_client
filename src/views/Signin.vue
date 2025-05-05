@@ -37,6 +37,8 @@
                                 </svg>
                                 <span>შესვლა</span>
                             </button>
+
+                            <p class="mt-5">დაგავიწყდათ პაროლი? <router-link to="/reset/main" class="text-blue-900 underline text-green-900">პაროლის აღდგენა</router-link></p>
                         </div>
                         <router-link to="/signup" class="text-green-900 hover:underline">რეგისტრაცია</router-link>
                     </form>
@@ -51,7 +53,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import axios, { AxiosError } from 'axios';
 
     export default {
         name : "SigninPage",
@@ -80,7 +82,9 @@
 
                     this.$router.push("/home");
                 }).catch((err) => {
-                    this.errors = err.response.data.errors;
+                    if(err instanceof AxiosError) {
+                        this.errors = err.response.data.errors;
+                    }
 
                     this.disabled = false;
                 });
@@ -88,7 +92,7 @@
         },
 
         mounted() {
-            document.title = "სისტემაში შესვლა";
+            document.title = "პაროლის აღდგენა";
             
             const data = window.localStorage.getItem("user");
             

@@ -129,24 +129,14 @@
                                 <td class="px-6 py-3">{{ data.personal_id }}</td>
                                 <td class="px-6 py-3">{{ (data.status == 'pending') ? 'არააქტიური' : 'აქტიური' }}</td>
                                 <td class="px-6 py-3">{{ (data.permission == 'company') ? 'კომპანია' : (data.permission == 'coordinator') ? 'კოორდინატორი' : 'ოპერატორი' }}</td>
-                                <td class="px-6 py-3 flex gap-2 justify-center">
+                                <td class="px-6 py-3 flex gap-2 justify-center items-center">
                                     <router-link :to="'/user/edit/' + data.id" type="button" class="bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 cursor-pointer" v-tippy="{ content: 'რედაქტირება' }">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 pointer-events-none">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                                         </svg>
                                     </router-link>
-                                    <button type="button" class="bg-green-900 text-white p-2 rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 ms-2 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed flex items-center justify-center" v-tippy="{ content: 'ავტორიზაციის დადასტურება' }" :data-user-id="data.id" @click="authorize($event)" v-show="data.status != 'active'" :disabled="disabled">
-                                        <span v-if="!disabled" class="pointer-events-none">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 pointer-events-none">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                            </svg>
-                                        </span>
-                                        <span v-else class="pointer-events-none">
-                                            <svg aria-hidden="true" role="status" class="inline w-4 h-4 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>
-                                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor" />
-                                            </svg>
-                                        </span>
+                                    <button v-tippy="{ content: 'სტატუსის ცვლილება' }" :class="data.status == 'active' ? 'bg-green-900' : 'bg-gray-300'" class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed" :data-user-id="data.id" @click="authorize($event)">
+                                        <span :class="data.status == 'active' ? 'translate-x-6' : 'translate-x-1'" class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform pointer-events-none"></span>
                                     </button>
                                 </td>
                             </tr>
@@ -209,23 +199,19 @@
 
             authorize(event) {
                 const user_id = Number(event.target.getAttribute("data-user-id"));
-                this.disabled = true;
+                event.target.setAttribute("disabled", true);
 
                 axios.get("/user/change/status/" + user_id, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }
                 }).then(response => {
-                    this.$swal({
-                        title : "მოთხოვნა შესრულდა",
-                        icon : "success",
-                    });
-
                     this.users = response.data.users;
-                    this.disabled = false;
+
+                    event.target.removeAttribute("disabled");
                 }).catch(err => {
                     console.log(err);
-                    this.disabled = false;
+                    event.target.removeAttribute("disabled");
                 });
             },
 

@@ -121,7 +121,7 @@
 
                     <div class="mt-6 mb-4">
                         <div class="d-grid">
-                            <button type="submit" class="w-full py-3 bg-green-900 text-white font-semibold rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed" :disabled="disabled">განაცხადის რედაქტირება</button>
+                            <button type="submit" class="w-full py-3 bg-green-900 text-white font-semibold rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed" :disabled="disabled">განაცხადის დამატება</button>
                         </div>
                     </div>
                 </form>

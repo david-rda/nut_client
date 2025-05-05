@@ -16,8 +16,15 @@ import StatementAdd from "../views/statement/Add.vue";
 import StatementRead from "../views/statement/Read.vue";
 import StatementEdit from "../views/statement/Edit.vue";
 import MyReport from "../views/statement/Reports.vue";
+import ResetMain from "../views/password/Main.vue";
+import ResetComponent from "../views/password/Reset.vue";
+import NotFound from "../views/error/NotFound.vue";
 
 const routes = [
+    {
+        path: "/:catchAll(.*)",
+        component: NotFound,
+    },
     {
         path: "/",
         component: Signin
@@ -78,6 +85,14 @@ const routes = [
         path: "/statement/reports",
         component: MyReport
     },
+    {
+        path: "/reset/main",
+        component: ResetMain
+    },
+    {
+        path: "/reset/:token/:email",
+        component: ResetComponent
+    }
 ];
 
 const router = createRouter({
