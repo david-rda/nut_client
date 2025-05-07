@@ -3,7 +3,7 @@
         <MyHeader />
 
         <Transition name="fade" appear>
-            <div class="container mx-auto md:py-8 p-2 mt-25">
+            <div class="container mx-auto p-8 mt-25">
                 <div class="flex justify-between mb-4 items-center">
                     <div class="md:overflow-x-hidden overflow-x-scroll">
                         <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden">
@@ -126,7 +126,24 @@
                                     <td class="px-6 py-3">{{ data?.card_number }}</td>
                                     <td class="px-6 py-3">
                                         <div class="flex flex-col">
-                                            <span>{{ (data?.status == "new") ? 'ახალი' : (data?.status == "operator" && permission != 'company') ? 'გადაწერილია ოპერატორზე' : (data?.status == "rejected") ? 'დახარვეზებული' : (data?.status == "stopped") ? 'შეჩერებული' : (data?.status == "approved") ? 'დადასტურებული' : '' }}</span>
+                                            <span
+                                                :class="{
+                                                    'text-blue-900 bg-blue-100 px-2 py-1 rounded': data?.status === 'new',
+                                                    'px-2 py-1': data?.status === 'operator' && permission !== 'company',
+                                                    'text-red-900 bg-red-100 px-2 py-1 rounded': data?.status === 'rejected',
+                                                    'text-gray-900 bg-gray-100 px-2 py-1 rounded': data?.status === 'stopped',
+                                                    'text-green-900 bg-green-100 px-2 py-1 rounded': data?.status === 'approved'
+                                                }"
+                                                >
+                                                {{
+                                                    (data?.status == "new") ? 'ახალი' :
+                                                    (data?.status == "operator" && permission != 'company') ? 'გადაწერილია ოპერატორზე' :
+                                                    (data?.status == "rejected") ? 'დახარვეზებული' :
+                                                    (data?.status == "stopped") ? 'შეჩერებული' :
+                                                    (data?.status == "approved") ? 'დადასტურებული' :
+                                                    ''
+                                                }}
+                                            </span>
                                             <span v-if="data.status == 'operator' && permission != 'company'" class="p-2 bg-blue-100 text-blue-900 rounded-md text-xs select-none">{{ data?.operator.name }}</span>
                                         </div>
                                     </td>

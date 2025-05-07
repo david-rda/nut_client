@@ -3,7 +3,7 @@
         <MyHeader />
 
         <Transition name="fade" appear>
-            <div class="container mx-auto mt-25 md:p-0 p-5">
+            <div class="container mx-auto mt-25 p-8">
                 <h1 class="font-bold select-none">განაცხადები</h1>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-6 select-none">
                     <div class="bg-blue-100 rounded-lg p-6 flex flex-col items-center">

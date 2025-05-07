@@ -3,7 +3,7 @@
         <MyHeader />
 
         <Transition name="fade" appear>
-            <div class="container mx-auto md:py-8 p-2 mt-25">
+            <div class="container mx-auto p-8 mt-25">
                 <div class="flex justify-between mb-4 items-center md:p-0 px-3">
                     <h4 class="text-muted">პროდუქტები</h4>
 
