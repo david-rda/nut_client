@@ -3,7 +3,7 @@
         <MyHeader />
 
         <Transition name="fade" appear>
-            <div class="container mx-auto p-8 mt-25">
+            <div class="container mx-auto p-5 mt-25">
                 <div class="flex justify-between mb-4 items-center">
                     <div class="md:overflow-x-hidden overflow-x-scroll">
                         <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden">
