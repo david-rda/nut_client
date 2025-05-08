@@ -11,12 +11,27 @@ import 'tippy.js/dist/tippy.css'
 
 import { Vue3TailwindPagination } from "vue-3-tailwind-css-pagination";
 
-axios.defaults.baseURL = "http://localhost:8000/api"
-// axios.defaults.baseURL = "https://nuts.rda.gov.ge/api"
+// heroicon ბიბლიოთეკა
+import { ArrowRightStartOnRectangleIcon, Cog8ToothIcon, ChevronDownIcon, Bars3Icon, ArrowDownTrayIcon, PlusIcon, MagnifyingGlassIcon, PencilSquareIcon, EyeIcon, ClockIcon } from "@heroicons/vue/24/outline";
+
+// axios.defaults.baseURL = "http://localhost:8000/api"
+axios.defaults.baseURL = "https://nuts.rda.gov.ge/api";
 
 const app = createApp(App);
 
 app.component('Vue3TailwindPagination', Vue3TailwindPagination)
+
+// აიკონები
+app.component("ArrowRightStartOnRectangleIcon", ArrowRightStartOnRectangleIcon);
+app.component("Cog8ToothIcon", Cog8ToothIcon);
+app.component("ChevronDownIcon", ChevronDownIcon);
+app.component("Bars3Icon", Bars3Icon);
+app.component("ArrowDownTrayIcon", ArrowDownTrayIcon);
+app.component("PlusIcon", PlusIcon);
+app.component("MagnifyingGlassIcon", MagnifyingGlassIcon);
+app.component("PencilSquareIcon", PencilSquareIcon);
+app.component("EyeIcon", EyeIcon);
+app.component("ClockIcon", ClockIcon);
 
 app.use(
     VueTippy,

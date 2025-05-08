@@ -5,7 +5,7 @@
         <Transition name="fade" appear>
             <div class="container mx-auto p-5 mt-25">
                 <div class="flex justify-between mb-4 items-center">
-                    <div class="md:overflow-x-hidden overflow-x-scroll">
+                    <div class="overflow-x-scroll">
                         <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden">
                             <thead class="text-xs text-gray-700 bg-gray-50">
                                 <tr class="text-sm text-center text-black">
@@ -58,10 +58,7 @@
                                     <td class="p-3">
                                         <button type="button" class="bg-green-900 text-center text-white w-full p-3 rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 flex gap-1 transition duration-200 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed flex items-center justify-center" :disabled="disabled1" @click="searchUser">
                                             <span class="flex items-center gap-1 pointer-events-none" v-if="!disabled1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                                                </svg>
-                                                ძებნა
+                                                <MagnifyingGlassIcon class="size-5" /> ძებნა
                                             </span>
                                             <span v-else class="pointer-events-none">
                                                 <svg aria-hidden="true" role="status" class="inline w-4 h-4 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,9 +78,7 @@
                     <h4 class="text-gray-500 text-lg font-semibold select-none">მომხმარებლის მართვა</h4>
                     <button class="ml-auto mr-5 p-3 bg-green-100 text-green-900 transition duration-200 hover:bg-green-200 rounded-lg flex gap-2 items-center cursor-pointer font-semibold disabled:opacity-20 disabled:cursor-not-allowed" @click="downloadUserReport()" :disabled="disabled_report">
                         <span v-if="!disabled_report" class="flex gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 pointer-events-none">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                            </svg>
+                            <ArrowDownTrayIcon class="size-5" />
                             რეპორტი
                         </span>
                         <span class="flex gap-2 items-center" v-else>
@@ -95,9 +90,7 @@
                     </span>
                     </button>
                     <router-link to="/user/add" class="bg-green-900 text-white py-2 px-4 rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 flex gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
+                        <PlusIcon class="size-5" />
                         <span class="md:block hidden">ოპერატორის დამატება</span>
                     </router-link>
                 </div>
@@ -130,10 +123,8 @@
                                 <td class="px-6 py-3">{{ (data.status == 'pending') ? 'არააქტიური' : 'აქტიური' }}</td>
                                 <td class="px-6 py-3">{{ (data.permission == 'company') ? 'კომპანია' : (data.permission == 'coordinator') ? 'კოორდინატორი' : 'ოპერატორი' }}</td>
                                 <td class="px-6 py-3 flex gap-2 justify-center items-center">
-                                    <router-link :to="'/user/edit/' + data.id" type="button" class="bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 cursor-pointer" v-tippy="{ content: 'რედაქტირება' }">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 pointer-events-none">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                                        </svg>
+                                    <router-link :to="'/user/edit/' + data.id" type="button" class="bg-yellow-500 p-2 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 cursor-pointer" v-tippy="{ content: 'რედაქტირება' }">
+                                        <PencilSquareIcon class="size-4" />
                                     </router-link>
                                     <button v-tippy="{ content: 'სტატუსის ცვლილება' }" :class="data.status == 'active' ? 'bg-green-900' : 'bg-gray-300'" class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed" :data-user-id="data.id" @click="authorize($event)">
                                         <span :class="data.status == 'active' ? 'translate-x-6' : 'translate-x-1'" class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform pointer-events-none"></span>

@@ -8,19 +8,14 @@
                     <h4 class="text-muted">პროდუქტები</h4>
 
                     <router-link to="/product/add" class="bg-green-900 text-white py-2 px-4 rounded-lg hover:bg-green-800 focus:border-green-900 transition duration-200 flex gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-                        პროდუქტის დამატება
+                        <PlusIcon class="size-5" /> პროდუქტის დამატება
                     </router-link>
                 </div>
 
                 <form @submit.prevent="filterProduct()" class="flex mb-3">
                     <input type="text" :disabled="disabled" v-model="search" class="disabled:cursor-not-allowed disabled:opacity-20 bg-white border border-gray-200 p-3 md:w-1/4 w-full rounded-tl-md rounded-bl-md outline-none" placeholder="ძიება...">
                     <button type="submit" :disabled="disabled" class="disabled:cursor-not-allowed disabled:opacity-20 rounded-tr-md rounded-br-md bg-green-800 text-white p-3 cursor-pointer transition duration-200 hover:bg-green-900">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                        </svg>
+                        <MagnifyingGlassIcon class="size-5" />
                     </button>
                 </form>
 
@@ -43,11 +38,8 @@
                                     <span v-else class="bg-green-100 text-green-900 p-2 rounded-md select-none">აქტიური</span>
                                 </td>
                                 <td class="px-6 py-3 flex gap-2 justify-center">
-                                    <router-link :to="'/product/edit/' + data.id" type="button" class="bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 cursor-pointer flex gap-2 items-center" target="_blank">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 pointer-events-none">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                                        </svg>
-                                        რედაქტირება
+                                    <router-link :to="'/product/edit/' + data.id" type="button" class="bg-yellow-500 p-2 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 cursor-pointer flex gap-2 items-center" target="_blank">
+                                        <PencilSquareIcon class="size-4" /> რედაქტირება
                                     </router-link>
                                 </td>
                             </tr>

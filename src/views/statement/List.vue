@@ -56,10 +56,7 @@
                                     <td class="px-6 py-3">
                                         <button type="button" class="bg-green-900 text-white w-full p-3 rounded-lg hover:bg-green-800 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 disabled:opacity-20 disabled:cursor-not-allowed flex items-center justify-center" :disabled="disabled" @click="searchOverhead()">
                                             <span class="flex items-center justify-center gap-1" v-if="!disabled">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                                                </svg>
-                                                ძებნა
+                                                <MagnifyingGlassIcon class="size-5" /> ძებნა
                                             </span>
                                             <span v-else>
                                                 <svg aria-hidden="true" role="status" class="inline w-4 h-4 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -94,7 +91,8 @@
                         </select>
                         <button type="button" @click="changeStatus()" class="p-3 bg-blue-700 rounded-lg mx-2 text-white cursor-pointer hover:bg-blue-900 transition duration-200 disabled:opacity-20 disabled:cursor-not-allowed" :disabled="disabled_operator_btn">გადაწერა</button>
                     </div>
-                    <div class="md:overflow-x-hidden overflow-x-scroll">
+                    <p class="text-center text-gray-500" v-if="loader_table">მონაცემები იტვირთება...</p>
+                    <div class="overflow-x-scroll" v-else>
                         <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden">
                             <thead class="text-xs text-gray-700 bg-gray-50">
                                 <tr class="text-sm text-center text-black">
@@ -150,15 +148,10 @@
                                     <td class="px-6 py-3">
                                         <div class="flex gap-2 justify-center">
                                             <router-link :to="'/statement/read/' + data?.id" target="_blank" class="bg-green-900 text-white p-2 rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 ms-2 cursor-pointer" v-tippy="{ content: 'დათვალიერება' }">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 pointer-events-none">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                                </svg>
+                                                <EyeIcon class="size-4" />
                                             </router-link>
-                                            <router-link :to="'/statement/edit/' + data?.id" class="bg-yellow-600 text-white p-2 rounded-lg hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 ms-2 cursor-pointer" v-tippy="{ content: 'რედაქტირება' }" v-if="data?.status == 'rejected' && permission == 'company'">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 pointer-events-none">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                                                </svg>
+                                            <router-link :to="'/statement/edit/' + data?.id" class="bg-yellow-600 p-2 rounded-lg hover:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 ms-2 cursor-pointer" v-tippy="{ content: 'რედაქტირება' }" v-if="data?.status == 'rejected' && permission == 'company'">
+                                                <PencilSquareIcon class="size-5" />
                                             </router-link>
                                         </div>
                                     </td>
@@ -226,6 +219,7 @@
 
                 disabled : false,
                 disabled_operator_btn : false,
+                loader_table : false,
 
                 page : 1,
 
@@ -293,10 +287,6 @@
                 }
             },
 
-            // viewPdf(event) {
-            //     window.open('https://nuts.rda.gov.ge/api/statement/pdf/' + event.target.getAttribute("data-id"));
-            // },
-
             getResults(page = 1) {
                 this.loader_table = true;
 
@@ -327,7 +317,7 @@
                 this.operators = response.data;
             }).catch(err => {
                 console.log(err);
-            })
+            });
         }
     }
 </script>

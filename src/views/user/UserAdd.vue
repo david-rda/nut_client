@@ -2,7 +2,7 @@
     <div>
         <MyHeader />
 
-        <div class="container mx-auto py-8 mt-25">
+        <div class="container mx-auto p-8 mt-25">
             <div class="bg-white p-4 w-full rounded-md">
                 <form @submit.prevent="addOperator()">
                     <div class="mb-3">

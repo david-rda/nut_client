@@ -1,7 +1,7 @@
 <template>
     <div class="h-screen flex">
         <LeftSide />
-        <div class="w-full md:w-1/2">
+        <div class="w-full md:w-1/2 overflow-y-scroll">
             <div class="w-full md:flex md:justify-center p-3">
                 <div class="w-full md:w-1/2 p-4 mt-36 md:mt-50">
                     <h1 class="text-center text-lg font-bold mb-10">ავტორიზაცია</h1>

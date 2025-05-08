@@ -16,9 +16,7 @@
                         </div>
                     </div>
                     <button type="submit" class="bg-green-900 text-white p-3 rounded-md w-full md:w-1/3 cursor-pointer hover:bg-green-800 transition duration-200 disabled:opacity-20 disabled:cursor-not-allowed flex gap-2 items-center justify-center" :disabled="disabled">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                        </svg>
+                        <ArrowDownTrayIcon class="size-5" />
                         <span>ჩამოტვირთვა</span>
                     </button>
                 </form>

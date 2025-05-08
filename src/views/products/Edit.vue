@@ -3,7 +3,7 @@
         <MyHeader />
 
         <Transition name="fade" appear>
-            <div class="container mx-auto py-8 mt-25">
+            <div class="container mx-auto p-8 mt-25">
                 <div class="p-4 md:w-1/3 w-full rounded-md">
                     <form @submit.prevent="edit">
                         <div class="form-group mb-3">

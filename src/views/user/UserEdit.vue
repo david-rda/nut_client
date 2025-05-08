@@ -2,7 +2,7 @@
     <div>
         <MyHeader />
 
-        <div class="container mx-auto py-8 mt-25">
+        <div class="container mx-auto p-8 mt-25">
             <div class="bg-white p-4 w-full rounded-md">
                 <div v-if="formData.permission != 'operator'">
                     <h4 class="text-secondary text-center mb-5">მომხმარებლის რედაქტირება</h4>
