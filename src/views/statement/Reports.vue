@@ -57,7 +57,7 @@
         },
 
         mounted() {
-            document.title = "მთავარი";
+            document.title = "რეპორტები";
         },
 
         methods : {

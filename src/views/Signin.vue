@@ -83,7 +83,7 @@
         },
 
         mounted() {
-            document.title = "ავტოეიზაცია";
+            document.title = "ავტორიზაცია";
             
             const data = window.localStorage.getItem("user");
             

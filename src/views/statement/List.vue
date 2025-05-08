@@ -91,8 +91,7 @@
                         </select>
                         <button type="button" @click="changeStatus()" class="p-3 bg-blue-700 rounded-lg mx-2 text-white cursor-pointer hover:bg-blue-900 transition duration-200 disabled:opacity-20 disabled:cursor-not-allowed" :disabled="disabled_operator_btn">გადაწერა</button>
                     </div>
-                    <p class="text-center text-gray-500" v-if="loader_table">მონაცემები იტვირთება...</p>
-                    <div class="overflow-x-scroll" v-else>
+                    <div class="overflow-x-scroll">
                         <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden">
                             <thead class="text-xs text-gray-700 bg-gray-50">
                                 <tr class="text-sm text-center text-black">
@@ -219,7 +218,6 @@
 
                 disabled : false,
                 disabled_operator_btn : false,
-                loader_table : false,
 
                 page : 1,
 
@@ -288,18 +286,14 @@
             },
 
             getResults(page = 1) {
-                this.loader_table = true;
-
                 axios.get("/statement/list?page=" + page, {
                     headers : {
                         "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
                     }
                 }).then(response => {
                     this.statements = response.data;
-                    this.loader_table = false;
                 }).catch(err => {
                     console.log(err);
-                    this.loader_table = true;
                 });
             }
         },

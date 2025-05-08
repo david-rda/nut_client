@@ -5,7 +5,7 @@
         <Transition name="fade" appear>
             <div class="container mx-auto p-5 mt-25">
                 <div class="flex justify-between mb-4 items-center">
-                    <div class="overflow-x-scroll">
+                    <div class="md:overflow-hidden overflow-x-scroll">
                         <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden">
                             <thead class="text-xs text-gray-700 bg-gray-50">
                                 <tr class="text-sm text-center text-black">
@@ -75,8 +75,8 @@
                 </div>
 
                 <div class="flex justify-between mb-4 items-center md:px-0 px-5">
-                    <h4 class="text-gray-500 text-lg font-semibold select-none">მომხმარებლის მართვა</h4>
-                    <button class="ml-auto mr-5 p-3 bg-green-100 text-green-900 transition duration-200 hover:bg-green-200 rounded-lg flex gap-2 items-center cursor-pointer font-semibold disabled:opacity-20 disabled:cursor-not-allowed" @click="downloadUserReport()" :disabled="disabled_report">
+                    <h4 class="text-gray-500 text-lg font-semibold select-none md:visible invisible">მომხმარებლის მართვა</h4>
+                    <button class="ml-auto mr-5 p-2 bg-green-100 text-green-900 transition duration-200 hover:bg-green-200 rounded-lg flex gap-2 items-center cursor-pointer font-semibold disabled:opacity-20 disabled:cursor-not-allowed" @click="downloadUserReport()" :disabled="disabled_report">
                         <span v-if="!disabled_report" class="flex gap-2">
                             <ArrowDownTrayIcon class="size-5" />
                             რეპორტი
@@ -95,7 +95,7 @@
                     </router-link>
                 </div>
 
-                <div class="md:overflow-x-hidden overflow-x-scroll">
+                <div class="overflow-x-scroll">
                     <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden">
                         <thead class="text-xs text-gray-700 bg-gray-50">
                             <tr class="text-sm text-center text-black">
@@ -250,7 +250,7 @@
         },
 
         mounted() {
-            document.title = "მომხმარებლები";
+            document.title = "მომხმარებლების მართვა";
 
             this.getUsers();
         }

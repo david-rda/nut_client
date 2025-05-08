@@ -59,7 +59,7 @@
         },
 
         mounted() {
-            document.title = "პაროლის შეცვლა";
+            document.title = "პარამეტრები";
         },
 
         methods : {

@@ -55,6 +55,10 @@ import router from '@/router/router';
             }
         },
 
+        mounted() {
+            document.title = "პაროლის აღდგენა";
+        },
+
         methods : {
             sendReset() {
                 this.disabled = true;

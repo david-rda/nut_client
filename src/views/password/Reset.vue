@@ -53,12 +53,15 @@
 
                 new_password : "",
                 confirm_password : "",
+                
                 disabled : false,
                 reseted : false
             }
         },
 
         mounted() {
+            document.title = "პაროლის აღდგენა";
+
             const _this_ = this;
 
             axios.get("/password/reset/check/" + this.$route.params.token + "/" + this.$route.params.email).then(function(response) {
