@@ -9,15 +9,15 @@
                         <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden">
                             <thead class="text-xs text-gray-700 bg-gray-50">
                                 <tr class="text-sm text-center text-black">
-                                    <th class="px-6 py-3 font-bold">კომპანია</th>
-                                    <th class="px-6 py-3 font-bold">მაღაზიის მისამართი</th>
-                                    <th class="px-6 py-3 font-bold">ზედნადების ნომერი</th>
-                                    <th class="px-6 py-3 font-bold">ზედნადების თარიღი</th>
-                                    <th class="px-6 py-3 font-bold">აგრობარათის მფლობელი</th>
-                                    <th class="px-6 py-3 font-bold">ჯამური აგროქულა</th>
-                                    <th class="px-6 py-3 font-bold">აგრობარათის ნომერი</th>
-                                    <th class="px-6 py-3 font-bold">სტატუსი</th>
-                                    <th class="px-6 py-3 font-bold">ქმედება</th>
+                                    <th class="p-3 font-bold">კომპანია</th>
+                                    <th class="p-3 font-bold">მაღაზიის მისამართი</th>
+                                    <th class="p-3 font-bold">ზედნადების ნომერი</th>
+                                    <th class="p-3 font-bold">ზედნადების თარიღი</th>
+                                    <th class="p-3 font-bold">აგრობარათის მფლობელი</th>
+                                    <th class="p-3 font-bold">ჯამური აგროქულა</th>
+                                    <th class="p-3 font-bold">აგრობარათის ნომერი</th>
+                                    <th class="p-3 font-bold">სტატუსი</th>
+                                    <th class="p-3 font-bold">ქმედება</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,7 +53,7 @@
                                             <option value="approved">დადასტურებული</option>
                                         </select>
                                     </td>
-                                    <td class="px-6 py-3">
+                                    <td class="p-3">
                                         <button type="button" class="bg-green-900 text-white w-full p-3 rounded-lg hover:bg-green-800 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 disabled:opacity-20 disabled:cursor-not-allowed flex items-center justify-center" :disabled="disabled" @click="searchOverhead()">
                                             <span class="flex items-center justify-center gap-1" v-if="!disabled">
                                                 <MagnifyingGlassIcon class="size-5" /> ძებნა
@@ -95,33 +95,33 @@
                         <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden">
                             <thead class="text-xs text-gray-700 bg-gray-50">
                                 <tr class="text-sm text-center text-black">
-                                    <th class="px-6 py-3 font-medium" v-if="permission == 'coordinator'">
+                                    <th class="p-3 font-medium" v-if="permission == 'coordinator'">
                                         <input type="checkbox" @change="selectAllStatements" v-model="selectAll">
                                     </th>
-                                    <th class="px-6 py-3 font-bold">კომპანია</th>
-                                    <th class="px-6 py-3 font-bold">მაღაზიის მისამართი</th>
-                                    <th class="px-6 py-3 font-bold">ზედნადების ნომერი</th>
-                                    <th class="px-6 py-3 font-bold">ზედნადების თარიღი</th>
-                                    <th class="px-6 py-3 font-bold">აგრობარათის მფლობელი</th>
-                                    <th class="px-6 py-3 font-bold">ჯამური აგროქულა</th>
-                                    <th class="px-6 py-3 font-bold">აგრობარათის ნომერი</th>
-                                    <th class="px-6 py-3 font-bold">სტატუსი</th>
-                                    <th class="px-6 py-3 font-bold">ქმედება</th>
+                                    <th class="p-3 font-bold">კომპანია</th>
+                                    <th class="p-3 font-bold">მაღაზიის მისამართი</th>
+                                    <th class="p-3 font-bold">ზედნადების ნომერი</th>
+                                    <th class="p-3 font-bold">ზედნადების თარიღი</th>
+                                    <th class="p-3 font-bold">აგრობარათის მფლობელი</th>
+                                    <th class="p-3 font-bold">ჯამური აგროქულა</th>
+                                    <th class="p-3 font-bold">აგრობარათის ნომერი</th>
+                                    <th class="p-3 font-bold">სტატუსი</th>
+                                    <th class="p-3 font-bold">ქმედება</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="text-center bg-white text-black" v-for="data in statements.data" :key="data.id">
-                                    <td v-if="permission == 'coordinator'" class="px-6 py-3">
+                                    <td v-if="permission == 'coordinator'" class="p-3">
                                         <input type="checkbox" v-model="selectedStatements" :value="data.id">
                                     </td>
-                                    <td class="px-6 py-3">{{ data?.company_name }}</td>
-                                    <td class="px-6 py-3">{{ data?.store_address }}</td>
-                                    <td class="px-6 py-3">{{ data?.overhead_number }}</td>
-                                    <td class="px-6 py-3">{{ data?.overhead_date }}</td>
-                                    <td class="px-6 py-3">{{ data?.beneficiary_name }}</td>
-                                    <td class="px-6 py-3">{{ parseFloat(data?.full_amount).toFixed(2) }}</td>
-                                    <td class="px-6 py-3">{{ data?.card_number }}</td>
-                                    <td class="px-6 py-3">
+                                    <td class="p-3">{{ data?.company_name }}</td>
+                                    <td class="p-3">{{ data?.store_address }}</td>
+                                    <td class="p-3">{{ data?.overhead_number }}</td>
+                                    <td class="p-3">{{ data?.overhead_date }}</td>
+                                    <td class="p-3">{{ data?.beneficiary_name }}</td>
+                                    <td class="p-3">{{ parseFloat(data?.full_amount).toFixed(2) }}</td>
+                                    <td class="p-3">{{ data?.card_number }}</td>
+                                    <td class="p-3">
                                         <div class="flex flex-col">
                                             <span
                                                 :class="{
@@ -144,7 +144,7 @@
                                             <span v-if="data.status == 'operator' && permission != 'company'" class="p-2 bg-blue-100 text-blue-900 rounded-md text-xs select-none">{{ data?.operator.name }}</span>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-3">
+                                    <td class="p-3">
                                         <div class="flex gap-2 justify-center">
                                             <router-link :to="'/statement/read/' + data?.id" target="_blank" class="bg-green-900 text-white p-2 rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 ms-2 cursor-pointer" v-tippy="{ content: 'დათვალიერება' }">
                                                 <EyeIcon class="size-4" />

@@ -9,15 +9,15 @@
                         <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden">
                             <thead class="text-xs text-gray-700 bg-gray-50">
                                 <tr class="text-sm text-center text-black">
-                                    <th class="px-6 py-3 font-bold">კომპანიის დასახელება</th>
-                                    <th class="px-6 py-3 font-bold">ს/კ</th>
-                                    <th class="px-6 py-3 font-bold">სახელი, გვარი</th>
-                                    <th class="px-6 py-3 font-bold">ელ. ფოსტა</th>
-                                    <th class="px-6 py-3 font-bold">ტელეფონი</th>
-                                    <th class="px-6 py-3 font-bold">პ/ნ</th>
-                                    <th class="px-6 py-3 font-bold">სტატუსი</th>
-                                    <th class="px-6 py-3 font-bold">ნებართვა</th>
-                                    <th class="px-6 py-3 font-bold">ქმედება</th>
+                                    <th class="p-3 font-bold">კომპანიის დასახელება</th>
+                                    <th class="p-3 font-bold">ს/კ</th>
+                                    <th class="p-3 font-bold">სახელი, გვარი</th>
+                                    <th class="p-3 font-bold">ელ. ფოსტა</th>
+                                    <th class="p-3 font-bold">ტელეფონი</th>
+                                    <th class="p-3 font-bold">პ/ნ</th>
+                                    <th class="p-3 font-bold">სტატუსი</th>
+                                    <th class="p-3 font-bold">ნებართვა</th>
+                                    <th class="p-3 font-bold">ქმედება</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -99,30 +99,30 @@
                     <table class="w-full text-sm text-gray-500 text-gray-400 rounded-lg overflow-hidden">
                         <thead class="text-xs text-gray-700 bg-gray-50">
                             <tr class="text-sm text-center text-black">
-                                <th class="px-6 py-3 font-bold">ID</th>
-                                <th class="px-6 py-3 font-bold">კომპანიის დასახელება</th>
-                                <th class="px-6 py-3 font-bold">ს/კ</th>
-                                <th class="px-6 py-3 font-bold">სახელი, გვარი</th>
-                                <th class="px-6 py-3 font-bold">ელ. ფოსტა</th>
-                                <th class="px-6 py-3 font-bold">ტელეფონი</th>
-                                <th class="px-6 py-3 font-bold">პ/ნ</th>
-                                <th class="px-6 py-3 font-bold">სტატუსი</th>
-                                <th class="px-6 py-3 font-bold">ნებართვა</th>
-                                <th class="px-6 py-3 font-bold">ქმედება</th>
+                                <th class="p-3 font-bold">ID</th>
+                                <th class="p-3 font-bold">კომპანიის დასახელება</th>
+                                <th class="p-3 font-bold">ს/კ</th>
+                                <th class="p-3 font-bold">სახელი, გვარი</th>
+                                <th class="p-3 font-bold">ელ. ფოსტა</th>
+                                <th class="p-3 font-bold">ტელეფონი</th>
+                                <th class="p-3 font-bold">პ/ნ</th>
+                                <th class="p-3 font-bold">სტატუსი</th>
+                                <th class="p-3 font-bold">ნებართვა</th>
+                                <th class="p-3 font-bold">ქმედება</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="text-center bg-white text-black" v-for="(data, index) in users.data" :key="data.id">
-                                <td class="px-6 py-3">{{ index + 1 }}</td>
-                                <td class="px-6 py-3">{{ data.company_name }}</td>
-                                <td class="px-6 py-3">{{ data.identification_code }}</td>
-                                <td class="px-6 py-3">{{ data.name }}</td>
-                                <td class="px-6 py-3">{{ data.email }}</td>
-                                <td class="px-6 py-3">{{ data.mobile }}</td>
-                                <td class="px-6 py-3">{{ data.personal_id }}</td>
-                                <td class="px-6 py-3">{{ (data.status == 'pending') ? 'არააქტიური' : 'აქტიური' }}</td>
-                                <td class="px-6 py-3">{{ (data.permission == 'company') ? 'კომპანია' : (data.permission == 'coordinator') ? 'კოორდინატორი' : 'ოპერატორი' }}</td>
-                                <td class="px-6 py-3 flex gap-2 justify-center items-center">
+                                <td class="p-3">{{ index + 1 }}</td>
+                                <td class="p-3">{{ data.company_name }}</td>
+                                <td class="p-3">{{ data.identification_code }}</td>
+                                <td class="p-3">{{ data.name }}</td>
+                                <td class="p-3">{{ data.email }}</td>
+                                <td class="p-3">{{ data.mobile }}</td>
+                                <td class="p-3">{{ data.personal_id }}</td>
+                                <td class="p-3">{{ (data.status == 'pending') ? 'არააქტიური' : 'აქტიური' }}</td>
+                                <td class="p-3">{{ (data.permission == 'company') ? 'კომპანია' : (data.permission == 'coordinator') ? 'კოორდინატორი' : 'ოპერატორი' }}</td>
+                                <td class="p-3 flex gap-2 justify-center items-center">
                                     <router-link :to="'/user/edit/' + data.id" type="button" class="bg-yellow-500 p-2 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 cursor-pointer" v-tippy="{ content: 'რედაქტირება' }">
                                         <PencilSquareIcon class="size-4" />
                                     </router-link>
