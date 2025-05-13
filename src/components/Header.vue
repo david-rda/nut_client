@@ -54,7 +54,7 @@
                                     </router-link>
                                 </li>
                                 <li>
-                                    <a href="#" @click="signout()" class="flex items-center gap-2 rounded-md p-2 hover:bg-gray-100 transition duration-200 active:scale-95">
+                                    <a href="#" @click="signout()" class="flex items-center gap-2 rounded-md p-2 text-red-700 hover:bg-red-100 transition duration-200 active:scale-95">
                                         <ArrowRightStartOnRectangleIcon class="size-5" />
                                         გასვლა
                                     </a>

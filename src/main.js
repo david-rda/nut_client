@@ -17,6 +17,18 @@ import { ArrowRightStartOnRectangleIcon, Cog8ToothIcon, ChevronDownIcon, Bars3Ic
 // axios.defaults.baseURL = "http://localhost:8000/api"
 axios.defaults.baseURL = "https://nuts.rda.gov.ge/api";
 
+axios.interceptors.response.use(
+    response => response,
+    error => {
+      if (error.response && error.response.status === 401) {
+        localStorage.clear();
+  
+        router.push("/");
+      }
+      return Promise.reject(error);
+    }
+);
+
 const app = createApp(App);
 
 app.component('Vue3TailwindPagination', Vue3TailwindPagination)

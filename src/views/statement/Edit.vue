@@ -34,7 +34,7 @@
                     <div class="flex flex-col md:flex-row md:space-x-6">
                         <div class="w-full md:w-1/2">
                             <label for="product" class="block text-gray-700 mb-1">პროდუქტი</label>
-                            <v-select id="product" class="bg-white p-2 rounded-lg" :options="options" label="name" v-model="selectedProduct" @keypress="getProducts($event)"></v-select>
+                            <v-select id="product" class="bg-white p-2 rounded-lg" :options="options" label="name" v-model="selectedProduct"></v-select>
                         </div>
                         
                         <div class="w-full md:w-1/3">
@@ -210,6 +210,16 @@
         mounted() {
             document.title = "განაცხადის რედაქტირება";
 
+            axios.get("/product/products", {
+                headers : {
+                    "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
+                }
+            }).then(response => {
+                this.options = response.data;
+            }).catch(err => {
+                console.log(err);
+            });
+
             axios.get("/statement/get/" + this.$route.params.id, {
                 headers : {
                     "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
@@ -236,19 +246,19 @@
                 this.show_modal = true;
             },
 
-            getProducts(event) {
-                if(event.target.value.length > 0) {
-                    axios.get("/product/list?query=" + event.target.value, {
-                        headers : {
-                            "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
-                        }
-                    }).then(response => {
-                        this.options = response.data.data;
-                    }).catch(err => {
-                        console.log(err);
-                    });
-                }
-            },
+            // getProducts(event) {
+            //     if(event.target.value.length > 0) {
+            //         axios.get("/product/list?query=" + event.target.value, {
+            //             headers : {
+            //                 "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
+            //             }
+            //         }).then(response => {
+            //             this.options = response.data.data;
+            //         }).catch(err => {
+            //             console.log(err);
+            //         });
+            //     }
+            // },
 
             handle(response) {
                 this.file.push(JSON.parse(response).id);

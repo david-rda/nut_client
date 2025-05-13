@@ -36,7 +36,7 @@
                     <div class="flex flex-col md:flex-row md:space-x-6">
                         <div class="w-full md:w-1/2">
                             <label for="product" class="block text-gray-700 mb-1">პროდუქტი</label>
-                            <v-select id="product" :options="options" label="name" v-model="selectedProduct" class="bg-white p-2 rounded-lg" :disabled="disabled" :class="{'opacity-50 cursor-not-allowed' : disabled}" @keypress="getProducts($event)"></v-select>
+                            <v-select id="product" :options="options" label="name" v-model="selectedProduct" class="bg-white p-2 rounded-lg" :disabled="disabled" :class="{'opacity-50 cursor-not-allowed' : disabled}"></v-select>
                         </div>
                         
                         <div class="w-full md:w-1/3">
@@ -176,6 +176,16 @@
 
         mounted() {
             document.title = "განაცხადის დამატება";
+
+            axios.get("/product/products", {
+                headers : {
+                    "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
+                }
+            }).then(response => {
+                this.options = response.data;
+            }).catch(err => {
+                console.log(err);
+            });
         },
 
         data() {
@@ -247,19 +257,19 @@
                 }).catch(err => console.log(err));
             },
 
-            getProducts(event) {
-                if(event.target.value.length > 0) {
-                    axios.get("/product/list?query=" + event.target.value, {
-                        headers : {
-                            "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
-                        }
-                    }).then(response => {
-                        this.options = response.data.data;
-                    }).catch(err => {
-                        console.log(err);
-                    });
-                }
-            },
+            // getProducts(event) {
+            //     if(event.target.value.length > 0) {
+            //         axios.get("/product/list?query=" + event.target.value, {
+            //             headers : {
+            //                 "Authorization" : "Bearer " + JSON.parse(window.localStorage.getItem("token"))
+            //             }
+            //         }).then(response => {
+            //             this.options = response.data.data;
+            //         }).catch(err => {
+            //             console.log(err);
+            //         });
+            //     }
+            // },
 
             addStatement() {
                 this.disabled = true;
