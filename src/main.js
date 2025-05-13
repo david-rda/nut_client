@@ -18,15 +18,17 @@ import { ArrowRightStartOnRectangleIcon, Cog8ToothIcon, ChevronDownIcon, Bars3Ic
 axios.defaults.baseURL = "https://nuts.rda.gov.ge/api";
 
 axios.interceptors.response.use(
-    response => response,
-    error => {
-      if (error.response && error.response.status === 401) {
-        localStorage.clear();
-  
-        router.push("/");
-      }
-      return Promise.reject(error);
+  response => response,
+  error => {
+    if (error.response && error.response.status === 401) {
+      localStorage.clear();
+
+      window.alert("ოპერაციების შესრულება შეუძლებელია, რადგან პაროლს ვადა გაუვიდა. გთხოვთ ახლიდან გაიაროთ ავტორიზაცია.");
+
+      router.push("/");
     }
+    return Promise.reject(error);
+  }
 );
 
 const app = createApp(App);
@@ -46,16 +48,16 @@ app.component("EyeIcon", EyeIcon);
 app.component("ClockIcon", ClockIcon);
 
 app.use(
-    VueTippy,
-    {
-        directive: 'tippy',
-        component: 'tippy',
-        componentSingleton: 'tippy-singleton',
-        defaultProps: {
-            placement: 'top',
-            allowHTML: true,
-        },
-    }
+  VueTippy,
+  {
+    directive: 'tippy',
+    component: 'tippy',
+    componentSingleton: 'tippy-singleton',
+    defaultProps: {
+      placement: 'top',
+      allowHTML: true,
+    },
+  }
 )
 
 app.use(router);

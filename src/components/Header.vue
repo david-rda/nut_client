@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav class="w-full bg-white p-3 fixed top-0 left-0 z-999">
+        <nav class="w-full bg-white p-3 fixed top-0 left-0 z-3">
             <div class="container mx-auto flex flex-row justify-between items-center">
                 <div class="md:flex md:items-center">
                     <router-link to="/home" class="active:scale-95 transition duration-200">

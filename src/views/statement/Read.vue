@@ -159,7 +159,7 @@
         </div>
 
         <Transition name="fade">
-            <div class="fixed md:w-1/4 w-full h-full bg-white shadow-xl top-0 left-0 overflow-y-scroll" v-if="open_offcanvas">
+            <div class="fixed md:w-1/4 w-full h-full bg-white shadow-xl top-0 left-0 overflow-y-scroll z-1" v-if="open_offcanvas">
                 <div class="flex items-center justify-between p-4">
                     <h5 class="text-lg flex gap-2 items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 pointer-events-none">
