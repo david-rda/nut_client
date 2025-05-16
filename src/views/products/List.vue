@@ -26,17 +26,19 @@
                                 <th class="p-3 font-bold">#</th>
                                 <th class="p-3 font-bold">დასახელება</th>
                                 <th class="p-3 font-bold">სტატუსი</th>
+                                <th class="p-3 font-bold">ვადა</th>
                                 <th class="p-3 font-bold">ქმედება</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="text-center bg-white text-black" v-for="(data, index) in products.data" :key="index">
                                 <td class="p-3">{{ index + 1 }}</td>
-                                <td class="p-3">{{ data.name }}</td>
+                                <td class="p-3">{{ data?.name }}</td>
                                 <td class="p-3">
                                     <span v-if="data.status == 'disabled'" class="bg-red-100 text-red-900 p-2 rounded-md select-none">არააქტიური</span>
                                     <span v-else class="bg-green-100 text-green-900 p-2 rounded-md select-none">აქტიური</span>
                                 </td>
+                                <td class="p-3"><span v-if="data.maturity">{{ moment(data.maturity) }}</span><span v-else></span></td>
                                 <td class="p-3 flex gap-2 justify-center">
                                     <router-link :to="'/product/edit/' + data.id" type="button" class="bg-yellow-500 p-2 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 cursor-pointer flex gap-2 items-center" target="_blank">
                                         <PencilSquareIcon class="size-4" /> რედაქტირება
@@ -65,6 +67,8 @@
 
 <script>
     import axios from 'axios';
+    import moment from 'moment';
+
     import MyHeader from "../../components/Header.vue";
 
     export default {
@@ -85,6 +89,10 @@
         },
 
         methods : {
+            moment(data) {
+                return moment(data).locale("ka").format("YYYY MMMM");
+            },
+
             getResults(page = 1) {
                 const _this_ = this;
 
