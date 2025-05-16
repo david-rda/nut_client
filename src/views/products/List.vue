@@ -26,6 +26,7 @@
                                 <th class="p-3 font-bold">#</th>
                                 <th class="p-3 font-bold">დასახელება</th>
                                 <th class="p-3 font-bold">სტატუსი</th>
+                                <th class="p-3 font-bold">პარტიის ნომერი</th>
                                 <th class="p-3 font-bold">ვადა</th>
                                 <th class="p-3 font-bold">ქმედება</th>
                             </tr>
@@ -38,6 +39,7 @@
                                     <span v-if="data.status == 'disabled'" class="bg-red-100 text-red-900 p-2 rounded-md select-none">არააქტიური</span>
                                     <span v-else class="bg-green-100 text-green-900 p-2 rounded-md select-none">აქტიური</span>
                                 </td>
+                                <td class="p-3">{{ data?.set_number }}</td>
                                 <td class="p-3"><span v-if="data.maturity">{{ moment(data.maturity) }}</span><span v-else></span></td>
                                 <td class="p-3 flex gap-2 justify-center">
                                     <router-link :to="'/product/edit/' + data.id" type="button" class="bg-yellow-500 p-2 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 cursor-pointer flex gap-2 items-center" target="_blank">
